@@ -12,7 +12,6 @@ import { GallerySection } from './components/GallerySection';
 import { Header, PiaPageKey } from './components/Header';
 import { Hero } from './components/Hero';
 import { PhotoSlotModal } from './components/PhotoSlotModal';
-import { PortraitGallery } from './components/PortraitGallery';
 import { Preloader } from './components/Preloader';
 import { PressSection } from './components/PressSection';
 import { ProfileHighlights } from './components/ProfileHighlights';
@@ -24,7 +23,7 @@ import {
 } from './data/piaContent';
 import { PiaPhotoSlotKey, PiaPhotoSlots } from './types/pia';
 
-const STORAGE_KEY = 'pia_official_photo_slots_v7';
+const STORAGE_KEY = 'pia_official_photo_slots_v8';
 
 export default function App() {
   const [photoSlots, setPhotoSlots] = useState<PiaPhotoSlots>(() => {
@@ -149,15 +148,6 @@ export default function App() {
             extendedParagraphs={PIA_CONTENT.about.extendedParagraphs}
             ctaLabel={PIA_CONTENT.about.ctaLabel}
             portraitOneUrl={photoSlots.portraitOneUrl}
-            onSelectSlot={handleOpenPhotoManager}
-          />
-
-          {/* MOBILE EXTRA PORTRAIT SEQUENCE (Portrait 2 & Portrait 3 on Mobile) */}
-          <PortraitGallery
-            photos={{
-              portraitTwoUrl: photoSlots.portraitTwoUrl,
-              portraitThreeUrl: photoSlots.portraitThreeUrl,
-            }}
             onSelectSlot={handleOpenPhotoManager}
           />
 

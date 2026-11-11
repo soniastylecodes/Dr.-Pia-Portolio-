@@ -54,15 +54,6 @@ export const PiaImage: React.FC<PiaImageProps> = ({
         referrerPolicy="no-referrer"
         onError={() => setHasError(true)}
       />
-      {onSelectSlot && (
-        <button
-          type="button"
-          onClick={() => onSelectSlot(slotKey)}
-          className="pia-photo-replace-btn"
-        >
-          Change Photo
-        </button>
-      )}
     </div>
   );
 };

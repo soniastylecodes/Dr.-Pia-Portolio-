@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { PiaPhotoSlotKey, PiaPhotoSlots, PiaPressItem } from '../types/pia';
 import { PiaImage } from './PiaImage';
@@ -22,21 +23,90 @@ export const PressSection: React.FC<PressSectionProps> = ({
   onSelectSlot,
 }) => {
   const [activeArticle, setActiveArticle] = useState<PiaPressItem | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  const scrollToSlide = (targetIndex: number) => {
+    const clamped = Math.max(0, Math.min(items.length - 1, targetIndex));
+    setActiveIndex(clamped);
+    const track = trackRef.current;
+    if (!track) return;
+    const cards = track.querySelectorAll<HTMLElement>('.pia-press-card');
+    const card = cards[clamped];
+    if (card) {
+      track.scrollTo({
+        left: card.offsetLeft - track.offsetLeft,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const handleTrackScroll = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const cards = track.querySelectorAll<HTMLElement>('.pia-press-card');
+    if (!cards.length) return;
+    let closestIndex = 0;
+    let minDistance = Infinity;
+    cards.forEach((card, idx) => {
+      const dist = Math.abs(
+        card.offsetLeft - track.offsetLeft - track.scrollLeft
+      );
+      if (dist < minDistance) {
+        minDistance = dist;
+        closestIndex = idx;
+      }
+    });
+    if (closestIndex !== activeIndex) {
+      setActiveIndex(closestIndex);
+    }
+  };
 
   return (
     <>
       <section className="pia-press" id="pia-press">
-        <motion.div
-          className="pia-eyebrow"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.65, ease: EASE_OUT }}
-        >
-          {eyebrow}
-        </motion.div>
+        <div className="pia-press-header">
+          <motion.div
+            className="pia-eyebrow"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.65, ease: EASE_OUT }}
+          >
+            {eyebrow}
+          </motion.div>
 
-        <div className="pia-press-track">
+          {/* Slider Arrow Controls */}
+          <div
+            className="pia-press-slider-controls"
+            aria-label="News slider navigation"
+          >
+            <button
+              type="button"
+              onClick={() => scrollToSlide(activeIndex - 1)}
+              disabled={activeIndex === 0}
+              className="pia-press-arrow-btn"
+              aria-label="Previous news article"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSlide(activeIndex + 1)}
+              disabled={activeIndex === items.length - 1}
+              className="pia-press-arrow-btn"
+              aria-label="Next news article"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        <div
+          ref={trackRef}
+          onScroll={handleTrackScroll}
+          className="pia-press-track"
+        >
           {items.map((item, index) => (
             <motion.div
               key={item.id}
@@ -71,6 +141,23 @@ export const PressSection: React.FC<PressSectionProps> = ({
                 READ ARTICLE
               </motion.button>
             </motion.div>
+          ))}
+        </div>
+
+        {/* Mobile Slider Pagination Dots */}
+        <div className="pia-press-dots" role="tablist" aria-label="News slides">
+          {items.map((item, idx) => (
+            <button
+              key={item.id}
+              type="button"
+              role="tab"
+              aria-selected={idx === activeIndex}
+              aria-label={`Go to news slide ${idx + 1}`}
+              onClick={() => scrollToSlide(idx)}
+              className={`pia-press-dot ${
+                idx === activeIndex ? 'is-active' : ''
+              }`}
+            />
           ))}
         </div>
       </section>

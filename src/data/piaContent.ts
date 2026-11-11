@@ -3,9 +3,11 @@ import { PiaContentData, PiaPhotoSlotKey, PiaPhotoSlots } from '../types/pia';
 const BASE = import.meta.env.BASE_URL;
 
 export const PIA_OFFICIAL_LOGO = `${BASE}assets/aistudio/PIA_na_SIA_logo_transparent_6c3bd72d.png`;
+export const PIA_OFFICIAL_LOGO_WHITE_GREEN = `${BASE}assets/aistudio/PIA_na_SIA_logo_white_green_3cf2b864.png`;
+export const PIA_OFFICIAL_LOGO_ALL_WHITE = `${BASE}assets/aistudio/PIA_na_SIA_logo_all_white_a9898c45.png`;
 
 export const PIA_BRAND_LOGO_BLUE = PIA_OFFICIAL_LOGO;
-export const PIA_BRAND_LOGO_WHITE = PIA_OFFICIAL_LOGO;
+export const PIA_BRAND_LOGO_WHITE = PIA_OFFICIAL_LOGO_WHITE_GREEN;
 
 export const PIA_IMAGE_1 = `${BASE}assets/aistudio/IMG_5862_27de8187.jpeg`;
 export const PIA_IMAGE_2 = `${BASE}assets/aistudio/IMG_5468_7440a813.jpeg`;
