@@ -36,6 +36,85 @@
 }
 
 /* ==========================================================================
+   FULL-SCREEN BRAND PRELOADER
+   ========================================================================== */
+
+.pia-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: radial-gradient(circle at center, #FFFFFF 0%, #F4F7FA 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.pia-preloader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+}
+
+.pia-preloader-logo-wrap {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pia-profile img.pia-preloader-logo {
+  width: auto;
+  height: auto;
+  max-width: 240px;
+  max-height: 140px;
+  object-fit: contain;
+  margin: 0 auto;
+  filter: drop-shadow(0 10px 24px rgba(16, 46, 74, 0.1));
+}
+
+.pia-preloader-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.pia-preloader-title {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #102E4A;
+}
+
+.pia-preloader-bar-track {
+  width: 200px;
+  height: 3px;
+  background: #E2E8F0;
+  overflow: hidden;
+  position: relative;
+}
+
+.pia-preloader-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #102E4A 0%, #174D83 55%, #1E5E3A 100%);
+}
+
+.pia-preloader-percent {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #64748B;
+}
+
+/* ==========================================================================
    HEADER (High-Contrast Frosted Bar with #102E4A Dark Navy Links & Logo)
    ========================================================================== */
 
@@ -44,12 +123,12 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 64px;
   padding: 0 5.5%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(16, 46, 74, 0.08);
   z-index: 40;
@@ -57,7 +136,7 @@
 }
 
 .pia-header.is-scrolled {
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(16, 46, 74, 0.1);
   box-shadow: 0 4px 20px rgba(16, 46, 74, 0.06);
@@ -69,9 +148,9 @@
 }
 
 .pia-profile img.pia-logo {
-  height: 34px;
+  height: 46px;
   width: auto;
-  max-width: 165px;
+  max-width: 175px;
   object-fit: contain;
 }
 
@@ -766,11 +845,14 @@
 }
 
 .pia-profile img.pia-footer-logo {
-  height: 40px;
+  height: 68px;
   width: auto;
-  max-width: 180px;
+  max-width: 210px;
   margin: 0 auto 34px;
   object-fit: contain;
+  background: #ffffff;
+  padding: 8px 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
 }
 
 .pia-socials {
@@ -959,10 +1041,15 @@
   }
 
   .pia-profile img.pia-logo {
-    height: 46px;
+    height: 64px;
     width: auto;
-    max-width: 215px;
+    max-width: 230px;
     margin: 0 auto;
+  }
+
+  .pia-profile img.pia-preloader-logo {
+    max-width: 290px;
+    max-height: 170px;
   }
 
   .pia-menu,
@@ -1392,8 +1479,9 @@
   }
 
   .pia-profile img.pia-footer-logo {
-    height: 48px;
-    max-width: 220px;
+    height: 82px;
+    max-width: 250px;
+    padding: 10px 24px;
     margin-bottom: 42px;
   }
 }

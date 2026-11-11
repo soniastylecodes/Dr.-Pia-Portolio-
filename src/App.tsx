@@ -13,6 +13,7 @@ import { Header, PiaPageKey } from './components/Header';
 import { Hero } from './components/Hero';
 import { PhotoSlotModal } from './components/PhotoSlotModal';
 import { PortraitGallery } from './components/PortraitGallery';
+import { Preloader } from './components/Preloader';
 import { PressSection } from './components/PressSection';
 import { ProfileHighlights } from './components/ProfileHighlights';
 import { PublicationsPage } from './components/PublicationsPage';
@@ -23,7 +24,7 @@ import {
 } from './data/piaContent';
 import { PiaPhotoSlotKey, PiaPhotoSlots } from './types/pia';
 
-const STORAGE_KEY = 'pia_official_photo_slots_v5';
+const STORAGE_KEY = 'pia_official_photo_slots_v7';
 
 export default function App() {
   const [photoSlots, setPhotoSlots] = useState<PiaPhotoSlots>(() => {
@@ -51,6 +52,14 @@ export default function App() {
   const [activePage, setActivePage] = useState<PiaPageKey>('home');
   const [photoModalOpen, setPhotoModalOpen] = useState(false);
   const [focusedSlot, setFocusedSlot] = useState<PiaPhotoSlotKey | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setIsLoading(false);
+    }, 1550);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     try {
@@ -61,6 +70,14 @@ export default function App() {
   }, [photoSlots]);
 
   const handleNavigate = (page: PiaPageKey, sectionId?: string) => {
+    const isPageChange = page !== activePage;
+    if (isPageChange) {
+      setIsLoading(true);
+      window.setTimeout(() => {
+        setIsLoading(false);
+      }, 650);
+    }
+
     setActivePage(page);
     if (page !== 'home') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -101,6 +118,9 @@ export default function App() {
 
   return (
     <div className="pia-profile">
+      {/* FULL-SCREEN BRAND PRELOADER */}
+      <Preloader isVisible={isLoading} logoUrl={photoSlots.logoUrl} />
+
       {/* HEADER (Centered Logo + ABOUT / GALLERY / PUBLICATIONS / AWARDS on Desktop; Left Logo + Staggered Menu on Mobile) */}
       <Header
         logoUrl={photoSlots.logoUrl}

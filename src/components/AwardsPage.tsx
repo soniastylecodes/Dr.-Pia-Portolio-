@@ -18,11 +18,12 @@ interface PiaAwardItem {
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+const BASE = import.meta.env.BASE_URL;
+
 const PIA_AWARDS: PiaAwardItem[] = [
   {
     id: 'award-1',
-    image:
-      '/assets/aistudio/a3862730-2b8f-45fe-a894-4fdda7310b49_501189c6.jpeg',
+    image: `${BASE}assets/aistudio/a3862730-2b8f-45fe-a894-4fdda7310b49_501189c6.jpeg`,
     year: '2025',
     category: 'Good Governance & Gender Equality',
     title: 'Award of Excellence: Icon of Societal Development',
@@ -32,8 +33,7 @@ const PIA_AWARDS: PiaAwardItem[] = [
   },
   {
     id: 'award-2',
-    image:
-      '/assets/aistudio/171a1fa1-7c19-424d-a3a5-b91435498bd2_a93e3aee.jpeg',
+    image: `${BASE}assets/aistudio/171a1fa1-7c19-424d-a3a5-b91435498bd2_a93e3aee.jpeg`,
     year: '2024',
     category: 'Women Empowerment & Education',
     title:
@@ -45,8 +45,7 @@ const PIA_AWARDS: PiaAwardItem[] = [
   },
   {
     id: 'award-3',
-    image:
-      '/assets/aistudio/402615a1-d6ea-4a6d-838f-5fb0232df6ba_cf2ee20b.jpeg',
+    image: `${BASE}assets/aistudio/402615a1-d6ea-4a6d-838f-5fb0232df6ba_cf2ee20b.jpeg`,
     year: '2024',
     category: 'Peace & Nation Building',
     title:
@@ -58,8 +57,7 @@ const PIA_AWARDS: PiaAwardItem[] = [
   },
   {
     id: 'award-4',
-    image:
-      '/assets/aistudio/9c757285-dc4c-49e7-926b-3998126f2c85_48057ee1.jpeg',
+    image: `${BASE}assets/aistudio/9c757285-dc4c-49e7-926b-3998126f2c85_48057ee1.jpeg`,
     year: '2024',
     category: 'Youth Development & Leadership',
     title:
@@ -71,8 +69,7 @@ const PIA_AWARDS: PiaAwardItem[] = [
   },
   {
     id: 'award-5',
-    image:
-      '/assets/aistudio/286c5b00-cbcc-4ba6-90c0-0f111904f340_a0964fd1.jpeg',
+    image: `${BASE}assets/aistudio/286c5b00-cbcc-4ba6-90c0-0f111904f340_a0964fd1.jpeg`,
     year: '2024',
     category: 'Education & Societal Transformation',
     title: 'Award of Honour: Icon of Hope & Nation Building',
@@ -82,8 +79,7 @@ const PIA_AWARDS: PiaAwardItem[] = [
   },
   {
     id: 'award-6',
-    image:
-      '/assets/aistudio/8b81a8be-54a6-47a0-b751-3303b75f93ff_a78142c0.jpeg',
+    image: `${BASE}assets/aistudio/8b81a8be-54a6-47a0-b751-3303b75f93ff_a78142c0.jpeg`,
     year: 'Honour',
     category: 'Legal & Academic Mentorship',
     title: 'Award of Exceptional Leadership and Dedication',
@@ -94,8 +90,7 @@ const PIA_AWARDS: PiaAwardItem[] = [
   },
   {
     id: 'award-7',
-    image:
-      '/assets/aistudio/a964b4ea-823f-46bd-807b-1a0242a956b9_9645aef2.jpeg',
+    image: `${BASE}assets/aistudio/a964b4ea-823f-46bd-807b-1a0242a956b9_9645aef2.jpeg`,
     year: 'Honour',
     category: 'Humanitarian & Youth Service',
     title: 'Award of Recognition for Humanitarian Service',
@@ -105,8 +100,7 @@ const PIA_AWARDS: PiaAwardItem[] = [
   },
   {
     id: 'award-8',
-    image:
-      '/assets/aistudio/aa75e09c-943f-4aad-b966-273963b53875_d92727c7.jpeg',
+    image: `${BASE}assets/aistudio/aa75e09c-943f-4aad-b966-273963b53875_d92727c7.jpeg`,
     year: 'Leadership',
     category: 'National Women’s Leadership',
     title: 'National President Commemorative Honour',
@@ -116,8 +110,7 @@ const PIA_AWARDS: PiaAwardItem[] = [
   },
   {
     id: 'award-9',
-    image:
-      '/assets/aistudio/0bd27c88-0835-48e3-815c-d288f114b929_00003a80.jpeg',
+    image: `${BASE}assets/aistudio/0bd27c88-0835-48e3-815c-d288f114b929_00003a80.jpeg`,
     year: 'Service',
     category: 'Faith & Community Dedication',
     title: 'Commendation for Commitment & Labour of Love',

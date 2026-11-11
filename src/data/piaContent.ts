@@ -1,56 +1,23 @@
 import { PiaContentData, PiaPhotoSlotKey, PiaPhotoSlots } from '../types/pia';
 
-const svgToDataUri = (svg: string) =>
-  `data:image/svg+xml;utf8,${encodeURIComponent(svg.trim())}`;
+const BASE = import.meta.env.BASE_URL;
 
-/**
- * PIA Monogram + 3-line stacked name lockup matching the exact reference logo layout,
- * rendered in PIA's blue & white brand palette.
- */
-export const PIA_BRAND_LOGO_BLUE = svgToDataUri(`
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 76" fill="none">
-  <!-- Stylized PIA Interlocking Monogram -->
-  <path d="M10 60L30 12L50 60H41L30 32L19 60H10Z" fill="#102E4A"/>
-  <path d="M6 22C20 19 38 27 54 52" stroke="#2B72B8" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="30" cy="12" r="3.8" fill="#174D83"/>
-  <!-- 3-Line Stacked Name Lockup -->
-  <text x="66" y="26" font-family="Sora, sans-serif" font-size="12" font-weight="500" letter-spacing="2.4" fill="#102E4A">DR. PATIENCE</text>
-  <text x="66" y="43" font-family="Sora, sans-serif" font-size="12" font-weight="500" letter-spacing="2.4" fill="#102E4A">ISHAKU</text>
-  <text x="66" y="60" font-family="Sora, sans-serif" font-size="12" font-weight="500" letter-spacing="2.4" fill="#102E4A">ABBO</text>
-</svg>
-`);
+export const PIA_OFFICIAL_LOGO = `${BASE}assets/aistudio/PIA_na_SIA_logo_transparent_6c3bd72d.png`;
 
-export const PIA_BRAND_LOGO_WHITE = svgToDataUri(`
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 76" fill="none">
-  <!-- Stylized PIA Interlocking Monogram in White -->
-  <path d="M10 60L30 12L50 60H41L30 32L19 60H10Z" fill="#FFFFFF"/>
-  <path d="M6 22C20 19 38 27 54 52" stroke="#93C5FD" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="30" cy="12" r="3.8" fill="#FFFFFF"/>
-  <!-- 3-Line Stacked Name Lockup -->
-  <text x="66" y="26" font-family="Sora, sans-serif" font-size="12" font-weight="500" letter-spacing="2.4" fill="#FFFFFF">DR. PATIENCE</text>
-  <text x="66" y="43" font-family="Sora, sans-serif" font-size="12" font-weight="500" letter-spacing="2.4" fill="#FFFFFF">ISHAKU</text>
-  <text x="66" y="60" font-family="Sora, sans-serif" font-size="12" font-weight="500" letter-spacing="2.4" fill="#FFFFFF">ABBO</text>
-</svg>
-`);
+export const PIA_BRAND_LOGO_BLUE = PIA_OFFICIAL_LOGO;
+export const PIA_BRAND_LOGO_WHITE = PIA_OFFICIAL_LOGO;
 
-export const PIA_IMAGE_1 = '/assets/aistudio/IMG_5862_27de8187.jpeg';
-export const PIA_IMAGE_2 = '/assets/aistudio/IMG_5468_7440a813.jpeg';
-export const PIA_IMAGE_3 = '/assets/aistudio/IMG_5866_4cf24a1b.jpeg';
-export const PIA_IMAGE_4 = '/assets/aistudio/IMG_5865_27c742f1.jpeg';
-export const PIA_IMAGE_5 =
-  '/assets/aistudio/899271630_1134876032256958_1014021104154786291_n_c463340c.jpeg';
-export const PIA_IMAGE_6 =
-  '/assets/aistudio/854779757_1133438679067360_8984683565725269711_n_23699f93.jpeg';
-export const PIA_IMAGE_7 =
-  '/assets/aistudio/864308632_1119778173766744_6714995158138751591_n_e12d672b.jpg';
-export const PIA_IMAGE_8 =
-  '/assets/aistudio/854569358_1481090993882788_3132476486288767891_n_01db93df.jpeg';
-export const PIA_IMAGE_9 =
-  '/assets/aistudio/818730137_1086827117327761_6622728787505067371_n_1854b821.jpeg';
-export const PIA_IMAGE_10 =
-  '/assets/aistudio/756807649_2541003633086706_94459262993092502_n_683807aa.jpeg';
-export const PIA_IMAGE_11 =
-  '/assets/aistudio/752534311_1573923037463793_290854812550778156_n_d5db4703.jpeg';
+export const PIA_IMAGE_1 = `${BASE}assets/aistudio/IMG_5862_27de8187.jpeg`;
+export const PIA_IMAGE_2 = `${BASE}assets/aistudio/IMG_5468_7440a813.jpeg`;
+export const PIA_IMAGE_3 = `${BASE}assets/aistudio/IMG_5866_4cf24a1b.jpeg`;
+export const PIA_IMAGE_4 = `${BASE}assets/aistudio/IMG_5865_27c742f1.jpeg`;
+export const PIA_IMAGE_5 = `${BASE}assets/aistudio/899271630_1134876032256958_1014021104154786291_n_c463340c.jpeg`;
+export const PIA_IMAGE_6 = `${BASE}assets/aistudio/854779757_1133438679067360_8984683565725269711_n_23699f93.jpeg`;
+export const PIA_IMAGE_7 = `${BASE}assets/aistudio/864308632_1119778173766744_6714995158138751591_n_e12d672b.jpg`;
+export const PIA_IMAGE_8 = `${BASE}assets/aistudio/854569358_1481090993882788_3132476486288767891_n_01db93df.jpeg`;
+export const PIA_IMAGE_9 = `${BASE}assets/aistudio/818730137_1086827117327761_6622728787505067371_n_1854b821.jpeg`;
+export const PIA_IMAGE_10 = `${BASE}assets/aistudio/756807649_2541003633086706_94459262993092502_n_683807aa.jpeg`;
+export const PIA_IMAGE_11 = `${BASE}assets/aistudio/752534311_1573923037463793_290854812550778156_n_d5db4703.jpeg`;
 
 /**
  * Default photo slot values using unique, non-repeating PIA photographs
