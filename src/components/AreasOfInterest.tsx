@@ -114,15 +114,17 @@ export const AreasOfInterest: React.FC<AreasOfInterestProps> = ({
             ))}
           </section>
 
-          <motion.p
-            className="pia-sectors-note"
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.65, delay: 0.35, ease: EASE_OUT }}
-          >
-            {closingNote}
-          </motion.p>
+          {closingNote && (
+            <motion.p
+              className="pia-sectors-note"
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.65, delay: 0.35, ease: EASE_OUT }}
+            >
+              {closingNote}
+            </motion.p>
+          )}
         </div>
 
         <motion.div

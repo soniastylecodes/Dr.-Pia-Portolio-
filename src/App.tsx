@@ -23,7 +23,7 @@ import {
 } from './data/piaContent';
 import { PiaPhotoSlotKey, PiaPhotoSlots } from './types/pia';
 
-const STORAGE_KEY = 'pia_official_photo_slots_v8';
+const STORAGE_KEY = 'pia_official_photo_slots_v10';
 
 export default function App() {
   const [photoSlots, setPhotoSlots] = useState<PiaPhotoSlots>(() => {

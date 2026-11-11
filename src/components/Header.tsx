@@ -278,10 +278,10 @@ export const Header: React.FC<HeaderProps> = ({
                   Dr. Patience Abbo
                 </h2>
                 <a
-                  href="mailto:message@patiencesishakuabbo.com"
+                  href="mailto:message@patienceishakuabbo.com"
                   className="pia-mobile-profile-email"
                 >
-                  message@patiencesishakuabbo.com
+                  message@patienceishakuabbo.com
                 </a>
               </div>
 
@@ -361,7 +361,7 @@ export const Header: React.FC<HeaderProps> = ({
               {/* Bottom Pill CTA: Send her a message */}
               <div className="pia-mobile-sheet-bottom">
                 <a
-                  href="mailto:message@patiencesishakuabbo.com"
+                  href="mailto:message@patienceishakuabbo.com"
                   className="pia-mobile-message-btn"
                 >
                   <Mail className="w-4 h-4" />

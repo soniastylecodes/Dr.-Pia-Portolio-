@@ -20,6 +20,7 @@ export const PIA_IMAGE_8 = `${BASE}assets/aistudio/854569358_1481090993882788_31
 export const PIA_IMAGE_9 = `${BASE}assets/aistudio/818730137_1086827117327761_6622728787505067371_n_1854b821.jpeg`;
 export const PIA_IMAGE_10 = `${BASE}assets/aistudio/756807649_2541003633086706_94459262993092502_n_683807aa.jpeg`;
 export const PIA_IMAGE_11 = `${BASE}assets/aistudio/752534311_1573923037463793_290854812550778156_n_d5db4703.jpeg`;
+export const PIA_HERO_IMG_6525 = `${BASE}assets/aistudio/IMG_6525_34004761.jpg`;
 
 /**
  * Default photo slot values using unique, non-repeating PIA photographs
@@ -27,11 +28,11 @@ export const PIA_IMAGE_11 = `${BASE}assets/aistudio/752534311_1573923037463793_2
  */
 export const DEFAULT_PHOTO_SLOTS: PiaPhotoSlots = {
   logoUrl: PIA_BRAND_LOGO_BLUE,
-  heroImageUrl: PIA_IMAGE_2,
+  heroImageUrl: PIA_HERO_IMG_6525,
   portraitOneUrl: PIA_IMAGE_1,
   portraitTwoUrl: PIA_IMAGE_3,
   portraitThreeUrl: PIA_IMAGE_4,
-  featurePhotoUrl: PIA_IMAGE_9,
+  featurePhotoUrl: PIA_IMAGE_11,
   communityImageOneUrl: PIA_IMAGE_5,
   communityImageTwoUrl: PIA_IMAGE_8,
   newsImageOneUrl: PIA_IMAGE_7,
@@ -144,10 +145,10 @@ export const PIA_CONTENT: PiaContentData = {
   about: {
     eyebrow: 'SHORT BIO',
     leadHeading:
-      'Dr. Patience Ishaku Abbo is a politician, public policy advocate, and humanitarian leader founding Woman to Woman Network 21.',
+      'Dr. Patience Ishaku Abbo is a public policy advocate, humanitarian and founder of Woman to Woman Network 21.',
     paragraphs: [
-      'Growing up in Michika, Adamawa State, she served as Head Girl at Government Secondary School, Michika, and proceeded to the University of Maiduguri where she earned a Diploma in Mass Communication and a Degree in Library and Information Science.',
-      'She went on to attain a Postgraduate Diploma in Public Administration and a Master’s Degree in Public Policy Analysis, and is advancing a PhD in Public Administration alongside a Master’s in Business Management. She is happily married to Sen. Ishaku Elisha Abbo and blessed with a daughter.',
+      "Her leadership began early, as Head Girl at Government Secondary School, Michika. She earned a Diploma in Mass Communication and a Degree in Library and Information Science from the University of Maiduguri, followed by a Postgraduate Diploma in Public Administration and a Master's in Public Policy Analysis.",
+      "She holds an Honorary Doctorate from the Evangelical Theological Seminary, Kaltungo, an affiliate of the University of Jos, conferred in 2024 in recognition of her humanitarian service. She has a PhD in Public Administration in view, alongside a Master's in Business Management. She is married to Sen. Ishaku Elisha Abbo and blessed with a daughter.",
     ],
     extendedParagraphs: [
       'Beyond the titles, beyond what you may have known me for, and beyond the name PIA, this is me.',
@@ -166,30 +167,29 @@ export const PIA_CONTENT: PiaContentData = {
     items: [
       {
         id: 'h1',
-        text: 'Founder of Woman to Woman Network 21, creating a space where women across Adamawa’s 21 Local Government Areas connect, grow, find opportunities, and have their voices heard.',
+        text: "Founder, Woman to Woman Network 21, active across Adamawa's 21 LGAs",
       },
       {
         id: 'h2',
-        text: 'Served as National President of the Progressive Young Women Forum in Nigeria, advancing women and youth participation in governance and political leadership.',
+        text: 'Former National President, Progressive Young Women Forum, Nigeria',
       },
       {
         id: 'h3',
-        text: 'Alumna of the University of Maiduguri (Diploma in Mass Communication; Degree in Library & Information Science), holding a PGD in Public Administration and a Master’s in Public Policy Analysis.',
+        text: 'Honorary Doctorate, Evangelical Theological Seminary, Kaltungo (affiliated to the University of Jos), 2024',
       },
       {
         id: 'h4',
-        text: 'Pursuing a PhD in Public Administration alongside a Master’s in Business Management, driven by a deep commitment to how public policies shape everyday lives.',
+        text: 'PhD in Public Administration (in view)',
       },
       {
         id: 'h5',
-        text: 'Rooted in Michika, Adamawa State, where her leadership journey began as Head Girl at Government Secondary School, Michika, she remains dedicated to humanitarian service and community development.',
+        text: 'Rooted in Michika, Adamawa State, and committed to humanitarian service and community development',
       },
     ],
   },
   sectors: {
     heading: 'Focus areas under her leadership include',
-    closingNote:
-      'Plus other key leading sectors in Nigeria and beyond.',
+    closingNote: '',
     items: [
       {
         id: 'women-girls',
