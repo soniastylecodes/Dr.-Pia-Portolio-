@@ -16,19 +16,6 @@ logo_url: ../favicon-192.png
 media_folder: public/uploads
 public_folder: /uploads
 
-media_libraries:
-  default:
-    config:
-      max_file_size: 15000000
-      slugify_filename: true
-  all:
-    transformations:
-      raster_image:
-        format: webp
-        quality: 82
-        width: 2000
-        height: 2000
-
 slug:
   encoding: ascii
   clean_accents: true
@@ -47,11 +34,7 @@ collections:
     slug: "{{slug}}"
     identifier_field: title
     summary: "{{date}} · {{title}}"
-    sortable_fields:
-      fields: [date, title]
-      default:
-        field: date
-        direction: descending
+    sortable_fields: [date, title]
     fields:
       - { label: Headline, name: title, widget: string, hint: "Include her name or the place where it happened, e.g. 'PIA Empowers 200 Women in Michika'." }
       - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, time_format: false }
@@ -73,11 +56,7 @@ collections:
     slug: "{{slug}}"
     identifier_field: title
     summary: "{{year}} · {{title}}"
-    sortable_fields:
-      fields: [order, year, title]
-      default:
-        field: order
-        direction: ascending
+    sortable_fields: [order, year, title]
     fields:
       - { label: Award Title, name: title, widget: string }
       - { label: Year, name: year, widget: string, hint: "A year like 2025, or a word like Honour." }
@@ -98,11 +77,7 @@ collections:
     slug: "{{slug}}"
     identifier_field: title
     summary: "{{year}} · {{title}}"
-    sortable_fields:
-      fields: [order, year, title]
-      default:
-        field: order
-        direction: ascending
+    sortable_fields: [order, year, title]
     fields:
       - { label: Title, name: title, widget: string }
       - { label: Type, name: type, widget: string, hint: "e.g. Policy Paper, Speech, Article" }
