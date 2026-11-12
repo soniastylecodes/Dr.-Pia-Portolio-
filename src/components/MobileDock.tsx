@@ -18,7 +18,7 @@ const ITEMS: DockItem[] = [
   { key: 'about', label: 'About', path: '/', section: 'pia-about', icon: UserRound },
   { key: 'gallery', label: 'Gallery', path: '/gallery/', icon: Images },
   { key: 'awards', label: 'Awards', path: '/awards/', icon: Award },
-  { key: 'publications', label: 'Press', path: '/publications/', icon: BookOpen },
+  { key: 'publications', label: 'Blog', path: '/publications/', icon: BookOpen },
 ];
 
 function activeFor(page: PageKey, aboutInView: boolean): DockKey | null {

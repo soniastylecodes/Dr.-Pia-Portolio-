@@ -2283,3 +2283,10 @@
     display: none;
   }
 }
+
+.pia-empty-note {
+  margin: 8px 0 40px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #64748B;
+}

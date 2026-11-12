@@ -167,9 +167,9 @@ export function buildHead(route: Route): HeadData {
     case 'publications':
       return {
         ...base,
-        title: `Publications & Press | ${site.siteName}`,
+        title: `Publications & Blog | ${site.siteName}`,
         description: clip(
-          'Policy papers, publications and press releases by and about Dr. Patience Ishaku Abbo (PIA), founder of Woman to Woman Network 21.'
+          'Publications and blog posts by and about Dr. Patience Ishaku Abbo (PIA), founder of Woman to Woman Network 21.'
         ),
         jsonLd: graph(breadcrumb('Publications', route.path)),
       };

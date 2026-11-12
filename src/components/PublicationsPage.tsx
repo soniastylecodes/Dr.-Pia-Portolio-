@@ -48,17 +48,21 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({
           <span>Back to Home</span>
         </button>
 
-        <div className="pia-eyebrow">PUBLICATIONS &amp; MEDIA</div>
-        <h1 className="pia-gallery-heading">
-          Publications, Policy Papers &amp; Press Releases
-        </h1>
+        <div className="pia-eyebrow">PUBLICATIONS &amp; BLOG</div>
+        <h1 className="pia-gallery-heading">Publications &amp; Blog</h1>
       </div>
+
+      {publications.length === 0 && news.length === 0 && (
+        <p className="pia-empty-note">
+          New stories and publications will appear here soon.
+        </p>
+      )}
 
       {/* Policy & Academic Publications List */}
       {publications.length > 0 && (
       <div className="mb-16">
         <div className="text-[11px] font-semibold tracking-[3px] uppercase text-[#8D99AE] mb-6">
-          SELECTED POLICY PAPERS &amp; MONOGRAPHS
+          PUBLICATIONS
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -113,7 +117,7 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({
       {news.length > 0 && (
       <div>
         <div className="text-[11px] font-semibold tracking-[3px] uppercase text-[#8D99AE] mb-6">
-          PRESS RELEASES &amp; OUTREACH REPORTS
+          BLOG
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
