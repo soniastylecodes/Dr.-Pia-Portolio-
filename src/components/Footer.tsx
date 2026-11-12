@@ -2,6 +2,9 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { SocialKey } from '../lib/content';
 import { SOCIAL_ICONS, SOCIAL_ORDER } from './socialIcons';
+import { href, isPlainLeftClick, useRouter } from '../lib/router';
+import { trackingConfigured } from '../lib/analytics';
+import { OPEN_COOKIE_SETTINGS } from './CookieBanner';
 
 interface FooterProps {
   footerLogoUrl: string;
@@ -17,6 +20,12 @@ export const Footer: React.FC<FooterProps> = ({
   socials,
 }) => {
   const resolvedFooterLogo = footerLogoUrl;
+  const { navigate } = useRouter();
+  const go = (e: React.MouseEvent, path: string) => {
+    if (!isPlainLeftClick(e)) return;
+    e.preventDefault();
+    navigate(path);
+  };
 
   return (
     <footer className="pia-footer">
@@ -61,6 +70,23 @@ export const Footer: React.FC<FooterProps> = ({
       >
         {copyright}
       </motion.div>
+
+      <nav className="pia-footer-legal" aria-label="Legal">
+        <a href={href('/privacy/')} onClick={(e) => go(e, '/privacy/')}>
+          Privacy Policy
+        </a>
+        <a href={href('/terms/')} onClick={(e) => go(e, '/terms/')}>
+          Terms of Use
+        </a>
+        {trackingConfigured() && (
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event(OPEN_COOKIE_SETTINGS))}
+          >
+            Cookie settings
+          </button>
+        )}
+      </nav>
     </footer>
   );
 };

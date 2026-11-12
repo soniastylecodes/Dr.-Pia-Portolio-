@@ -14,5 +14,9 @@
     "linkedin": "",
     "youtube": ""
   },
-  "network21Url": "https://womantowomannetwork21.org"
+  "network21Url": "https://womantowomannetwork21.org",
+  "analytics": {
+    "ga4Id": "",
+    "metaPixelId": ""
+  }
 }

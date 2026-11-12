@@ -220,6 +220,13 @@ collections:
           - { label: Contact Email, name: email, widget: string }
           - { label: Google Search Console Code, name: googleVerification, widget: string, required: false, hint: "Paste only the content value from the HTML tag Google gives you." }
           - { label: Network 21 Website, name: network21Url, widget: string }
+          - label: Analytics & Tracking
+            name: analytics
+            widget: object
+            hint: "Paste the IDs to switch tracking on. A cookie notice appears automatically, and nothing loads until a visitor clicks Accept."
+            fields:
+              - { label: Google Analytics 4 Measurement ID, name: ga4Id, widget: string, required: false, hint: "Starts with G-, e.g. G-ABC123XYZ" }
+              - { label: Meta Pixel ID, name: metaPixelId, widget: string, required: false, hint: "Numbers only, from Meta Events Manager" }
           - label: Social Media Links
             name: socials
             widget: object
@@ -231,3 +238,21 @@ collections:
               - { label: TikTok, name: tiktok, widget: string, required: false }
               - { label: LinkedIn, name: linkedin, widget: string, required: false }
               - { label: YouTube, name: youtube, widget: string, required: false }
+
+      - name: privacy
+        label: Privacy Policy
+        file: content/pages/privacy.json
+        format: json
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Google Description, name: description, widget: text }
+          - { label: Content, name: body, widget: markdown }
+
+      - name: terms
+        label: Terms of Use
+        file: content/pages/terms.json
+        format: json
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Google Description, name: description, widget: text }
+          - { label: Content, name: body, widget: markdown }

@@ -7,6 +7,8 @@ export type PageKey =
   | 'publications'
   | 'awards'
   | 'news'
+  | 'privacy'
+  | 'terms'
   | 'not-found';
 
 export interface Route {
@@ -37,6 +39,8 @@ export function matchRoute(pathname: string): Route {
   if (p === '/gallery/') return { page: 'gallery', path: p };
   if (p === '/publications/') return { page: 'publications', path: p };
   if (p === '/awards/') return { page: 'awards', path: p };
+  if (p === '/privacy/') return { page: 'privacy', path: p };
+  if (p === '/terms/') return { page: 'terms', path: p };
   const m = p.match(/^\/news\/([^/]+)\/$/);
   if (m && news.some((n) => n.slug === m[1])) {
     return { page: 'news', path: p, slug: m[1] };
@@ -50,6 +54,8 @@ export function allRoutePaths(): string[] {
     '/gallery/',
     '/publications/',
     '/awards/',
+    '/privacy/',
+    '/terms/',
     ...news.map((n) => `/news/${n.slug}/`),
   ];
 }

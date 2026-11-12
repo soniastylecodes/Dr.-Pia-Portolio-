@@ -11,6 +11,8 @@ import { Footer } from './components/Footer';
 import { GallerySection } from './components/GallerySection';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
+import { CookieBanner } from './components/CookieBanner';
+import { LegalPageView } from './components/LegalPage';
 import { MobileDock } from './components/MobileDock';
 import { NewsArticlePage } from './components/NewsArticlePage';
 import { NotFoundPage } from './components/NotFoundPage';
@@ -21,6 +23,7 @@ import { PublicationsPage } from './components/PublicationsPage';
 import { asset, gallery, home, LOGO, LOGO_WHITE_GREEN, news, site } from './lib/content';
 import { href, matchRoute, Route, RouterContext } from './lib/router';
 import { applyHeadToDocument, buildHead } from './lib/seo';
+import { trackPageView } from './lib/analytics';
 
 interface AppProps {
   initialPath?: string;
@@ -60,7 +63,9 @@ export default function App({ initialPath }: AppProps) {
       }
       return;
     }
-    applyHeadToDocument(buildHead(route));
+    const head = buildHead(route);
+    applyHeadToDocument(head);
+    trackPageView(window.location.pathname, head.title);
   }, [route]);
 
   const navigate = useCallback(
@@ -170,6 +175,10 @@ export default function App({ initialPath }: AppProps) {
             <NewsArticlePage slug={route.slug} onBackHome={backHome} />
           )}
 
+          {(route.page === 'privacy' || route.page === 'terms') && (
+            <LegalPageView page={route.page} onBackHome={backHome} />
+          )}
+
           {route.page === 'not-found' && <NotFoundPage onBackHome={backHome} />}
         </main>
 
@@ -180,6 +189,8 @@ export default function App({ initialPath }: AppProps) {
         />
 
         <MobileDock />
+
+        <CookieBanner />
       </div>
     </RouterContext.Provider>
   );

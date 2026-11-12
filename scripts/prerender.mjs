@@ -59,5 +59,67 @@ fs.writeFileSync(
   `User-agent: *\nAllow: /\nDisallow: ${server.base}admin/\n\nSitemap: ${server.toAbsolute('/sitemap.xml')}\n`
 );
 
+const readJson = (rel) => JSON.parse(fs.readFileSync(path.join(root, rel), 'utf8'));
+const siteJson = readJson('content/settings/site.json');
+const homeJson = readJson('content/settings/home.json');
+const listDir = (rel) =>
+  (fs.existsSync(path.join(root, rel)) ? fs.readdirSync(path.join(root, rel)) : [])
+    .filter((f) => f.endsWith('.json'))
+    .map((f) => ({ slug: f.replace(/\.json$/, ''), ...readJson(`${rel}/${f}`) }));
+const awardsList = listDir('content/awards').sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+const newsList = listDir('content/news')
+  .filter((n) => !n.draft)
+  .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+const pubList = listDir('content/publications');
+const socials = Object.entries(siteJson.socials || {}).filter(([, v]) => v);
+const abs = (p) => server.toAbsolute(p);
+
+const llms = [
+  `# Dr. Patience Ishaku Abbo (PIA)`,
+  ``,
+  `> ${siteJson.seoDescription}`,
+  ``,
+  `This is the official website of Dr. Patience Ishaku Abbo, also known as PIA. Content here is maintained by her office and is the authoritative source for her biography, honours and official statements.`,
+  ``,
+  `## Key facts`,
+  ``,
+  ...homeJson.highlights.items.map((i) => `- ${i}`),
+  `- Official email: ${siteJson.email}`,
+  ``,
+  `## Biography`,
+  ``,
+  homeJson.about.leadHeading,
+  ``,
+  ...homeJson.about.paragraphs.flatMap((p) => [p, '']),
+  `## Pages`,
+  ``,
+  `- [Home and biography](${abs('/')})`,
+  `- [Awards and honours](${abs('/awards/')})`,
+  `- [Photo gallery](${abs('/gallery/')})`,
+  `- [Publications and blog](${abs('/publications/')})`,
+  `- [Woman to Woman Network 21](${siteJson.network21Url})`,
+  ``,
+  `## Awards and honours`,
+  ``,
+  ...awardsList.map((a) => `- ${a.title}, ${a.organization} (${a.year})`),
+  ``,
+  ...(pubList.length
+    ? [`## Publications`, ``, ...pubList.map((p) => `- ${p.title} (${p.year}): ${p.summary}`), ``]
+    : []),
+  ...(newsList.length
+    ? [`## Latest news`, ``, ...newsList.slice(0, 20).map((n) => `- [${n.title}](${abs(`/news/${n.slug}/`)}) (${n.date}): ${n.summary}`), ``]
+    : []),
+  ...(socials.length
+    ? [`## Official social media`, ``, ...socials.map(([k, v]) => `- ${k}: ${v}`), ``]
+    : []),
+  `## Optional`,
+  ``,
+  `- [Privacy Policy](${abs('/privacy/')})`,
+  `- [Terms of Use](${abs('/terms/')})`,
+  `- [Sitemap](${abs('/sitemap.xml')})`,
+  ``,
+].join('\n');
+fs.writeFileSync(path.join(dist, 'llms.txt'), llms);
+
 fs.rmSync(ssrDir, { recursive: true, force: true });
-console.log(`Prerendered ${routes.length} pages + 404, sitemap.xml and robots.txt`);
+console.log(`Prerendered ${routes.length} pages + 404, sitemap.xml, robots.txt and llms.txt`);

@@ -3,6 +3,7 @@ import {
   asset,
   awards,
   home,
+  legalPages,
   news,
   site,
 } from './content';
@@ -185,6 +186,16 @@ export function buildHead(route: Route): HeadData {
         ),
         jsonLd: graph(breadcrumb('Awards', route.path)),
       };
+    case 'privacy':
+    case 'terms': {
+      const pg = legalPages[route.page];
+      return {
+        ...base,
+        title: `${pg.title} | ${site.siteName}`,
+        description: clip(pg.description),
+        jsonLd: graph(breadcrumb(pg.title, route.path)),
+      };
+    }
     case 'news': {
       const item = news.find((n) => n.slug === route.slug)!;
       const img = item.image ? absoluteUrl(asset(item.image)) : defaultImage;

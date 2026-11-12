@@ -2,6 +2,8 @@ import { marked } from 'marked';
 import siteJson from '../../content/settings/site.json';
 import homeJson from '../../content/settings/home.json';
 import galleryJson from '../../content/settings/gallery.json';
+import privacyJson from '../../content/pages/privacy.json';
+import termsJson from '../../content/pages/terms.json';
 
 export type FocusIcon =
   | 'women'
@@ -28,6 +30,16 @@ export interface SiteSettings {
   googleVerification?: string;
   socials: Partial<Record<SocialKey, string>>;
   network21Url: string;
+  analytics?: {
+    ga4Id?: string;
+    metaPixelId?: string;
+  };
+}
+
+export interface LegalPage {
+  title: string;
+  description: string;
+  body: string;
 }
 
 export interface HomeContent {
@@ -169,6 +181,10 @@ function collect<T extends { slug: string }>(
 export const site = siteJson as SiteSettings;
 export const home = homeJson as HomeContent;
 export const gallery = galleryJson as GalleryContent;
+export const legalPages: Record<'privacy' | 'terms', LegalPage> = {
+  privacy: privacyJson as LegalPage,
+  terms: termsJson as LegalPage,
+};
 
 export const news: NewsItem[] = collect<NewsItem>(
   import.meta.glob('../../content/news/*.json', {
