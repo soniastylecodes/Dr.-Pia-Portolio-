@@ -1172,25 +1172,36 @@
 .pia-awards-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 44px;
+  gap: 28px;
 }
 
 .pia-award-card {
-  background: transparent;
+  background: #ffffff;
+  border: 1px solid #E7E2D8;
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  transition: border-color 300ms ease, box-shadow 300ms ease;
+}
+
+.pia-award-card:hover {
+  border-color: #D9C9A3;
+  box-shadow: 0 20px 40px -18px rgba(15, 23, 42, 0.18);
 }
 
 .pia-award-frame-outer {
-  padding: 0;
+  margin: 14px 14px 0;
+  padding: 6px;
+  background: linear-gradient(135deg, #B8954D 0%, #E6D2A0 28%, #C9A961 52%, #F0E2BC 74%, #B08B42 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 2px 6px rgba(15, 23, 42, 0.12);
 }
 
 .pia-award-frame-matte {
   position: relative;
-  background: linear-gradient(180deg, #F7F8FA 0%, #EEF1F5 100%);
-  height: 320px;
-  padding: 34px 30px;
+  background: #FBFAF7;
+  box-shadow: inset 0 0 0 1px rgba(176, 139, 66, 0.35), inset 0 3px 10px rgba(15, 23, 42, 0.08);
+  height: 300px;
+  padding: 26px 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1198,18 +1209,15 @@
   transition: background 400ms ease;
 }
 
-.pia-award-card:hover .pia-award-frame-matte {
-  background: linear-gradient(180deg, #F4F6F9 0%, #E8ECF2 100%);
-}
 
 .pia-profile img.pia-award-plaque-img {
   width: auto;
   max-width: 100%;
   height: auto;
-  max-height: 252px;
+  max-height: 244px;
   object-fit: contain;
   margin: 0 auto;
-  border-radius: 2px;
+  border-radius: 1px;
   box-shadow:
     0 1px 2px rgba(15, 23, 42, 0.08),
     0 12px 24px -6px rgba(15, 23, 42, 0.18),
@@ -1256,32 +1264,29 @@
 }
 
 .pia-award-card-body {
-  padding: 22px 2px 6px;
+  padding: 22px 20px 24px;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 .pia-award-meta {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
+  margin: 0 0 12px;
   font-size: 10px;
   font-weight: 500;
+  line-height: 1.8;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #8A97A8;
+  color: #A0803F;
 }
 
-.pia-award-meta span + span::before {
-  content: '';
+.pia-award-meta-dot {
   display: inline-block;
   width: 3px;
   height: 3px;
-  margin: 0 10px 2px 0;
+  margin: 0 10px 2px;
   border-radius: 999px;
-  background: #C3CCD7;
+  background: #D9C9A3;
   vertical-align: middle;
 }
 
@@ -1976,16 +1981,25 @@
   }
 
   .pia-awards-grid {
-    row-gap: 56px;
+    row-gap: 36px;
+  }
+
+  .pia-award-frame-outer {
+    margin: 16px 16px 0;
+    padding: 7px;
   }
 
   .pia-award-frame-matte {
-    height: 360px;
-    padding: 40px 36px;
+    height: 330px;
+    padding: 30px 28px;
   }
 
   .pia-profile img.pia-award-plaque-img {
-    max-height: 280px;
+    max-height: 268px;
+  }
+
+  .pia-award-card-body {
+    padding: 24px 24px 28px;
   }
 
   .pia-award-title {

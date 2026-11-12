@@ -84,10 +84,11 @@ export const AwardsPage: React.FC<AwardsPageProps> = ({ onBackHome }) => {
 
             {/* Plaque Details */}
             <div className="pia-award-card-body">
-              <div className="pia-award-meta">
-                <span>{item.year}</span>
-                <span>{item.category}</span>
-              </div>
+              <p className="pia-award-meta">
+                {item.year}
+                <span className="pia-award-meta-dot" aria-hidden="true" />
+                {item.category}
+              </p>
               <h2 className="pia-award-title">{item.title}</h2>
               <p className="pia-award-org">{item.organization}</p>
               <p className="pia-award-desc">{item.description}</p>
