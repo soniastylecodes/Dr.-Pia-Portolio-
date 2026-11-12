@@ -15,7 +15,10 @@ backend:
 
 site_url: https://soniastylecodes.github.io/Dr.-Pia-Portolio-
 display_url: https://soniastylecodes.github.io/Dr.-Pia-Portolio-
-logo_url: https://decapbridge.com/decapcms-with-bridge.svg
+logo_url: ../uploads/pia-na-sia-logo.png
+
+editor:
+  preview: false
 
 media_folder: public/uploads
 public_folder: /uploads

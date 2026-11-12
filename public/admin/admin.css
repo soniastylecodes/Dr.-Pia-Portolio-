@@ -1,0 +1,466 @@
+/* PIA admin theme for Decap CMS */
+:root {
+  --pia-navy: #102e4a;
+  --pia-blue: #174d83;
+  --pia-blue-soft: #eaf2fb;
+  --pia-green: #1f7a4d;
+  --pia-bg: #f4f6f9;
+  --pia-card: #ffffff;
+  --pia-line: #e3e8ef;
+  --pia-text: #1e293b;
+  --pia-muted: #64748b;
+  --pia-radius: 14px;
+  --pia-shadow: 0 1px 2px rgba(16, 46, 74, 0.06), 0 8px 24px rgba(16, 46, 74, 0.06);
+}
+
+html,
+body,
+button,
+input,
+textarea,
+select {
+  font-family: 'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif !important;
+}
+
+body {
+  background: var(--pia-bg) !important;
+  color: var(--pia-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Login ---------- */
+[class*='-AuthenticationPage'],
+section[class*='-StyledAuthenticationPage'] {
+  background:
+    radial-gradient(circle at 15% 10%, rgba(23, 77, 131, 0.10), transparent 40%),
+    radial-gradient(circle at 85% 90%, rgba(31, 122, 77, 0.10), transparent 40%),
+    var(--pia-bg) !important;
+}
+
+[class*='-PageLogoIcon'],
+[class*='-CustomLogoIcon'] {
+  max-width: 260px;
+  height: auto !important;
+  margin-bottom: 8px;
+}
+
+[class*='-AuthForm'] {
+  background: var(--pia-card);
+  padding: 32px 28px !important;
+  border-radius: 20px;
+  box-shadow: var(--pia-shadow);
+  border: 1px solid var(--pia-line);
+  width: 380px !important;
+  max-width: calc(100vw - 32px);
+}
+
+[class*='-AuthInput'] {
+  border: 1px solid var(--pia-line) !important;
+  border-radius: 10px !important;
+  background: #fbfcfe !important;
+  padding: 14px 16px !important;
+  margin-bottom: 14px !important;
+  font-size: 15px !important;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+[class*='-AuthInput']:focus {
+  outline: none;
+  border-color: var(--pia-blue) !important;
+  box-shadow: 0 0 0 3px rgba(23, 77, 131, 0.15) !important;
+}
+
+[class*='-LoginButton'] {
+  width: 100% !important;
+  justify-content: center;
+  background: var(--pia-navy) !important;
+  color: #fff !important;
+  border-radius: 10px !important;
+  padding: 0 20px !important;
+  height: 46px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px;
+  box-shadow: none !important;
+  transition: background 0.15s, transform 0.15s;
+}
+
+[class*='-LoginButton']:hover {
+  background: var(--pia-blue) !important;
+  transform: translateY(-1px);
+}
+
+/* ---------- Top bar ---------- */
+[class*='-AppHeaderContent'] {
+  background: var(--pia-navy) !important;
+  min-width: 0 !important;
+}
+
+[class*='-AppHeaderContent'] > nav,
+header[class*='-AppHeader'] {
+  background: var(--pia-navy) !important;
+  box-shadow: 0 2px 12px rgba(16, 46, 74, 0.25) !important;
+}
+
+[class*='-AppHeaderNavLink'],
+[class*='-AppHeaderButton'],
+[class*='-AppHeaderSiteLink'] {
+  color: rgba(255, 255, 255, 0.78) !important;
+  font-weight: 500 !important;
+  border-radius: 10px;
+}
+
+[class*='-AppHeaderNavLink'] svg,
+[class*='-AppHeaderButton'] svg {
+  color: inherit !important;
+}
+
+[class*='-AppHeaderNavLink']:hover,
+[class*='-AppHeaderNavLink'].header-link-active,
+[class*='-AppHeaderButton']:hover,
+[class*='-AppHeaderSiteLink']:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+[class*='-AppHeaderQuickNewButton'] {
+  background: #fff !important;
+  color: var(--pia-navy) !important;
+  border-radius: 999px !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+[class*='-AppHeaderQuickNewButton']:hover {
+  background: var(--pia-blue-soft) !important;
+}
+
+[class*='-AvatarDropdownButton'] {
+  border: 2px solid rgba(255, 255, 255, 0.35) !important;
+}
+
+/* ---------- Layout ---------- */
+[class*='-AppMainContainer'] {
+  margin-top: 28px !important;
+}
+
+[class*='-CollectionContainer'] {
+  margin: 28px 24px !important;
+}
+
+/* ---------- Sidebar ---------- */
+[class*='-SidebarContainer'] {
+  background: var(--pia-card) !important;
+  border-radius: var(--pia-radius) !important;
+  box-shadow: var(--pia-shadow) !important;
+  border: 1px solid var(--pia-line);
+  padding-top: 8px;
+}
+
+[class*='-SidebarHeading'] {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--pia-muted) !important;
+  padding: 18px 20px 10px !important;
+}
+
+[class*='-SidebarNavLink'] {
+  margin: 2px 10px;
+  padding: 11px 14px !important;
+  border-radius: 10px;
+  border-left: none !important;
+  color: var(--pia-text) !important;
+  font-weight: 500 !important;
+  transition: background 0.15s, color 0.15s;
+}
+
+[class*='-SidebarNavLink']:hover {
+  background: var(--pia-bg) !important;
+  color: var(--pia-blue) !important;
+}
+
+[class*='-SidebarNavLink'].sidebar-active {
+  background: var(--pia-blue-soft) !important;
+  color: var(--pia-blue) !important;
+  font-weight: 600 !important;
+}
+
+[class*='-SearchContainer'] {
+  margin: 8px 14px 14px !important;
+}
+
+[class*='-SearchInput'] {
+  border-radius: 10px !important;
+  background: var(--pia-bg) !important;
+  border: 1px solid var(--pia-line) !important;
+}
+
+/* ---------- Collection header ---------- */
+[class*='-CollectionTopContainer'] {
+  background: var(--pia-card) !important;
+  border-radius: var(--pia-radius) !important;
+  box-shadow: var(--pia-shadow) !important;
+  border: 1px solid var(--pia-line);
+  padding: 22px 24px !important;
+  margin-bottom: 18px !important;
+}
+
+[class*='-CollectionTopHeading'] {
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  color: var(--pia-navy) !important;
+  letter-spacing: -0.3px;
+}
+
+[class*='-CollectionTopDescription'] {
+  color: var(--pia-muted) !important;
+  font-size: 14px !important;
+  line-height: 1.6;
+}
+
+[class*='-CollectionTopNewButton'],
+[class*='-CollectionTopNewButton']:hover {
+  background: var(--pia-navy) !important;
+  color: #fff !important;
+  border-radius: 999px !important;
+  padding: 0 22px !important;
+  height: 40px !important;
+  line-height: 40px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 12px rgba(16, 46, 74, 0.2) !important;
+}
+
+[class*='-CollectionTopNewButton']:hover {
+  background: var(--pia-blue) !important;
+}
+
+[class*='-CollectionControlsContainer'] {
+  margin-bottom: 14px !important;
+}
+
+[class*='-DropdownButton'] {
+  border-radius: 10px !important;
+  background: var(--pia-card) !important;
+  color: var(--pia-text) !important;
+  border: 1px solid var(--pia-line) !important;
+  box-shadow: none !important;
+}
+
+[class*='-DropdownList'] {
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: var(--pia-shadow) !important;
+  border: 1px solid var(--pia-line);
+}
+
+/* ---------- Entry cards ---------- */
+[class*='-ListCard'],
+[class*='-GridCard'] {
+  background: var(--pia-card) !important;
+  border-radius: 12px !important;
+  border: 1px solid var(--pia-line) !important;
+  box-shadow: none !important;
+  margin-bottom: 10px !important;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+[class*='-ListCard']:hover,
+[class*='-GridCard']:hover {
+  border-color: rgba(23, 77, 131, 0.35) !important;
+  box-shadow: var(--pia-shadow) !important;
+  transform: translateY(-1px);
+}
+
+[class*='-ListCardLink'] {
+  padding: 18px 22px !important;
+}
+
+[class*='-ListCardTitle'],
+[class*='-CardHeading'] {
+  color: var(--pia-navy) !important;
+  font-weight: 500 !important;
+  font-size: 15px !important;
+}
+
+[class*='-CardImage'] {
+  border-radius: 10px 10px 0 0;
+}
+
+[class*='-GroupHeading'] {
+  color: var(--pia-muted) !important;
+  font-size: 12px !important;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* ---------- Editor ---------- */
+[class*='-EditorContainer'] {
+  background: var(--pia-bg) !important;
+}
+
+[class*='-ToolbarContainer'] {
+  background: var(--pia-card) !important;
+  box-shadow: 0 1px 0 var(--pia-line), 0 4px 16px rgba(16, 46, 74, 0.05) !important;
+  border-bottom: none !important;
+}
+
+[class*='-ToolbarSectionBackLink'] {
+  color: var(--pia-navy) !important;
+}
+
+[class*='-ToolbarSectionBackLink'] div {
+  color: var(--pia-navy) !important;
+}
+
+[class*='-ToolbarButton'],
+[class*='-ToolbarDropdown'] > button {
+  border-radius: 999px !important;
+  font-weight: 600 !important;
+  padding: 0 18px !important;
+  box-shadow: none !important;
+}
+
+[class*='-PublishButton'],
+[class*='-ToolbarDropdown'] > button[class*='-PublishButton'] {
+  background: var(--pia-green) !important;
+  color: #fff !important;
+}
+
+[class*='-ControlPaneContainer'] {
+  max-width: 880px !important;
+  margin: 0 auto !important;
+  padding: 28px 24px 120px !important;
+  font-size: 15px !important;
+}
+
+[class*='-ControlContainer'] {
+  background: var(--pia-card);
+  border-radius: var(--pia-radius);
+  border: 1px solid var(--pia-line);
+  box-shadow: 0 1px 2px rgba(16, 46, 74, 0.04);
+  padding: 4px 4px 6px;
+  margin-top: 18px !important;
+}
+
+[class*='-ControlContainer'] [class*='-ControlContainer'] {
+  box-shadow: none;
+  border-color: #edf1f6;
+  margin-top: 12px !important;
+}
+
+[class*='-FieldLabel'] {
+  background: transparent !important;
+  color: var(--pia-navy) !important;
+  border: none !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.6px;
+  text-transform: none !important;
+  padding: 12px 16px 2px !important;
+}
+
+[class*='-ControlHint'] {
+  color: var(--pia-muted) !important;
+  font-size: 12.5px !important;
+  line-height: 1.55;
+  padding: 0 16px 10px !important;
+}
+
+[class*='-ControlContainer'] input[type='text'],
+[class*='-ControlContainer'] input[type='number'],
+[class*='-ControlContainer'] input:not([type]),
+[class*='-ControlContainer'] textarea {
+  border: 1px solid transparent !important;
+  border-radius: 10px !important;
+  background: #f8fafc !important;
+  color: var(--pia-text) !important;
+  font-size: 15px !important;
+  margin: 6px 12px 12px !important;
+  width: calc(100% - 24px) !important;
+  padding: 12px 14px !important;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+[class*='-ControlContainer'] input:focus,
+[class*='-ControlContainer'] textarea:focus {
+  background: #fff !important;
+  border-color: var(--pia-blue) !important;
+  box-shadow: 0 0 0 3px rgba(23, 77, 131, 0.12) !important;
+  outline: none !important;
+}
+
+[class*='-ControlErrorsList'] {
+  padding: 0 16px !important;
+}
+
+[class*='-ToggleBackground'] {
+  background: #cbd5e1 !important;
+}
+
+[class*='-ToggleContainer'][class*='active'] [class*='-ToggleBackground'],
+[class*='-ToggleBackground'][class*='active'] {
+  background: var(--pia-green) !important;
+}
+
+[class*='-ToggleContainer'] {
+  margin: 6px 16px 14px;
+}
+
+/* ---------- Media library ---------- */
+[class*='-CardGridContainer'] [class*='-Card'] {
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+/* ---------- Buttons everywhere ---------- */
+button[class*='-Button'] {
+  border-radius: 10px;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 799px) {
+  [class*='-CollectionContainer'] {
+    margin: 16px 12px !important;
+  }
+
+  [class*='-ControlPaneContainer'] {
+    padding: 16px 12px 100px !important;
+  }
+}
+
+/* ---------- Object and list widgets ---------- */
+[class*='-TopBar'],
+[class*='-TopBarContainer'] {
+  background: #f1f5f9 !important;
+  border-radius: 10px !important;
+  border: none !important;
+  min-height: 46px;
+}
+
+[class*='-TopBarButton'],
+[class*='-TopBarButtonSpan'] {
+  background: #fff !important;
+  color: var(--pia-navy) !important;
+  border-radius: 999px !important;
+  border: 1px solid var(--pia-line) !important;
+  font-weight: 600 !important;
+  padding: 4px 12px !important;
+}
+
+[class*='-ControlContainer'] > div[class*='-ObjectWidget'],
+[class*='-ControlContainer'] > div > div[class*='-ListItem'] {
+  border-color: var(--pia-line) !important;
+  border-radius: 12px !important;
+}
+
+[class*='-ListItem'] {
+  border-radius: 12px !important;
+}
+
+/* ---------- Login button sizing ---------- */
+[class*='-LoginButton'] {
+  max-width: 324px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
