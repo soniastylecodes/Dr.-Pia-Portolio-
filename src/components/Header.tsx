@@ -1,16 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Award,
-  BadgeCheck,
-  BookOpen,
-  ChevronDown,
-  Image as ImageIcon,
-  Mail,
-  Users,
-  X,
-} from 'lucide-react';
+import { ChevronDown, Mail, Users, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { asset, home, site } from '../lib/content';
+import { RotatingQuote } from './RotatingQuote';
 import { href, isPlainLeftClick, useRouter } from '../lib/router';
 
 interface HeaderProps {
@@ -275,19 +267,27 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
 
               <div className="pia-mobile-divider" />
 
-              {/* Icon-Prefixed Navigation Links */}
-              <nav
-                className="pia-mobile-sheet-nav"
-                aria-label="Mobile Navigation"
-              >
+              {/* Rotating quote from PIA */}
+              <RotatingQuote
+                quotes={home.menu.quotes || []}
+                author="Dr. Patience Ishaku Abbo"
+              />
+
+              {/* Primary actions */}
+              <div className="pia-mobile-actions">
                 <a
-                  href={href('/#pia-about')}
-                  onClick={(e) => handleSectionLink(e, 'pia-about')}
-                  className="pia-mobile-sheet-link"
+                  href={`mailto:${email}`}
+                  className="pia-mobile-action pia-mobile-action--message"
                 >
-                  <span className="pia-mobile-sheet-link-left">
-                    <BadgeCheck className="pia-mobile-sheet-icon" />
-                    <span>About PIA</span>
+                  <span className="pia-mobile-action-icon">
+                    <Mail className="w-[18px] h-[18px]" strokeWidth={1.9} />
+                  </span>
+                  <span className="pia-mobile-action-text">
+                    <strong>Send her a message</strong>
+                    <small>Invitations, partnerships and press</small>
+                  </span>
+                  <span className="pia-mobile-action-arrow" aria-hidden="true">
+                    →
                   </span>
                 </a>
 
@@ -297,64 +297,19 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
                     setMenuOpen(false);
                     setNetwork21ModalOpen(true);
                   }}
-                  className="pia-mobile-sheet-link w-full text-left"
+                  className="pia-mobile-action pia-mobile-action--network"
                 >
-                  <span className="pia-mobile-sheet-link-left">
-                    <Users className="pia-mobile-sheet-icon" />
-                    <span>Network 21</span>
+                  <span className="pia-mobile-action-icon">
+                    <Users className="w-[18px] h-[18px]" strokeWidth={1.9} />
                   </span>
-                  <span className="pia-mobile-sheet-pill">21 LGAs</span>
+                  <span className="pia-mobile-action-text">
+                    <strong>Join Network 21</strong>
+                    <small>Women across Adamawa’s 21 LGAs</small>
+                  </span>
+                  <span className="pia-mobile-action-arrow" aria-hidden="true">
+                    →
+                  </span>
                 </button>
-
-                <a
-                  href={href('/gallery/')}
-                  onClick={(e) => handlePageClick(e, '/gallery/')}
-                  className={`pia-mobile-sheet-link ${
-                    activePage === 'gallery' ? 'is-active' : ''
-                  }`}
-                >
-                  <span className="pia-mobile-sheet-link-left">
-                    <ImageIcon className="pia-mobile-sheet-icon" />
-                    <span>Gallery</span>
-                  </span>
-                </a>
-
-                <a
-                  href={href('/publications/')}
-                  onClick={(e) => handlePageClick(e, '/publications/')}
-                  className={`pia-mobile-sheet-link ${
-                    activePage === 'publications' ? 'is-active' : ''
-                  }`}
-                >
-                  <span className="pia-mobile-sheet-link-left">
-                    <BookOpen className="pia-mobile-sheet-icon" />
-                    <span>Publications</span>
-                  </span>
-                </a>
-
-                <a
-                  href={href('/awards/')}
-                  onClick={(e) => handlePageClick(e, '/awards/')}
-                  className={`pia-mobile-sheet-link ${
-                    activePage === 'awards' ? 'is-active' : ''
-                  }`}
-                >
-                  <span className="pia-mobile-sheet-link-left">
-                    <Award className="pia-mobile-sheet-icon" />
-                    <span>Awards</span>
-                  </span>
-                </a>
-              </nav>
-
-              {/* Bottom Pill CTA: Send her a message */}
-              <div className="pia-mobile-sheet-bottom">
-                <a
-                  href={`mailto:${email}`}
-                  className="pia-mobile-message-btn"
-                >
-                  <Mail className="w-4 h-4" />
-                  <span>Send her a message</span>
-                </a>
               </div>
             </motion.aside>
           </motion.div>

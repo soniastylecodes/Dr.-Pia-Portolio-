@@ -181,6 +181,11 @@ collections:
               - { label: Name Shown in Menu, name: displayName, widget: string }
               - { label: Menu Avatar Photo, name: avatar, widget: image }
               - { label: Network 21 Popup Photo, name: network21Image, widget: image }
+              - label: Her Quotes (rotate in the menu)
+                name: quotes
+                widget: list
+                hint: "Use only words she has actually said or approved. They change every few seconds."
+                field: { label: Quote, name: quote, widget: text }
           - label: Footer
             name: footer
             widget: object

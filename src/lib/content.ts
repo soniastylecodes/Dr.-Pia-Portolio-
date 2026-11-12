@@ -68,6 +68,7 @@ export interface HomeContent {
     displayName: string;
     avatar: string;
     network21Image: string;
+    quotes?: string[];
   };
   footer: {
     copyright: string;

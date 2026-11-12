@@ -77,7 +77,13 @@
   "menu": {
     "displayName": "Dr. Patience Abbo",
     "avatar": "/uploads/pia-portrait-studio.jpg",
-    "network21Image": "/uploads/pia-portrait-network21.jpg"
+    "network21Image": "/uploads/pia-portrait-network21.jpg",
+    "quotes": [
+      "Some journeys begin long before we have the words to describe them.",
+      "I founded Woman to Woman Network 21 to create a space where women can connect, grow, find opportunities and have their voices heard.",
+      "Through every season, I remain deeply committed to learning, serving and becoming better.",
+      "I am a woman whose story is still being written."
+    ]
   },
   "footer": {
     "copyright": "ALL RIGHTS RESERVED"
