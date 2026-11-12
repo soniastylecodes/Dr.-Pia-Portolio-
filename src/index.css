@@ -1264,7 +1264,7 @@
 }
 
 .pia-award-card-body {
-  padding: 22px 20px 24px;
+  padding: 20px 20px 22px;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -1291,15 +1291,15 @@
 }
 
 .pia-award-title {
-  margin: 0 0 8px;
-  font-size: 17px;
+  margin: 0 0 6px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.4;
   color: #102E4A;
 }
 
 .pia-award-org {
-  margin: 0 0 12px;
+  margin: 0;
   font-size: 12.5px;
   font-weight: 400;
   color: #5B6B7E;
@@ -2003,7 +2003,7 @@
   }
 
   .pia-award-title {
-    font-size: 18px;
+    font-size: 16.5px;
   }
 
   /* Footer on Desktop */

@@ -91,7 +91,6 @@ export const AwardsPage: React.FC<AwardsPageProps> = ({ onBackHome }) => {
               </p>
               <h2 className="pia-award-title">{item.title}</h2>
               <p className="pia-award-org">{item.organization}</p>
-              <p className="pia-award-desc">{item.description}</p>
             </div>
           </motion.article>
         ))}
