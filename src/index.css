@@ -362,73 +362,163 @@
   letter-spacing: 0.2px;
 }
 
-/* Drawer: quote and buttons */
-.pia-menu-quote {
-  margin: 8px 0 0;
-  padding: 0;
-  flex-shrink: 0;
+/* Mobile menu: full screen premium panel */
+.pia-menu-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 71;
+  display: flex;
+  flex-direction: column;
+  background: #0A1B2E;
+  color: #ffffff;
+  overflow: hidden;
 }
 
-.pia-menu-quote blockquote {
-  margin: 0;
-  font-family: 'Sora', sans-serif;
-  font-size: 17px;
-  font-weight: 300;
-  line-height: 1.6;
-  color: #0F172A;
+.pia-menu-portrait {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 70%;
+  overflow: hidden;
 }
 
-.pia-menu-quote figcaption {
-  margin-top: 14px;
+.pia-menu-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 14%;
+  transform: scale(1.35);
+  transform-origin: 50% 14%;
+  filter: saturate(0.92) contrast(1.02);
+}
+
+.pia-menu-portrait::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(10, 27, 46, 0.35) 0%, rgba(10, 27, 46, 0) 22%),
+    linear-gradient(to top, #0A1B2E 0%, rgba(10, 27, 46, 0.92) 18%, rgba(10, 27, 46, 0) 58%);
+}
+
+.pia-menu-close {
+  position: absolute;
+  top: calc(18px + env(safe-area-inset-top, 0px));
+  right: 18px;
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(10, 27, 46, 0.25);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.pia-menu-body {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding: 0 28px calc(30px + env(safe-area-inset-bottom, 0px));
+}
+
+.pia-menu-eyebrow {
+  margin: 0 0 18px;
   font-family: 'Sora', sans-serif;
   font-size: 10px;
   font-weight: 500;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: #94A3B8;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.pia-menu-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 22px;
+  height: 1px;
+  margin-right: 12px;
+  vertical-align: middle;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.pia-menu-quote {
+  margin: 0;
+  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 27px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.2px;
+  color: #ffffff;
+  text-shadow: 0 1px 18px rgba(10, 27, 46, 0.55);
 }
 
 .pia-menu-buttons {
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
-  margin-top: auto;
-  padding-top: 28px;
+  margin-top: 34px;
 }
 
 .pia-menu-btn {
-  width: 100%;
   height: 50px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
   border-radius: 999px;
-  border: 1px solid #E2E8F0;
-  background: #ffffff;
-  color: #0F172A !important;
   font-family: 'Sora', sans-serif;
-  font-size: 14px;
+  font-size: 12.5px;
   font-weight: 500;
+  letter-spacing: 0.3px;
   cursor: pointer;
-  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+  text-decoration: none;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
 
-.pia-menu-btn:hover {
-  border-color: #CBD5E1;
-  background: #F8FAFC;
+.pia-menu-btn:active {
+  transform: scale(0.97);
 }
 
-.pia-menu-btn--solid {
-  background: #102E4A;
-  border-color: #102E4A;
+.pia-menu-btn--light {
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  color: #0A1B2E !important;
+}
+
+.pia-menu-btn--ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   color: #ffffff !important;
 }
 
-.pia-menu-btn--solid:hover {
-  background: #174D83;
-  border-color: #174D83;
+.pia-menu-btn--ghost:hover {
+  border-color: #ffffff;
+}
+
+.pia-menu-email {
+  display: block;
+  margin-top: 22px;
+  text-align: center;
+  font-family: 'Sora', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.4px;
+  color: rgba(255, 255, 255, 0.45) !important;
+  text-decoration: none;
+}
+
+@media (max-height: 680px) {
+  .pia-menu-quote {
+    font-size: 23px;
+  }
+
+  .pia-menu-buttons {
+    margin-top: 26px;
+  }
 }
 
 /* ==========================================================================

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ChevronDown, Mail, Users, X } from 'lucide-react';
+import { ChevronDown, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { asset, home, site } from '../lib/content';
 import { RotatingQuote } from './RotatingQuote';
@@ -210,7 +210,7 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
         </button>
       </header>
 
-      {/* Slide-Over Mobile Profile Menu Drawer */}
+      {/* Mobile Menu: full screen premium panel */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -219,77 +219,90 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.22 }}
+            transition={{ duration: 0.35 }}
           >
             <motion.aside
-              className="pia-mobile-sheet"
+              className="pia-menu-panel"
               role="dialog"
               aria-modal="true"
-              aria-label="Mobile Navigation Menu"
+              aria-label="Menu"
               onClick={(e) => e.stopPropagation()}
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ duration: 0.32, ease: EASE_OUT }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease: EASE_OUT }}
             >
-              {/* Top Profile Section + Little Close Button */}
-              <div className="pia-mobile-profile-top">
-                <div className="pia-mobile-avatar-row">
-                  <div className="pia-mobile-avatar-ring">
-                    <img
-                      src={asset(home.menu.avatar)}
-                      alt="Dr. Patience Ishaku Abbo"
-                      className="pia-mobile-avatar-img"
-                      loading="lazy"
-                    />
-                  </div>
+              <motion.div
+                className="pia-menu-portrait"
+                initial={{ scale: 1.08, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 1.1, ease: EASE_OUT }}
+              >
+                <img
+                  src={asset(home.hero.image)}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                />
+              </motion.div>
 
+              <button
+                type="button"
+                onClick={() => setMenuOpen(false)}
+                className="pia-menu-close"
+                aria-label="Close menu"
+              >
+                <X className="w-[18px] h-[18px]" strokeWidth={1.5} />
+              </button>
+
+              <div className="pia-menu-body">
+                <motion.p
+                  className="pia-menu-eyebrow"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.25, ease: EASE_OUT }}
+                >
+                  Dr. Patience Ishaku Abbo
+                </motion.p>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.38, ease: EASE_OUT }}
+                >
+                  <RotatingQuote quotes={home.menu.quotes || []} />
+                </motion.div>
+
+                <motion.div
+                  className="pia-menu-buttons"
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.52, ease: EASE_OUT }}
+                >
+                  <a href={`mailto:${email}`} className="pia-menu-btn pia-menu-btn--light">
+                    Send a message
+                  </a>
                   <button
                     type="button"
-                    onClick={() => setMenuOpen(false)}
-                    className="pia-mobile-mini-close"
-                    aria-label="Close menu"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      setNetwork21ModalOpen(true);
+                    }}
+                    className="pia-menu-btn pia-menu-btn--ghost"
                   >
-                    <X className="w-4 h-4" strokeWidth={2} />
+                    Join Network 21
                   </button>
-                </div>
+                </motion.div>
 
-                <h2 className="pia-mobile-profile-name">
-                  {home.menu.displayName}
-                </h2>
-                <a
+                <motion.a
                   href={`mailto:${email}`}
-                  className="pia-mobile-profile-email"
+                  className="pia-menu-email"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.7, delay: 0.7 }}
                 >
                   {email}
-                </a>
-              </div>
-
-              <div className="pia-mobile-divider" />
-
-              {/* Rotating quote from PIA */}
-              <RotatingQuote
-                quotes={home.menu.quotes || []}
-                author="Dr. Patience Ishaku Abbo"
-              />
-
-              {/* Primary actions */}
-              <div className="pia-menu-buttons">
-                <a href={`mailto:${email}`} className="pia-menu-btn">
-                  <Mail className="w-4 h-4" strokeWidth={1.8} />
-                  <span>Send a message</span>
-                </a>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMenuOpen(false);
-                    setNetwork21ModalOpen(true);
-                  }}
-                  className="pia-menu-btn pia-menu-btn--solid"
-                >
-                  <Users className="w-4 h-4" strokeWidth={1.8} />
-                  <span>Join Network 21</span>
-                </button>
+                </motion.a>
               </div>
             </motion.aside>
           </motion.div>
