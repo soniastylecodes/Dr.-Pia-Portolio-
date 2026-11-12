@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-md: 56.25rem;
+}
+
 /* ==========================================================================
    PIA OFFICIAL PROFILE: EXACT DESKTOP & MOBILE REPLICA
    ========================================================================== */
@@ -1418,10 +1422,10 @@
 }
 
 /* ==========================================================================
-   DESKTOP MODE (>= 768px)
+   DESKTOP MODE (>= 900px)
    ========================================================================== */
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   /* ----------------------------------------------------------------------
      SCREENSHOT 1 TO 7: HEADER BAR
      Symmetrical 5-item bar: [ABOUT v] [GALLERY] [SINGLE LOGO] [PUBLICATIONS] [AWARDS]
@@ -2268,7 +2272,7 @@
   letter-spacing: 0.4px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 899px) {
   .pia-hero {
     padding-bottom: calc(124px + env(safe-area-inset-bottom, 0px));
   }
@@ -2278,7 +2282,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .pia-dock {
     display: none;
   }
@@ -2289,4 +2293,59 @@
   font-size: 14px;
   line-height: 1.7;
   color: #64748B;
+}
+
+/* ---------- Foldable inner screens and small tablets ---------- */
+@media (min-width: 600px) and (max-width: 899px) {
+  .pia-header,
+  .pia-mobile-sheet {
+    zoom: 1.15;
+  }
+
+  .pia-hero {
+    padding-left: 7%;
+    padding-right: 7%;
+    padding-bottom: calc(150px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .pia-hero h1 {
+    font-size: 46px;
+    letter-spacing: -1.1px;
+    margin-bottom: 20px;
+  }
+
+  .pia-hero p {
+    font-size: 17px;
+    line-height: 1.55;
+    max-width: 560px;
+    margin-bottom: 26px;
+  }
+
+  .pia-explore {
+    font-size: 12.5px;
+  }
+
+  main > :not(.pia-hero),
+  .pia-footer {
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+    zoom: 1.18;
+  }
+
+  .pia-footer {
+    max-width: none;
+  }
+
+  .pia-dock {
+    zoom: 1.15;
+  }
+
+  .pia-lightbox-stage {
+    max-height: 60vh;
+  }
+
+  .pia-profile img.pia-lightbox-img {
+    max-height: 58vh;
+  }
 }
