@@ -3,6 +3,10 @@ import { ChevronDown, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { asset, home, site } from '../lib/content';
 import { RotatingQuote } from './RotatingQuote';
+import { SOCIAL_ICONS } from './socialIcons';
+import { SocialKey } from '../lib/content';
+
+const MENU_SOCIALS: SocialKey[] = ['facebook', 'tiktok', 'x', 'youtube'];
 import { href, isPlainLeftClick, useRouter } from '../lib/router';
 
 interface HeaderProps {
@@ -55,6 +59,7 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
 
   const resolvedLogo = logoUrl;
   const email = site.email;
+  const menuSocials = MENU_SOCIALS.filter((key) => Boolean(site.socials?.[key]));
 
   const handleSectionLink = (
     e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
@@ -294,15 +299,28 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
                   </button>
                 </motion.div>
 
-                <motion.a
-                  href={`mailto:${email}`}
-                  className="pia-menu-email"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.7, delay: 0.7 }}
-                >
-                  {email}
-                </motion.a>
+                {menuSocials.length > 0 && (
+                  <motion.ul
+                    className="pia-menu-socials"
+                    aria-label="Follow Dr. Patience Ishaku Abbo"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.7, delay: 0.7 }}
+                  >
+                    {menuSocials.map((key) => (
+                      <li key={key}>
+                        <a
+                          href={site.socials[key]}
+                          target="_blank"
+                          rel="noopener noreferrer me"
+                          aria-label={`Dr. Patience Ishaku Abbo on ${SOCIAL_ICONS[key].label}`}
+                        >
+                          {SOCIAL_ICONS[key].icon}
+                        </a>
+                      </li>
+                    ))}
+                  </motion.ul>
+                )}
               </div>
             </motion.aside>
           </motion.div>
