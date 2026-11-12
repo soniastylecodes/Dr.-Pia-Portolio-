@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Award, CheckCircle2, Maximize2 } from 'lucide-react';
+import { ArrowLeft, Maximize2 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { asset, awards } from '../lib/content';
 
@@ -64,7 +64,6 @@ export const AwardsPage: React.FC<AwardsPageProps> = ({ onBackHome }) => {
               delay: idx * 0.06,
               ease: EASE_OUT,
             }}
-            whileHover={{ y: -5 }}
             onClick={() => setActiveIndex(idx)}
           >
             {/* Museum Matte & Framed Plaque Container */}
@@ -78,39 +77,20 @@ export const AwardsPage: React.FC<AwardsPageProps> = ({ onBackHome }) => {
                   decoding="async"
                 />
                 <span className="pia-award-zoom-badge" aria-hidden="true">
-                  <Maximize2 size={13} strokeWidth={2} />
+                  <Maximize2 size={14} strokeWidth={1.8} />
                 </span>
               </div>
             </div>
 
             {/* Plaque Details */}
             <div className="pia-award-card-body">
-              <div className="flex items-center justify-between gap-2 mb-2.5">
-                <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold tracking-[1.4px] uppercase text-[#174D83] bg-[#F0F6FC] px-2.5 py-1">
-                  <Award size={12} strokeWidth={2} />
-                  <span>{item.category}</span>
-                </span>
-                <span className="text-[11px] font-semibold tracking-[1.2px] uppercase text-[#8D99AE]">
-                  {item.year}
-                </span>
+              <div className="pia-award-meta">
+                <span>{item.year}</span>
+                <span>{item.category}</span>
               </div>
-
-              <h2 className="text-[16px] md:text-[17.5px] font-medium text-[#102E4A] leading-snug mb-2">
-                {item.title}
-              </h2>
-
-              <div className="inline-flex items-start gap-1.5 text-[11.5px] font-medium text-[#174D83] mb-3">
-                <CheckCircle2
-                  size={13}
-                  strokeWidth={2}
-                  className="shrink-0 mt-0.5"
-                />
-                <span>{item.organization}</span>
-              </div>
-
-              <p className="text-[12.5px] leading-[1.75] text-[#25343D]">
-                {item.description}
-              </p>
+              <h2 className="pia-award-title">{item.title}</h2>
+              <p className="pia-award-org">{item.organization}</p>
+              <p className="pia-award-desc">{item.description}</p>
             </div>
           </motion.article>
         ))}

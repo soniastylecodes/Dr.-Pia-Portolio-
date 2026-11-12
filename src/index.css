@@ -1172,83 +1172,139 @@
 .pia-awards-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 44px;
 }
 
 .pia-award-card {
-  background: #ffffff;
-  border: 1px solid #E5E7EB;
+  background: transparent;
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  transition: border-color 250ms ease, box-shadow 250ms ease;
-}
-
-.pia-award-card:hover {
-  border-color: rgba(23, 77, 131, 0.45);
-  box-shadow: 0 18px 36px rgba(16, 46, 74, 0.1);
 }
 
 .pia-award-frame-outer {
-  background: linear-gradient(145deg, #102E4A 0%, #174D83 100%);
-  padding: 10px;
-  border-bottom: 1px solid #E5E7EB;
+  padding: 0;
 }
 
 .pia-award-frame-matte {
   position: relative;
-  background: radial-gradient(circle at center, #FFFFFF 0%, #F1F5F9 100%);
-  border: 2px solid #D8E2ED;
-  box-shadow: inset 0 2px 10px rgba(16, 46, 74, 0.08);
-  padding: 14px;
-  height: 290px;
+  background: linear-gradient(180deg, #F7F8FA 0%, #EEF1F5 100%);
+  height: 320px;
+  padding: 34px 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  transition: background 400ms ease;
+}
+
+.pia-award-card:hover .pia-award-frame-matte {
+  background: linear-gradient(180deg, #F4F6F9 0%, #E8ECF2 100%);
 }
 
 .pia-profile img.pia-award-plaque-img {
   width: auto;
   max-width: 100%;
   height: auto;
-  max-height: 256px;
+  max-height: 252px;
   object-fit: contain;
   margin: 0 auto;
-  box-shadow: 0 8px 22px rgba(16, 46, 74, 0.22);
-  transition: transform 350ms ease;
+  border-radius: 2px;
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.08),
+    0 12px 24px -6px rgba(15, 23, 42, 0.18),
+    0 30px 50px -20px rgba(15, 23, 42, 0.25);
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 500ms ease;
 }
 
 .pia-award-card:hover .pia-award-plaque-img {
-  transform: scale(1.03);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 2px 4px rgba(15, 23, 42, 0.08),
+    0 18px 30px -8px rgba(15, 23, 42, 0.22),
+    0 40px 60px -24px rgba(15, 23, 42, 0.3);
 }
 
 .pia-award-zoom-badge {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
-  width: 30px;
-  height: 30px;
-  background: rgba(16, 46, 74, 0.85);
-  color: #ffffff;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #102E4A;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.85;
-  transition: background 200ms ease, transform 200ms ease, opacity 200ms ease;
+  opacity: 0;
+  transform: scale(0.9);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+  transition: opacity 250ms ease, transform 250ms ease;
 }
 
 .pia-award-card:hover .pia-award-zoom-badge {
-  background: #174D83;
   opacity: 1;
-  transform: scale(1.06);
+  transform: scale(1);
+}
+
+@media (hover: none) {
+  .pia-award-zoom-badge {
+    opacity: 0.9;
+    transform: scale(1);
+  }
 }
 
 .pia-award-card-body {
-  padding: 20px;
+  padding: 22px 2px 6px;
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+.pia-award-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #8A97A8;
+}
+
+.pia-award-meta span + span::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  margin: 0 10px 2px 0;
+  border-radius: 999px;
+  background: #C3CCD7;
+  vertical-align: middle;
+}
+
+.pia-award-title {
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #102E4A;
+}
+
+.pia-award-org {
+  margin: 0 0 12px;
+  font-size: 12.5px;
+  font-weight: 400;
+  color: #5B6B7E;
+}
+
+.pia-award-desc {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: #3B4856;
 }
 
 /* ==========================================================================
@@ -1919,21 +1975,21 @@
     gap: 30px;
   }
 
-  .pia-award-frame-outer {
-    padding: 12px;
+  .pia-awards-grid {
+    row-gap: 56px;
   }
 
   .pia-award-frame-matte {
-    height: 310px;
-    padding: 18px;
+    height: 360px;
+    padding: 40px 36px;
   }
 
   .pia-profile img.pia-award-plaque-img {
-    max-height: 270px;
+    max-height: 280px;
   }
 
-  .pia-award-card-body {
-    padding: 24px;
+  .pia-award-title {
+    font-size: 18px;
   }
 
   /* Footer on Desktop */
