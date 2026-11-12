@@ -1,5 +1,10 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useRef } from 'react';
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'motion/react';
 
 interface HeroProps {
   heroImageUrl: string;
@@ -19,22 +24,48 @@ export const Hero: React.FC<HeroProps> = ({
   ctaHref,
 }) => {
   const hasRealHeroPhoto = Boolean(heroImageUrl);
+  const sectionRef = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ['0%', '14%']);
+  const fadeOut = useTransform(scrollYProgress, [0, 0.85], [1, 0.35]);
 
   return (
-    <section className="pia-hero" id="top">
+    <section className="pia-hero" id="top" ref={sectionRef}>
       {hasRealHeroPhoto && (
         <motion.div
           className="pia-hero-portrait-layer"
-          initial={{ opacity: 0, scale: 1.06 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.15, ease: EASE_OUT }}
+          style={reduceMotion ? undefined : { y: parallaxY, opacity: fadeOut }}
         >
-          <img
-            src={heroImageUrl}
-            alt="Dr. Patience Ishaku Abbo, public policy advocate and humanitarian"
-            fetchPriority="high"
-            decoding="async"
-          />
+          <motion.div
+            className="pia-hero-portrait-reveal"
+            initial={
+              reduceMotion
+                ? false
+                : { clipPath: 'inset(100% 0% 0% 0%)', scale: 1.18 }
+            }
+            animate={{ clipPath: 'inset(0% 0% 0% 0%)', scale: 1 }}
+            transition={{ duration: 1.6, delay: 0.15, ease: EASE_OUT }}
+          >
+            <img
+              src={heroImageUrl}
+              alt="Dr. Patience Ishaku Abbo, public policy advocate and humanitarian"
+              fetchPriority="high"
+              decoding="async"
+            />
+          </motion.div>
+          {!reduceMotion && (
+            <motion.span
+              className="pia-hero-sheen"
+              aria-hidden="true"
+              initial={{ x: '-120%', opacity: 0 }}
+              animate={{ x: '120%', opacity: [0, 0.55, 0] }}
+              transition={{ duration: 1.8, delay: 1.35, ease: 'easeInOut' }}
+            />
+          )}
         </motion.div>
       )}
 
