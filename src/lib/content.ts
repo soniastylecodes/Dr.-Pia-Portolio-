@@ -193,5 +193,5 @@ export const publications: PublicationItem[] = collect<PublicationItem>(
   })
 ).sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
 
-export const LOGO = asset('/uploads/pia-na-sia-logo.png');
-export const LOGO_WHITE_GREEN = asset('/uploads/pia-na-sia-logo-white-green.png');
+export const LOGO = asset('/uploads/pia-na-sia-logo.webp');
+export const LOGO_WHITE_GREEN = asset('/uploads/pia-na-sia-logo-white-green.webp');

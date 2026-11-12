@@ -1,6 +1,6 @@
 {
   "hero": {
-    "image": "/uploads/dr-patience-ishaku-abbo-portrait.jpg",
+    "image": "/uploads/dr-patience-ishaku-abbo-portrait.webp",
     "titleLines": [
       "Leader",
       "Advocate",
@@ -17,7 +17,7 @@
       "She holds an Honorary Doctorate from the Evangelical Theological Seminary, Kaltungo, an affiliate of the University of Jos, conferred in 2024 in recognition of her humanitarian service. She has a PhD in Public Administration in view, alongside a Master's in Business Management. She is married to Sen. Ishaku Elisha Abbo and blessed with a daughter."
     ],
     "ctaLabel": "LEARN MORE ABOUT PIA",
-    "portrait": "/uploads/pia-portrait-bio.jpg",
+    "portrait": "/uploads/pia-portrait-bio.webp",
     "fullBioTitle": "Beyond the titles, beyond what you may have known me for, and beyond the name PIA, this is me.",
     "fullBio": [
       "I was once simply a girl child growing up in Michika, Adamawa State, with no idea how much of my life would eventually revolve around leadership and service. I did not even understand what leadership meant then, but responsibility seemed to find me early. One of my first experiences of it was serving as Head Girl at Government Secondary School, Michika. Looking back now, I realise that some journeys begin long before we have the words to describe them.",
@@ -31,7 +31,7 @@
   },
   "highlights": {
     "eyebrow": "PROFILE HIGHLIGHTS",
-    "portrait": "/uploads/pia-portrait-highlights.jpg",
+    "portrait": "/uploads/pia-portrait-highlights.webp",
     "items": [
       "Founder, Woman to Woman Network 21, active across Adamawa's 21 LGAs",
       "Former National President, Progressive Young Women Forum, Nigeria",
@@ -43,9 +43,9 @@
   "focusAreas": {
     "heading": "Focus areas under her leadership include",
     "closingNote": "",
-    "featurePhoto": "/uploads/pia-feature-portrait.jpg",
-    "photoLeft": "/uploads/pia-community-1.jpg",
-    "photoRight": "/uploads/pia-community-4.jpg",
+    "featurePhoto": "/uploads/pia-feature-portrait.webp",
+    "photoLeft": "/uploads/pia-community-1.webp",
+    "photoRight": "/uploads/pia-community-4.webp",
     "items": [
       {
         "name": "Women & Girls Development",
@@ -76,8 +76,8 @@
   },
   "menu": {
     "displayName": "Dr. Patience Abbo",
-    "avatar": "/uploads/pia-portrait-studio.jpg",
-    "network21Image": "/uploads/pia-portrait-network21.jpg",
+    "avatar": "/uploads/pia-portrait-studio.webp",
+    "network21Image": "/uploads/pia-portrait-network21.webp",
     "quotes": [
       "Some journeys begin long before we have the words to describe them.",
       "I founded Woman to Woman Network 21 to create a space where women can connect, grow, find opportunities and have their voices heard.",

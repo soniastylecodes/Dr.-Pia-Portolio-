@@ -15,7 +15,7 @@ backend:
 
 site_url: https://soniastylecodes.github.io/Dr.-Pia-Portolio-
 display_url: https://soniastylecodes.github.io/Dr.-Pia-Portolio-
-logo_url: ../uploads/pia-na-sia-logo.png
+logo_url: ../uploads/pia-na-sia-logo.webp
 
 editor:
   preview: false

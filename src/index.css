@@ -43,75 +43,42 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: radial-gradient(circle at center, #FFFFFF 0%, #F4F7FA 100%);
+  background: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
 }
 
-.pia-preloader-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  max-width: 360px;
-  width: 100%;
-  text-align: center;
-}
-
-.pia-preloader-logo-wrap {
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.pia-preloader-mark {
+  position: relative;
+  display: inline-flex;
+  will-change: transform, opacity, filter;
 }
 
 .pia-profile img.pia-preloader-logo {
+  display: block;
   width: auto;
   height: auto;
-  max-width: 240px;
-  max-height: 140px;
+  max-width: 200px;
+  max-height: 150px;
   object-fit: contain;
   margin: 0 auto;
-  filter: drop-shadow(0 10px 24px rgba(16, 46, 74, 0.1));
 }
 
-.pia-preloader-meta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-}
-
-.pia-preloader-title {
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #102E4A;
-}
-
-.pia-preloader-bar-track {
-  width: 200px;
-  height: 3px;
-  background: #E2E8F0;
-  overflow: hidden;
-  position: relative;
-}
-
-.pia-preloader-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #102E4A 0%, #174D83 55%, #1E5E3A 100%);
-}
-
-.pia-preloader-percent {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  color: #64748B;
+.pia-preloader-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.85) 50%,
+    transparent 65%
+  );
+  background-size: 60% 100%;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
 }
 
 /* ==========================================================================
@@ -1532,7 +1499,7 @@
   }
 
   .pia-profile img.pia-preloader-logo {
-    max-width: 290px;
+    max-width: 230px;
     max-height: 170px;
   }
 

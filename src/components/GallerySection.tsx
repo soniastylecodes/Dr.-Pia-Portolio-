@@ -36,7 +36,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
   };
 
   const getDownloadFilename = (item: GalleryPhoto, index: number) =>
-    `dr-patience-ishaku-abbo-pia-${index + 1}.jpg`;
+    `dr-patience-ishaku-abbo-pia-${index + 1}.${item.image.split(".").pop() || "jpg"}`;
   const activeNumber = activePhotoIndex ?? 0;
 
   return (

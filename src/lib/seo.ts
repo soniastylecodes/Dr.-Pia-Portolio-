@@ -211,7 +211,7 @@ export function buildHead(route: Route): HeadData {
               name: site.siteName,
               logo: {
                 '@type': 'ImageObject',
-                url: absoluteUrl(asset('/uploads/pia-na-sia-logo.png')),
+                url: absoluteUrl(asset('/uploads/pia-na-sia-logo.webp')),
               },
             },
             about: { '@id': `${absoluteUrl(href('/'))}#person` },
