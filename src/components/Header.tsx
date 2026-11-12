@@ -274,41 +274,21 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
               />
 
               {/* Primary actions */}
-              <div className="pia-mobile-actions">
-                <a
-                  href={`mailto:${email}`}
-                  className="pia-mobile-action pia-mobile-action--message"
-                >
-                  <span className="pia-mobile-action-icon">
-                    <Mail className="w-[18px] h-[18px]" strokeWidth={1.9} />
-                  </span>
-                  <span className="pia-mobile-action-text">
-                    <strong>Send her a message</strong>
-                    <small>Invitations, partnerships and press</small>
-                  </span>
-                  <span className="pia-mobile-action-arrow" aria-hidden="true">
-                    →
-                  </span>
+              <div className="pia-menu-buttons">
+                <a href={`mailto:${email}`} className="pia-menu-btn">
+                  <Mail className="w-4 h-4" strokeWidth={1.8} />
+                  <span>Send a message</span>
                 </a>
-
                 <button
                   type="button"
                   onClick={() => {
                     setMenuOpen(false);
                     setNetwork21ModalOpen(true);
                   }}
-                  className="pia-mobile-action pia-mobile-action--network"
+                  className="pia-menu-btn pia-menu-btn--solid"
                 >
-                  <span className="pia-mobile-action-icon">
-                    <Users className="w-[18px] h-[18px]" strokeWidth={1.9} />
-                  </span>
-                  <span className="pia-mobile-action-text">
-                    <strong>Join Network 21</strong>
-                    <small>Women across Adamawa’s 21 LGAs</small>
-                  </span>
-                  <span className="pia-mobile-action-arrow" aria-hidden="true">
-                    →
-                  </span>
+                  <Users className="w-4 h-4" strokeWidth={1.8} />
+                  <span>Join Network 21</span>
                 </button>
               </div>
             </motion.aside>
