@@ -2325,6 +2325,15 @@
     font-size: 12.5px;
   }
 
+  .pia-hero-content {
+    text-align: center;
+  }
+
+  .pia-hero p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   main > :not(.pia-hero),
   .pia-footer {
     max-width: 580px;
@@ -2347,5 +2356,48 @@
 
   .pia-profile img.pia-lightbox-img {
     max-height: 58vh;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+  .pia-hero-pipe {
+    position: absolute;
+  }
+
+  .pia-hero-portrait-layer img {
+    object-position: center 0%;
+    transform-origin: 50% 0%;
+    transform: scale(1.1) translateY(-9%);
+    animation: none;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 899px) and (orientation: landscape) {
+  .pia-hero-portrait-layer img {
+    transform: scale(1.14) translateY(-10%);
+  }
+
+  .pia-hero h1 br {
+    display: none;
+  }
+
+  .pia-hero-pipe {
+    position: static;
+    margin: 0 12px 0 10px;
+  }
+
+  .pia-hero {
+    padding-bottom: calc(132px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .pia-hero h1 {
+    font-size: 36px;
+    margin-bottom: 14px;
+  }
+
+  .pia-hero p {
+    font-size: 15px;
+    max-width: 520px;
+    margin-bottom: 18px;
   }
 }
