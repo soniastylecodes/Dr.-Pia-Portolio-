@@ -7,26 +7,23 @@ import {
   Users,
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { PiaPhotoSlotKey, PiaPhotoSlots, PiaSectorItem } from '../types/pia';
+import { FocusIcon } from '../lib/content';
 import { CommunityPhotos } from './CommunityPhotos';
 import { FeatureImage } from './FeatureImage';
 
 interface AreasOfInterestProps {
   heading: string;
   closingNote: string;
-  items: PiaSectorItem[];
+  items: { name: string; icon: FocusIcon }[];
   featurePhotoUrl: string;
-  communityPhotos: Pick<
-    PiaPhotoSlots,
-    'communityImageOneUrl' | 'communityImageTwoUrl'
-  >;
-  onSelectSlot: (slotKey: PiaPhotoSlotKey) => void;
+  photoLeftUrl: string;
+  photoRightUrl: string;
 }
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const SectorIllustration: React.FC<{
-  type: PiaSectorItem['iconType'];
+  type: FocusIcon;
 }> = ({ type }) => {
   switch (type) {
     case 'women':
@@ -51,6 +48,8 @@ const SectorIllustration: React.FC<{
       return (
         <Monitor size={20} strokeWidth={1.75} className="text-[#174D83]" />
       );
+    default:
+      return <Users size={20} strokeWidth={1.75} className="text-[#174D83]" />;
   }
 };
 
@@ -59,8 +58,8 @@ export const AreasOfInterest: React.FC<AreasOfInterestProps> = ({
   closingNote,
   items,
   featurePhotoUrl,
-  communityPhotos,
-  onSelectSlot,
+  photoLeftUrl,
+  photoRightUrl,
 }) => {
   return (
     <div id="pia-sectors" className="pia-focus-composite">
@@ -72,10 +71,7 @@ export const AreasOfInterest: React.FC<AreasOfInterestProps> = ({
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.85, ease: EASE_OUT }}
       >
-        <FeatureImage
-          featurePhotoUrl={featurePhotoUrl}
-          onSelectSlot={onSelectSlot}
-        />
+        <FeatureImage featurePhotoUrl={featurePhotoUrl} />
       </motion.div>
 
       {/* Sectors + Supporting 2-Column Photos: Bottom on Mobile, Left Column on Desktop */}
@@ -94,7 +90,7 @@ export const AreasOfInterest: React.FC<AreasOfInterestProps> = ({
           <section className="pia-sectors">
             {items.map((sector, index) => (
               <motion.div
-                key={sector.id}
+                key={`${index}-${sector.name}`}
                 className="pia-sector"
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -107,7 +103,7 @@ export const AreasOfInterest: React.FC<AreasOfInterestProps> = ({
                 whileHover={{ x: 6 }}
               >
                 <span className="pia-sector-icon-box">
-                  <SectorIllustration type={sector.iconType} />
+                  <SectorIllustration type={sector.icon} />
                 </span>
                 <span>{sector.name}</span>
               </motion.div>
@@ -133,10 +129,7 @@ export const AreasOfInterest: React.FC<AreasOfInterestProps> = ({
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, delay: 0.15, ease: EASE_OUT }}
         >
-          <CommunityPhotos
-            photos={communityPhotos}
-            onSelectSlot={onSelectSlot}
-          />
+          <CommunityPhotos leftUrl={photoLeftUrl} rightUrl={photoRightUrl} />
         </motion.div>
       </div>
     </div>

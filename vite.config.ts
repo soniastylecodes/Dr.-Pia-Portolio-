@@ -1,15 +1,29 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import fs from 'fs';
 import path from 'path';
-import {defineConfig} from 'vite';
+import { defineConfig } from 'vite';
+
+function basePath(): string {
+  if (process.env.SITE_BASE) return process.env.SITE_BASE;
+  try {
+    const site = JSON.parse(
+      fs.readFileSync(path.resolve(import.meta.dirname, 'content/settings/site.json'), 'utf8')
+    );
+    const pathname = new URL(site.siteUrl).pathname.replace(/\/+$/, '');
+    return `${pathname}/`;
+  } catch {
+    return '/';
+  }
+}
 
 export default defineConfig(() => {
   return {
-    base: './',
+    base: basePath(),
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': path.resolve(import.meta.dirname, '.'),
       },
     },
     server: {

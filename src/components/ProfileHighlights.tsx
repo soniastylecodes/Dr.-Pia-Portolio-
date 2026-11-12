@@ -1,13 +1,11 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { PiaHighlightItem, PiaPhotoSlotKey } from '../types/pia';
 import { PiaImage } from './PiaImage';
 
 interface ProfileHighlightsProps {
   eyebrow: string;
-  items: PiaHighlightItem[];
-  leftPortraitUrl: string;
-  onSelectSlot: (slotKey: PiaPhotoSlotKey) => void;
+  items: string[];
+  portraitUrl: string;
 }
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -15,8 +13,7 @@ const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 export const ProfileHighlights: React.FC<ProfileHighlightsProps> = ({
   eyebrow,
   items,
-  leftPortraitUrl,
-  onSelectSlot,
+  portraitUrl,
 }) => {
   return (
     <section className="pia-highlights-section" id="pia-highlights">
@@ -29,10 +26,8 @@ export const ProfileHighlights: React.FC<ProfileHighlightsProps> = ({
         transition={{ duration: 0.85, ease: EASE_OUT }}
       >
         <PiaImage
-          slotKey="portraitThreeUrl"
-          src={leftPortraitUrl}
+          src={portraitUrl}
           alt="Dr. Patience Ishaku Abbo leadership portrait"
-          onSelectSlot={onSelectSlot}
         />
       </motion.div>
 
@@ -50,7 +45,7 @@ export const ProfileHighlights: React.FC<ProfileHighlightsProps> = ({
 
         {items.map((item, index) => (
           <motion.div
-            key={item.id}
+            key={`${index}-${item.slice(0, 24)}`}
             className="pia-highlight"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -62,7 +57,7 @@ export const ProfileHighlights: React.FC<ProfileHighlightsProps> = ({
             }}
             whileHover={{ x: 6 }}
           >
-            <span>{item.text}</span>
+            <span>{item}</span>
             <span className="pia-highlight-arrow" aria-hidden="true">
               ↗
             </span>

@@ -1,0 +1,85 @@
+{
+  "hero": {
+    "image": "/uploads/dr-patience-ishaku-abbo-portrait.jpg",
+    "titleLines": [
+      "Leader",
+      "Advocate",
+      "Change Maker"
+    ],
+    "description": "Dr. Patience Ishaku Abbo is a politician, public policy advocate, humanitarian, and community leader whose work spans governance, women’s advancement, and grassroots service.",
+    "ctaLabel": "EXPLORE PROFILE"
+  },
+  "about": {
+    "eyebrow": "SHORT BIO",
+    "leadHeading": "Dr. Patience Ishaku Abbo is a public policy advocate, humanitarian and founder of Woman to Woman Network 21.",
+    "paragraphs": [
+      "Her leadership began early, as Head Girl at Government Secondary School, Michika. She earned a Diploma in Mass Communication and a Degree in Library and Information Science from the University of Maiduguri, followed by a Postgraduate Diploma in Public Administration and a Master's in Public Policy Analysis.",
+      "She holds an Honorary Doctorate from the Evangelical Theological Seminary, Kaltungo, an affiliate of the University of Jos, conferred in 2024 in recognition of her humanitarian service. She has a PhD in Public Administration in view, alongside a Master's in Business Management. She is married to Sen. Ishaku Elisha Abbo and blessed with a daughter."
+    ],
+    "ctaLabel": "LEARN MORE ABOUT PIA",
+    "portrait": "/uploads/pia-portrait-bio.jpg",
+    "fullBioTitle": "Beyond the titles, beyond what you may have known me for, and beyond the name PIA, this is me.",
+    "fullBio": [
+      "I was once simply a girl child growing up in Michika, Adamawa State, with no idea how much of my life would eventually revolve around leadership and service. I did not even understand what leadership meant then, but responsibility seemed to find me early. One of my first experiences of it was serving as Head Girl at Government Secondary School, Michika. Looking back now, I realise that some journeys begin long before we have the words to describe them.",
+      "Education opened another chapter of my life. I started with a diploma in Mass Communication at the University of Maiduguri and later continued my degree into Library and Information Science. As the years went by, learning became more than earning certificates for me. I became increasingly curious about people, governance, decisions and how policies eventually affect everyday lives. That curiosity took me further into a PGD in Public Administration, a Master’s in Public Policy Analysis and eventually pursuing my PhD in Public Administration soon and I am still learning, with another Master’s in Business Management currently in progress.",
+      "Life also kept taking me beyond the classroom. I found myself working with women and young people, getting involved in humanitarian service, community development and politics. I served as National President of the Progressive Young Women Forum in Nigeria, and at different points in my journey, I have stepped forward to participate in political leadership and seek elective office. Each experience has taught me something about people, responsibility, service and the kind of leader I continue to aspire to become.",
+      "Today, that journey continues through Woman to Woman Network 21, which I founded to create a space where women across Adamawa’s 21 Local Government Areas can connect, grow, find opportunities and have their voices heard. Beyond the awards, titles and political seasons, there have been lessons, mistakes, growth and many chapters that have never made it here. Through all of them, however, I have remained deeply committed to learning, serving and becoming better with every season.",
+      "She is happily married to Sen. Ishaku Elisha Abbo and blessed with a daughter.",
+      "So, beyond everything you may already know about PIA, this is a little more of the woman behind the name.",
+      "A politician. A public policy advocate. A humanitarian. A community leader. And above all, a woman whose story is still being written."
+    ]
+  },
+  "highlights": {
+    "eyebrow": "PROFILE HIGHLIGHTS",
+    "portrait": "/uploads/pia-portrait-highlights.jpg",
+    "items": [
+      "Founder, Woman to Woman Network 21, active across Adamawa's 21 LGAs",
+      "Former National President, Progressive Young Women Forum, Nigeria",
+      "Honorary Doctorate, Evangelical Theological Seminary, Kaltungo (affiliated to the University of Jos), 2024",
+      "PhD in Public Administration (in view)",
+      "Rooted in Michika, Adamawa State, and committed to humanitarian service and community development"
+    ]
+  },
+  "focusAreas": {
+    "heading": "Focus areas under her leadership include",
+    "closingNote": "",
+    "featurePhoto": "/uploads/pia-feature-portrait.jpg",
+    "photoLeft": "/uploads/pia-community-1.jpg",
+    "photoRight": "/uploads/pia-community-4.jpg",
+    "items": [
+      {
+        "name": "Women & Girls Development",
+        "icon": "women"
+      },
+      {
+        "name": "Education & Opportunity",
+        "icon": "education"
+      },
+      {
+        "name": "Community Development",
+        "icon": "community"
+      },
+      {
+        "name": "Healthcare & Social Impact",
+        "icon": "healthcare"
+      },
+      {
+        "name": "ICT Learning & Innovation",
+        "icon": "technology"
+      }
+    ]
+  },
+  "news": {
+    "eyebrow": "PRESS RELEASES & MEDIA",
+    "showOnHome": true,
+    "count": 6
+  },
+  "menu": {
+    "displayName": "Dr. Patience Abbo",
+    "avatar": "/uploads/pia-portrait-studio.jpg",
+    "network21Image": "/uploads/pia-portrait-network21.jpg"
+  },
+  "footer": {
+    "copyright": "ALL RIGHTS RESERVED"
+  }
+}

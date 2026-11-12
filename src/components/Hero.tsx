@@ -1,15 +1,12 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { isPlaceholderToken } from '../data/piaContent';
-import { PiaPhotoSlotKey } from '../types/pia';
 
 interface HeroProps {
   heroImageUrl: string;
-  titleLines: [string, string, string];
+  titleLines: string[];
   description: string;
   ctaLabel: string;
   ctaHref: string;
-  onSelectSlot: (slotKey: PiaPhotoSlotKey) => void;
 }
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -21,7 +18,7 @@ export const Hero: React.FC<HeroProps> = ({
   ctaLabel,
   ctaHref,
 }) => {
-  const hasRealHeroPhoto = !isPlaceholderToken(heroImageUrl);
+  const hasRealHeroPhoto = Boolean(heroImageUrl);
 
   return (
     <section className="pia-hero" id="top">
@@ -34,8 +31,9 @@ export const Hero: React.FC<HeroProps> = ({
         >
           <img
             src={heroImageUrl}
-            alt="Dr. Patience Ishaku Abbo"
-            referrerPolicy="no-referrer"
+            alt="Dr. Patience Ishaku Abbo, public policy advocate and humanitarian"
+            fetchPriority="high"
+            decoding="async"
           />
         </motion.div>
       )}

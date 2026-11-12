@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Download } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { PiaGalleryItem } from '../types/pia';
+import { asset, GalleryPhoto } from '../lib/content';
 
 interface GallerySectionProps {
   eyebrow: string;
   heading: string;
-  items: PiaGalleryItem[];
+  items: GalleryPhoto[];
   onBackHome: () => void;
 }
 
@@ -35,8 +35,9 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
     setActivePhotoIndex((activePhotoIndex + 1) % items.length);
   };
 
-  const getDownloadFilename = (item: PiaGalleryItem) =>
-    `Dr. Patience Ishaku Abbo (PIA) ${item.symbol}.jpg`;
+  const getDownloadFilename = (item: GalleryPhoto, index: number) =>
+    `dr-patience-ishaku-abbo-pia-${index + 1}.jpg`;
+  const activeNumber = activePhotoIndex ?? 0;
 
   return (
     <motion.section
@@ -63,7 +64,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
       <div className="pia-gallery-grid">
         {items.map((item, index) => (
           <motion.figure
-            key={item.id}
+            key={`${index}-${item.image}`}
             className="pia-gallery-card"
             onClick={() => setActivePhotoIndex(index)}
             initial={{ opacity: 0, y: 24 }}
@@ -77,17 +78,18 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
           >
             <div className="pia-gallery-img-wrap">
               <img
-                src={item.src}
-                alt={item.title}
-                referrerPolicy="no-referrer"
+                src={asset(item.image)}
+                alt={item.caption || 'Dr. Patience Ishaku Abbo (PIA)'}
+                loading="lazy"
+                decoding="async"
               />
               <div className="pia-gallery-hover-overlay">
                 <a
-                  href={item.src}
-                  download={getDownloadFilename(item)}
+                  href={asset(item.image)}
+                  download={getDownloadFilename(item, index)}
                   onClick={(e) => e.stopPropagation()}
                   className="pia-gallery-hover-download"
-                  title={`Download ${item.title}`}
+                  title={`Download ${item.caption || 'photo'}`}
                 >
                   <Download size={14} strokeWidth={2} />
                   <span>Download</span>
@@ -105,7 +107,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
             onClick={() => setActivePhotoIndex(null)}
             role="dialog"
             aria-modal="true"
-            aria-label={activePhoto.title}
+            aria-label={activePhoto.caption || 'Photo'}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -121,8 +123,8 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
             >
               <div className="flex items-center justify-between gap-4 mb-3">
                 <a
-                  href={activePhoto.src}
-                  download={getDownloadFilename(activePhoto)}
+                  href={asset(activePhoto.image)}
+                  download={getDownloadFilename(activePhoto, activeNumber)}
                   className="inline-flex items-center gap-1.5 bg-[#174D83] text-white! px-3.5 py-2 text-[11px] font-semibold tracking-[1.2px] uppercase hover:bg-[#102E4A] transition-colors"
                 >
                   <Download size={13} strokeWidth={2} />
@@ -139,10 +141,9 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
 
               <div className="pia-lightbox-stage">
                 <img
-                  src={activePhoto.src}
-                  alt={activePhoto.title}
+                  src={asset(activePhoto.image)}
+                  alt={activePhoto.caption || 'Dr. Patience Ishaku Abbo (PIA)'}
                   className="pia-lightbox-img"
-                  referrerPolicy="no-referrer"
                 />
               </div>
 

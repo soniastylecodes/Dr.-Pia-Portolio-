@@ -3,55 +3,37 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AboutSection } from './components/AboutSection';
 import { AreasOfInterest } from './components/AreasOfInterest';
 import { AwardsPage } from './components/AwardsPage';
 import { Footer } from './components/Footer';
 import { GallerySection } from './components/GallerySection';
-import { Header, PiaPageKey } from './components/Header';
+import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { PhotoSlotModal } from './components/PhotoSlotModal';
+import { NewsArticlePage } from './components/NewsArticlePage';
+import { NotFoundPage } from './components/NotFoundPage';
 import { Preloader } from './components/Preloader';
 import { PressSection } from './components/PressSection';
 import { ProfileHighlights } from './components/ProfileHighlights';
 import { PublicationsPage } from './components/PublicationsPage';
-import {
-  DEFAULT_PHOTO_SLOTS,
-  isPlaceholderToken,
-  PIA_CONTENT,
-} from './data/piaContent';
-import { PiaPhotoSlotKey, PiaPhotoSlots } from './types/pia';
+import { asset, gallery, home, LOGO, LOGO_WHITE_GREEN, news, site } from './lib/content';
+import { href, matchRoute, Route, RouterContext } from './lib/router';
+import { applyHeadToDocument, buildHead } from './lib/seo';
 
-const STORAGE_KEY = 'pia_official_photo_slots_v10';
+interface AppProps {
+  initialPath?: string;
+}
 
-export default function App() {
-  const [photoSlots, setPhotoSlots] = useState<PiaPhotoSlots>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved) as Partial<PiaPhotoSlots>;
-        const merged: PiaPhotoSlots = { ...DEFAULT_PHOTO_SLOTS };
-        (Object.keys(DEFAULT_PHOTO_SLOTS) as PiaPhotoSlotKey[]).forEach(
-          (key) => {
-            const val = parsed[key];
-            if (val && !isPlaceholderToken(val)) {
-              merged[key] = val;
-            }
-          }
-        );
-        return merged;
-      }
-    } catch {
-      // Ignore storage read errors
-    }
-    return DEFAULT_PHOTO_SLOTS;
-  });
-
-  const [activePage, setActivePage] = useState<PiaPageKey>('home');
-  const [photoModalOpen, setPhotoModalOpen] = useState(false);
-  const [focusedSlot, setFocusedSlot] = useState<PiaPhotoSlotKey | null>(null);
+export default function App({ initialPath }: AppProps) {
+  const [route, setRoute] = useState<Route>(() =>
+    matchRoute(
+      initialPath ??
+        (typeof window !== 'undefined' ? window.location.pathname : '/')
+    )
+  );
   const [isLoading, setIsLoading] = useState(true);
+  const firstRender = useRef(true);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -61,172 +43,141 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(photoSlots));
-    } catch {
-      // Ignore storage quota errors
-    }
-  }, [photoSlots]);
+    const onPop = () => setRoute(matchRoute(window.location.pathname));
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
 
-  const handleNavigate = (page: PiaPageKey, sectionId?: string) => {
-    const isPageChange = page !== activePage;
-    if (isPageChange) {
-      setIsLoading(true);
-      window.setTimeout(() => {
-        setIsLoading(false);
-      }, 650);
-    }
-
-    setActivePage(page);
-    if (page !== 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      const hash = window.location.hash.slice(1);
+      if (hash && route.page === 'home') {
+        window.setTimeout(() => {
+          document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+        }, 1600);
+      }
       return;
     }
-    setTimeout(() => {
-      if (!sectionId || sectionId === 'top') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    applyHeadToDocument(buildHead(route));
+  }, [route]);
+
+  const navigate = useCallback(
+    (path: string, sectionId?: string) => {
+      const next = matchRoute(href(path));
+      const isPageChange = next.path !== route.path;
+
+      if (isPageChange) {
+        setIsLoading(true);
+        window.setTimeout(() => {
+          setIsLoading(false);
+        }, 650);
+        window.history.pushState(
+          {},
+          '',
+          href(path) + (sectionId && sectionId !== 'top' ? `#${sectionId}` : '')
+        );
+        setRoute(next);
+      }
+
+      if (next.page !== 'home' || !sectionId || sectionId === 'top') {
+        window.scrollTo({ top: 0, behavior: isPageChange ? 'auto' : 'smooth' });
         return;
       }
-      const el = document.getElementById(sectionId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 30);
-  };
 
-  const handleOpenPhotoManager = (initialSlot?: PiaPhotoSlotKey) => {
-    setFocusedSlot(initialSlot ?? null);
-    setPhotoModalOpen(true);
-  };
+      window.setTimeout(
+        () => {
+          document
+            .getElementById(sectionId)
+            ?.scrollIntoView({ behavior: 'smooth' });
+        },
+        isPageChange ? 700 : 30
+      );
+    },
+    [route.path]
+  );
 
-  const handleUpdateSlot = (slotKey: PiaPhotoSlotKey, value: string) => {
-    setPhotoSlots((prev) => ({
-      ...prev,
-      [slotKey]: value,
-    }));
-  };
-
-  const handleResetSlots = () => {
-    setPhotoSlots(DEFAULT_PHOTO_SLOTS);
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch {
-      // Ignore storage errors
-    }
-  };
+  const routerValue = useMemo(() => ({ route, navigate }), [route, navigate]);
+  const backHome = () => navigate('/', 'top');
+  const homeNews = news.slice(0, Math.max(1, home.news.count || 6));
 
   return (
-    <div className="pia-profile">
-      {/* FULL-SCREEN BRAND PRELOADER */}
-      <Preloader isVisible={isLoading} logoUrl={photoSlots.logoUrl} />
+    <RouterContext.Provider value={routerValue}>
+      <div className="pia-profile">
+        <Preloader isVisible={isLoading} logoUrl={LOGO} />
 
-      {/* HEADER (Centered Logo + ABOUT / GALLERY / PUBLICATIONS / AWARDS on Desktop; Left Logo + Staggered Menu on Mobile) */}
-      <Header
-        logoUrl={photoSlots.logoUrl}
-        activePage={activePage}
-        onNavigate={handleNavigate}
-        onOpenPhotoManager={handleOpenPhotoManager}
-      />
+        <Header logoUrl={LOGO} />
 
-      {activePage === 'home' && (
-        <>
-          {/* HERO (Left Subject Portrait + Right Oversized Typography on Desktop; Full-Bleed Overlay on Mobile) */}
-          <Hero
-            heroImageUrl={photoSlots.heroImageUrl}
-            titleLines={PIA_CONTENT.hero.titleLines}
-            description={PIA_CONTENT.hero.description}
-            ctaLabel={PIA_CONTENT.hero.ctaLabel}
-            ctaHref={PIA_CONTENT.hero.ctaHref}
-            onSelectSlot={handleOpenPhotoManager}
-          />
+        <main>
+          {route.page === 'home' && (
+            <>
+              <Hero
+                heroImageUrl={asset(home.hero.image)}
+                titleLines={home.hero.titleLines}
+                description={home.hero.description}
+                ctaLabel={home.hero.ctaLabel}
+                ctaHref="#pia-about"
+              />
 
-          {/* SHORT BIO + PORTRAIT 1 */}
-          <AboutSection
-            eyebrow={PIA_CONTENT.about.eyebrow}
-            leadHeading={PIA_CONTENT.about.leadHeading}
-            paragraphs={PIA_CONTENT.about.paragraphs}
-            extendedParagraphs={PIA_CONTENT.about.extendedParagraphs}
-            ctaLabel={PIA_CONTENT.about.ctaLabel}
-            portraitOneUrl={photoSlots.portraitOneUrl}
-            onSelectSlot={handleOpenPhotoManager}
-          />
+              <AboutSection
+                eyebrow={home.about.eyebrow}
+                leadHeading={home.about.leadHeading}
+                paragraphs={home.about.paragraphs}
+                fullBioTitle={home.about.fullBioTitle}
+                fullBio={home.about.fullBio}
+                ctaLabel={home.about.ctaLabel}
+                portraitUrl={asset(home.about.portrait)}
+              />
 
-          {/* PROFILE HIGHLIGHTS */}
-          <ProfileHighlights
-            eyebrow={PIA_CONTENT.highlights.eyebrow}
-            items={PIA_CONTENT.highlights.items}
-            leftPortraitUrl={photoSlots.portraitThreeUrl}
-            onSelectSlot={handleOpenPhotoManager}
-          />
+              <ProfileHighlights
+                eyebrow={home.highlights.eyebrow}
+                items={home.highlights.items}
+                portraitUrl={asset(home.highlights.portrait)}
+              />
 
-          {/* FOCUS AREAS + SUPPORTING PHOTOS & TALL FEATURE IMAGE */}
-          <AreasOfInterest
-            heading={PIA_CONTENT.sectors.heading}
-            closingNote={PIA_CONTENT.sectors.closingNote}
-            items={PIA_CONTENT.sectors.items}
-            featurePhotoUrl={photoSlots.featurePhotoUrl}
-            communityPhotos={{
-              communityImageOneUrl: photoSlots.communityImageOneUrl,
-              communityImageTwoUrl: photoSlots.communityImageTwoUrl,
-            }}
-            onSelectSlot={handleOpenPhotoManager}
-          />
+              <AreasOfInterest
+                heading={home.focusAreas.heading}
+                closingNote={home.focusAreas.closingNote || ''}
+                items={home.focusAreas.items}
+                featurePhotoUrl={asset(home.focusAreas.featurePhoto)}
+                photoLeftUrl={asset(home.focusAreas.photoLeft)}
+                photoRightUrl={asset(home.focusAreas.photoRight)}
+              />
 
-          {/* PRESS RELEASES & MEDIA */}
-          <PressSection
-            eyebrow={PIA_CONTENT.press.eyebrow}
-            items={PIA_CONTENT.press.items}
-            photos={{
-              newsImageOneUrl: photoSlots.newsImageOneUrl,
-              newsImageTwoUrl: photoSlots.newsImageTwoUrl,
-              newsImageThreeUrl: photoSlots.newsImageThreeUrl,
-            }}
-            onSelectSlot={handleOpenPhotoManager}
-          />
-        </>
-      )}
+              {home.news.showOnHome && homeNews.length > 0 && (
+                <PressSection eyebrow={home.news.eyebrow} items={homeNews} />
+              )}
+            </>
+          )}
 
-      {activePage === 'gallery' && (
-        <GallerySection
-          eyebrow={PIA_CONTENT.gallery.eyebrow}
-          heading={PIA_CONTENT.gallery.heading}
-          items={PIA_CONTENT.gallery.items}
-          onBackHome={() => handleNavigate('home', 'top')}
+          {route.page === 'gallery' && (
+            <GallerySection
+              eyebrow={gallery.eyebrow}
+              heading={gallery.heading}
+              items={gallery.photos}
+              onBackHome={backHome}
+            />
+          )}
+
+          {route.page === 'publications' && (
+            <PublicationsPage onBackHome={backHome} />
+          )}
+
+          {route.page === 'awards' && <AwardsPage onBackHome={backHome} />}
+
+          {route.page === 'news' && route.slug && (
+            <NewsArticlePage slug={route.slug} onBackHome={backHome} />
+          )}
+
+          {route.page === 'not-found' && <NotFoundPage onBackHome={backHome} />}
+        </main>
+
+        <Footer
+          footerLogoUrl={LOGO_WHITE_GREEN}
+          copyright={home.footer.copyright}
+          socials={site.socials}
         />
-      )}
-
-      {activePage === 'publications' && (
-        <PublicationsPage
-          pressItems={PIA_CONTENT.press.items}
-          photos={{
-            newsImageOneUrl: photoSlots.newsImageOneUrl,
-            newsImageTwoUrl: photoSlots.newsImageTwoUrl,
-            newsImageThreeUrl: photoSlots.newsImageThreeUrl,
-          }}
-          onSelectSlot={handleOpenPhotoManager}
-          onBackHome={() => handleNavigate('home', 'top')}
-        />
-      )}
-
-      {activePage === 'awards' && (
-        <AwardsPage onBackHome={() => handleNavigate('home', 'top')} />
-      )}
-
-      {/* FOOTER */}
-      <Footer
-        footerLogoUrl={photoSlots.footerLogoUrl}
-        copyright={PIA_CONTENT.footer.copyright}
-      />
-
-      {/* PHOTO SLOT MANAGER MODAL */}
-      <PhotoSlotModal
-        isOpen={photoModalOpen}
-        focusedSlot={focusedSlot}
-        photos={photoSlots}
-        onUpdateSlot={handleUpdateSlot}
-        onResetSlots={handleResetSlots}
-        onClose={() => setPhotoModalOpen(false)}
-      />
-    </div>
+      </div>
+    </RouterContext.Provider>
   );
 }

@@ -1,17 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
-import { PiaPhotoSlotKey, PiaPhotoSlots, PiaPressItem } from '../types/pia';
+import { motion } from 'motion/react';
+import { asset, formatDate, NewsItem } from '../lib/content';
+import { href, isPlainLeftClick, useRouter } from '../lib/router';
 import { PiaImage } from './PiaImage';
 
 interface PressSectionProps {
   eyebrow: string;
-  items: PiaPressItem[];
-  photos: Pick<
-    PiaPhotoSlots,
-    'newsImageOneUrl' | 'newsImageTwoUrl' | 'newsImageThreeUrl'
-  >;
-  onSelectSlot: (slotKey: PiaPhotoSlotKey) => void;
+  items: NewsItem[];
 }
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -19,10 +15,13 @@ const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 export const PressSection: React.FC<PressSectionProps> = ({
   eyebrow,
   items,
-  photos,
-  onSelectSlot,
 }) => {
-  const [activeArticle, setActiveArticle] = useState<PiaPressItem | null>(null);
+  const { navigate } = useRouter();
+  const openArticle = (e: React.MouseEvent, slug: string) => {
+    if (!isPlainLeftClick(e)) return;
+    e.preventDefault();
+    navigate(`/news/${slug}/`);
+  };
   const [activeIndex, setActiveIndex] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -109,7 +108,7 @@ export const PressSection: React.FC<PressSectionProps> = ({
         >
           {items.map((item, index) => (
             <motion.div
-              key={item.id}
+              key={item.slug}
               className="pia-press-card"
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -124,22 +123,29 @@ export const PressSection: React.FC<PressSectionProps> = ({
               <div className="pia-press-image-wrap">
                 <span className="pia-press-badge">{item.category}</span>
                 <PiaImage
-                  slotKey={item.slotKey}
-                  src={photos[item.slotKey]}
-                  alt={item.alt}
-                  onSelectSlot={onSelectSlot}
+                  src={asset(item.image)}
+                  alt={item.imageAlt || item.title}
                 />
               </div>
-              <div className="pia-press-date">{item.date}</div>
-              <h3>{item.headline}</h3>
-              <motion.button
-                type="button"
-                onClick={() => setActiveArticle(item)}
+              <div className="pia-press-date">
+                <time dateTime={item.date}>{formatDate(item.date)}</time>
+              </div>
+              <h3>
+                <a
+                  href={href(`/news/${item.slug}/`)}
+                  onClick={(e) => openArticle(e, item.slug)}
+                >
+                  {item.title}
+                </a>
+              </h3>
+              <motion.a
+                href={href(`/news/${item.slug}/`)}
+                onClick={(e) => openArticle(e, item.slug)}
                 className="pia-press-link"
                 whileHover={{ x: 4 }}
               >
                 READ ARTICLE
-              </motion.button>
+              </motion.a>
             </motion.div>
           ))}
         </div>
@@ -148,7 +154,7 @@ export const PressSection: React.FC<PressSectionProps> = ({
         <div className="pia-press-dots" role="tablist" aria-label="News slides">
           {items.map((item, idx) => (
             <button
-              key={item.id}
+              key={item.slug}
               type="button"
               role="tab"
               aria-selected={idx === activeIndex}
@@ -162,64 +168,6 @@ export const PressSection: React.FC<PressSectionProps> = ({
         </div>
       </section>
 
-      <AnimatePresence>
-        {activeArticle && (
-          <motion.div
-            className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 backdrop-blur-xs"
-            onClick={() => setActiveArticle(null)}
-            role="dialog"
-            aria-modal="true"
-            aria-label={activeArticle.headline}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <motion.div
-              className="bg-white max-w-md w-full p-6 border border-[#e6e8ec] shadow-xl"
-              onClick={(e) => e.stopPropagation()}
-              initial={{ opacity: 0, y: 22, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 14, scale: 0.97 }}
-              transition={{ duration: 0.26, ease: EASE_OUT }}
-            >
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[9px] tracking-[1.5px] uppercase text-[#6B7280]">
-                  {activeArticle.date}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setActiveArticle(null)}
-                  className="text-[13px] font-medium text-[#102E4A] hover:text-[#174D83] px-2 py-1"
-                  aria-label="Close article"
-                >
-                  ✕
-                </button>
-              </div>
-
-              <h3 className="text-[15px] leading-[1.45] font-medium text-[#102E4A] mb-4">
-                {activeArticle.headline}
-              </h3>
-
-              <div className="space-y-3 text-[12px] leading-[1.75] text-[#25343D]">
-                {activeArticle.body.map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
-                ))}
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-[#e6e8ec] flex justify-end">
-                <button
-                  type="button"
-                  onClick={() => setActiveArticle(null)}
-                  className="text-[9.5px] tracking-[2.5px] uppercase text-[#174D83]"
-                >
-                  CLOSE ARTICLE
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 };

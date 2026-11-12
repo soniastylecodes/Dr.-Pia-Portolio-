@@ -1,0 +1,246 @@
+backend:
+  name: github
+  repo: soniastylecodes/Dr.-Pia-Portolio-
+  branch: main
+  commit_messages:
+    create: "Add {{collection}} “{{slug}}”"
+    update: "Update {{collection}} “{{slug}}”"
+    delete: "Delete {{collection}} “{{slug}}”"
+    uploadMedia: "Upload “{{path}}”"
+    deleteMedia: "Delete “{{path}}”"
+
+site_url: https://soniastylecodes.github.io/Dr.-Pia-Portolio-
+display_url: https://soniastylecodes.github.io/Dr.-Pia-Portolio-
+logo_url: ../favicon-192.png
+
+media_folder: public/uploads
+public_folder: /uploads
+
+media_libraries:
+  default:
+    config:
+      max_file_size: 15000000
+      slugify_filename: true
+  all:
+    transformations:
+      raster_image:
+        format: webp
+        quality: 82
+        width: 2000
+        height: 2000
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: news
+    label: News & Press Releases
+    label_singular: News Story
+    description: Every story gets its own page that Google can find. Untick Draft to publish.
+    folder: content/news
+    format: json
+    extension: json
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{date}} · {{title}}"
+    sortable_fields:
+      fields: [date, title]
+      default:
+        field: date
+        direction: descending
+    fields:
+      - { label: Headline, name: title, widget: string, hint: "Include her name or the place where it happened, e.g. 'PIA Empowers 200 Women in Michika'." }
+      - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, time_format: false }
+      - { label: Category, name: category, widget: string, default: Press Release }
+      - { label: Main Photo, name: image, widget: image, required: false }
+      - { label: Photo Description, name: imageAlt, widget: string, required: false, hint: "Describe the photo for Google and screen readers, e.g. 'Dr. Patience Ishaku Abbo with women farmers in Mubi'." }
+      - { label: Short Summary, name: summary, widget: text, hint: "One or two sentences. This shows on Google and when the link is shared on WhatsApp." }
+      - { label: Full Story, name: body, widget: markdown }
+      - { label: Draft (hidden from the website), name: draft, widget: boolean, default: false }
+
+  - name: awards
+    label: Awards & Honours
+    label_singular: Award
+    folder: content/awards
+    format: json
+    extension: json
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{year}} · {{title}}"
+    sortable_fields:
+      fields: [order, year, title]
+      default:
+        field: order
+        direction: ascending
+    fields:
+      - { label: Award Title, name: title, widget: string }
+      - { label: Year, name: year, widget: string, hint: "A year like 2025, or a word like Honour." }
+      - { label: Category, name: category, widget: string }
+      - { label: Presented By, name: organization, widget: string }
+      - { label: Citation, name: description, widget: text }
+      - { label: Photo of Plaque or Certificate, name: image, widget: image }
+      - { label: Position, name: order, widget: number, value_type: int, default: 100, hint: "Smaller numbers show first. Use 5 to put an award at the very top." }
+
+  - name: publications
+    label: Publications
+    label_singular: Publication
+    folder: content/publications
+    format: json
+    extension: json
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{year}} · {{title}}"
+    sortable_fields:
+      fields: [order, year, title]
+      default:
+        field: order
+        direction: ascending
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Type, name: type, widget: string, hint: "e.g. Policy Paper, Speech, Article" }
+      - { label: Year, name: year, widget: string }
+      - { label: Summary, name: summary, widget: text }
+      - { label: Full Text, name: body, widget: markdown }
+      - { label: Link to Full Document, name: link, widget: string, required: false, hint: "Optional. Paste a link to a PDF or the original publication." }
+      - { label: Position, name: order, widget: number, value_type: int, default: 100 }
+
+  - name: pages
+    label: Website Pages
+    editor:
+      preview: false
+    files:
+      - name: home
+        label: Homepage
+        file: content/settings/home.json
+        format: json
+        fields:
+          - label: Hero (top of the page)
+            name: hero
+            widget: object
+            fields:
+              - { label: Hero Photo, name: image, widget: image, hint: "Portrait photo. Her face should sit in the top third." }
+              - label: Headline Words
+                name: titleLines
+                widget: list
+                min: 3
+                max: 3
+                field: { label: Word, name: word, widget: string }
+              - { label: Intro Text, name: description, widget: text }
+              - { label: Button Text, name: ctaLabel, widget: string }
+          - label: Short Bio
+            name: about
+            widget: object
+            fields:
+              - { label: Small Label, name: eyebrow, widget: string }
+              - { label: Bio Headline, name: leadHeading, widget: text }
+              - label: Bio Paragraphs
+                name: paragraphs
+                widget: list
+                field: { label: Paragraph, name: paragraph, widget: text }
+              - { label: Read More Button Text, name: ctaLabel, widget: string }
+              - { label: Bio Photo, name: portrait, widget: image }
+              - { label: Full Biography Title, name: fullBioTitle, widget: text }
+              - label: Full Biography Paragraphs
+                name: fullBio
+                widget: list
+                field: { label: Paragraph, name: paragraph, widget: text }
+          - label: Profile Highlights
+            name: highlights
+            widget: object
+            fields:
+              - { label: Small Label, name: eyebrow, widget: string }
+              - { label: Photo, name: portrait, widget: image }
+              - label: Highlights
+                name: items
+                widget: list
+                field: { label: Highlight, name: item, widget: text }
+          - label: Focus Areas
+            name: focusAreas
+            widget: object
+            fields:
+              - { label: Heading, name: heading, widget: string }
+              - { label: Closing Note, name: closingNote, widget: string, required: false }
+              - { label: Tall Feature Photo, name: featurePhoto, widget: image }
+              - { label: Small Photo (left), name: photoLeft, widget: image }
+              - { label: Small Photo (right), name: photoRight, widget: image }
+              - label: Focus Areas
+                name: items
+                widget: list
+                fields:
+                  - { label: Name, name: name, widget: string }
+                  - label: Icon
+                    name: icon
+                    widget: select
+                    options:
+                      - { label: People (women & girls), value: women }
+                      - { label: Graduation cap (education), value: education }
+                      - { label: Building (community), value: community }
+                      - { label: Heart (healthcare), value: healthcare }
+                      - { label: Computer (ICT), value: technology }
+          - label: News Section on Homepage
+            name: news
+            widget: object
+            fields:
+              - { label: Small Label, name: eyebrow, widget: string }
+              - { label: Show latest news on homepage, name: showOnHome, widget: boolean, hint: "The section hides itself automatically when there is no published news." }
+              - { label: How many stories to show, name: count, widget: number, value_type: int, min: 1, max: 12 }
+          - label: Mobile Menu
+            name: menu
+            widget: object
+            fields:
+              - { label: Name Shown in Menu, name: displayName, widget: string }
+              - { label: Menu Avatar Photo, name: avatar, widget: image }
+              - { label: Network 21 Popup Photo, name: network21Image, widget: image }
+          - label: Footer
+            name: footer
+            widget: object
+            fields:
+              - { label: Copyright Line, name: copyright, widget: string }
+
+      - name: gallery
+        label: Gallery
+        file: content/settings/gallery.json
+        format: json
+        fields:
+          - { label: Small Label, name: eyebrow, widget: string }
+          - { label: Page Heading, name: heading, widget: string }
+          - label: Photos
+            name: photos
+            widget: list
+            summary: "{{fields.caption}}"
+            fields:
+              - { label: Photo, name: image, widget: image }
+              - { label: Caption, name: caption, widget: string, hint: "Describe who and where, e.g. 'Dr. Patience Ishaku Abbo at the Network 21 summit, Yola'." }
+
+      - name: site
+        label: Site Settings, SEO & Social Links
+        file: content/settings/site.json
+        format: json
+        fields:
+          - { label: Site Name, name: siteName, widget: string }
+          - { label: Website Address, name: siteUrl, widget: string, hint: "Only change this when the custom domain is connected, e.g. https://patienceishakuabbo.com" }
+          - { label: Google Title, name: seoTitle, widget: string, hint: "The blue headline on Google. Keep it under 60 characters." }
+          - { label: Google Description, name: seoDescription, widget: text, hint: "The grey text under the Google headline. Keep it under 160 characters." }
+          - { label: Share Preview Image, name: shareImage, widget: image, hint: "Shown when the link is shared on WhatsApp, Facebook or X. Landscape, 1200 × 630." }
+          - { label: Contact Email, name: email, widget: string }
+          - { label: Google Search Console Code, name: googleVerification, widget: string, required: false, hint: "Paste only the content value from the HTML tag Google gives you." }
+          - { label: Network 21 Website, name: network21Url, widget: string }
+          - label: Social Media Links
+            name: socials
+            widget: object
+            hint: "Paste full links. Empty ones are hidden on the website."
+            fields:
+              - { label: Facebook, name: facebook, widget: string, required: false }
+              - { label: Instagram, name: instagram, widget: string, required: false }
+              - { label: X (Twitter), name: x, widget: string, required: false }
+              - { label: TikTok, name: tiktok, widget: string, required: false }
+              - { label: LinkedIn, name: linkedin, widget: string, required: false }
+              - { label: YouTube, name: youtube, widget: string, required: false }

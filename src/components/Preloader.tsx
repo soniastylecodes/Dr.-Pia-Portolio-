@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { PIA_OFFICIAL_LOGO } from '../data/piaContent';
+import { LOGO } from '../lib/content';
 
 interface PreloaderProps {
   isVisible: boolean;
@@ -35,7 +35,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ isVisible, logoUrl }) => {
     return () => cancelAnimationFrame(rafId);
   }, [isVisible]);
 
-  const resolvedLogo = logoUrl || PIA_OFFICIAL_LOGO;
+  const resolvedLogo = logoUrl || LOGO;
 
   return (
     <AnimatePresence>

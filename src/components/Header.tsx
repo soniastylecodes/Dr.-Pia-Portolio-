@@ -10,30 +10,18 @@ import {
   X,
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import {
-  isPlaceholderToken,
-  PIA_BRAND_LOGO_BLUE,
-  PIA_IMAGE_2,
-  PIA_IMAGE_3,
-} from '../data/piaContent';
-import { PiaPhotoSlotKey } from '../types/pia';
-
-export type PiaPageKey = 'home' | 'gallery' | 'publications' | 'awards';
+import { asset, home, site } from '../lib/content';
+import { href, isPlainLeftClick, useRouter } from '../lib/router';
 
 interface HeaderProps {
   logoUrl: string;
-  activePage: PiaPageKey;
-  onNavigate: (page: PiaPageKey, sectionId?: string) => void;
-  onOpenPhotoManager: (initialSlot?: PiaPhotoSlotKey) => void;
 }
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-export const Header: React.FC<HeaderProps> = ({
-  logoUrl,
-  activePage,
-  onNavigate,
-}) => {
+export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
+  const { route, navigate } = useRouter();
+  const activePage = route.page;
   const [menuOpen, setMenuOpen] = useState(false);
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const [network21ModalOpen, setNetwork21ModalOpen] = useState(false);
@@ -73,28 +61,29 @@ export const Header: React.FC<HeaderProps> = ({
     };
   }, [menuOpen]);
 
-  const resolvedLogo = isPlaceholderToken(logoUrl)
-    ? PIA_BRAND_LOGO_BLUE
-    : logoUrl;
+  const resolvedLogo = logoUrl;
+  const email = site.email;
 
   const handleSectionLink = (
     e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
     sectionId: string
   ) => {
+    if (!isPlainLeftClick(e)) return;
     e.preventDefault();
     setAboutDropdownOpen(false);
     setMenuOpen(false);
-    onNavigate('home', sectionId);
+    navigate('/', sectionId);
   };
 
   const handlePageClick = (
     e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
-    page: PiaPageKey
+    path: string
   ) => {
+    if (!isPlainLeftClick(e)) return;
     e.preventDefault();
     setAboutDropdownOpen(false);
     setMenuOpen(false);
-    onNavigate(page);
+    navigate(path);
   };
 
   return (
@@ -138,7 +127,7 @@ export const Header: React.FC<HeaderProps> = ({
                   transition={{ duration: 0.16, ease: EASE_OUT }}
                 >
                   <a
-                    href="#pia-about"
+                    href={href('/#pia-about')}
                     role="menuitem"
                     className="pia-nav-dropdown-item"
                     onClick={(e) => handleSectionLink(e, 'pia-about')}
@@ -162,8 +151,8 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           <a
-            href="#gallery"
-            onClick={(e) => handlePageClick(e, 'gallery')}
+            href={href('/gallery/')}
+            onClick={(e) => handlePageClick(e, '/gallery/')}
             className={`pia-desktop-nav-link ${
               activePage === 'gallery' ? 'is-active' : ''
             }`}
@@ -174,7 +163,7 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Single Centered Brand Logo */}
         <a
-          href="#top"
+          href={href('/')}
           onClick={(e) => handleSectionLink(e, 'top')}
           className="pia-logo-link"
           aria-label="Dr. Patience Ishaku Abbo Home"
@@ -182,8 +171,7 @@ export const Header: React.FC<HeaderProps> = ({
           <img
             className="pia-logo"
             src={resolvedLogo}
-            alt="Dr. Patience Ishaku Abbo Logo"
-            referrerPolicy="no-referrer"
+            alt="PIA na SIA, Dr. Patience Ishaku Abbo"
           />
         </a>
 
@@ -193,8 +181,8 @@ export const Header: React.FC<HeaderProps> = ({
           aria-label="Primary Right Navigation"
         >
           <a
-            href="#publications"
-            onClick={(e) => handlePageClick(e, 'publications')}
+            href={href('/publications/')}
+            onClick={(e) => handlePageClick(e, '/publications/')}
             className={`pia-desktop-nav-link ${
               activePage === 'publications' ? 'is-active' : ''
             }`}
@@ -202,8 +190,8 @@ export const Header: React.FC<HeaderProps> = ({
             PUBLICATIONS
           </a>
           <a
-            href="#awards"
-            onClick={(e) => handlePageClick(e, 'awards')}
+            href={href('/awards/')}
+            onClick={(e) => handlePageClick(e, '/awards/')}
             className={`pia-desktop-nav-link ${
               activePage === 'awards' ? 'is-active' : ''
             }`}
@@ -257,10 +245,10 @@ export const Header: React.FC<HeaderProps> = ({
                 <div className="pia-mobile-avatar-row">
                   <div className="pia-mobile-avatar-ring">
                     <img
-                      src={PIA_IMAGE_2}
+                      src={asset(home.menu.avatar)}
                       alt="Dr. Patience Ishaku Abbo"
                       className="pia-mobile-avatar-img"
-                      referrerPolicy="no-referrer"
+                      loading="lazy"
                     />
                   </div>
 
@@ -275,13 +263,13 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
 
                 <h2 className="pia-mobile-profile-name">
-                  Dr. Patience Abbo
+                  {home.menu.displayName}
                 </h2>
                 <a
-                  href="mailto:message@patienceishakuabbo.com"
+                  href={`mailto:${email}`}
                   className="pia-mobile-profile-email"
                 >
-                  message@patienceishakuabbo.com
+                  {email}
                 </a>
               </div>
 
@@ -293,7 +281,7 @@ export const Header: React.FC<HeaderProps> = ({
                 aria-label="Mobile Navigation"
               >
                 <a
-                  href="#pia-about"
+                  href={href('/#pia-about')}
                   onClick={(e) => handleSectionLink(e, 'pia-about')}
                   className="pia-mobile-sheet-link"
                 >
@@ -319,8 +307,8 @@ export const Header: React.FC<HeaderProps> = ({
                 </button>
 
                 <a
-                  href="#gallery"
-                  onClick={(e) => handlePageClick(e, 'gallery')}
+                  href={href('/gallery/')}
+                  onClick={(e) => handlePageClick(e, '/gallery/')}
                   className={`pia-mobile-sheet-link ${
                     activePage === 'gallery' ? 'is-active' : ''
                   }`}
@@ -332,8 +320,8 @@ export const Header: React.FC<HeaderProps> = ({
                 </a>
 
                 <a
-                  href="#publications"
-                  onClick={(e) => handlePageClick(e, 'publications')}
+                  href={href('/publications/')}
+                  onClick={(e) => handlePageClick(e, '/publications/')}
                   className={`pia-mobile-sheet-link ${
                     activePage === 'publications' ? 'is-active' : ''
                   }`}
@@ -345,8 +333,8 @@ export const Header: React.FC<HeaderProps> = ({
                 </a>
 
                 <a
-                  href="#awards"
-                  onClick={(e) => handlePageClick(e, 'awards')}
+                  href={href('/awards/')}
+                  onClick={(e) => handlePageClick(e, '/awards/')}
                   className={`pia-mobile-sheet-link ${
                     activePage === 'awards' ? 'is-active' : ''
                   }`}
@@ -361,7 +349,7 @@ export const Header: React.FC<HeaderProps> = ({
               {/* Bottom Pill CTA: Send her a message */}
               <div className="pia-mobile-sheet-bottom">
                 <a
-                  href="mailto:message@patienceishakuabbo.com"
+                  href={`mailto:${email}`}
                   className="pia-mobile-message-btn"
                 >
                   <Mail className="w-4 h-4" />
@@ -410,7 +398,8 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
                 <div className="md:col-span-5">
                   <img
-                    src={PIA_IMAGE_3}
+                    src={asset(home.menu.network21Image)}
+                    loading="lazy"
                     alt="Dr. Patience Ishaku Abbo, Founder, Woman to Woman Network 21"
                     className="w-full aspect-square object-cover border border-[#e8edf2]"
                   />
@@ -438,7 +427,7 @@ export const Header: React.FC<HeaderProps> = ({
                   </p>
                   <div className="pt-2">
                     <a
-                      href="https://womantowomannetwork21.org"
+                      href={site.network21Url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 bg-[#174D83] text-white! px-5 py-3 text-[11px] font-semibold tracking-[1.6px] uppercase hover:bg-[#102E4A] transition-colors"

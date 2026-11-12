@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { PiaPhotoSlotKey } from '../types/pia';
 import { PiaImage } from './PiaImage';
 
 interface AboutSectionProps {
   eyebrow: string;
   leadHeading: string;
   paragraphs: string[];
-  extendedParagraphs: string[];
+  fullBioTitle: string;
+  fullBio: string[];
   ctaLabel: string;
-  portraitOneUrl: string;
-  onSelectSlot: (slotKey: PiaPhotoSlotKey) => void;
+  portraitUrl: string;
 }
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -19,15 +18,13 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
   eyebrow,
   leadHeading,
   paragraphs,
-  extendedParagraphs,
+  fullBioTitle,
+  fullBio,
   ctaLabel,
-  portraitOneUrl,
-  onSelectSlot,
+  portraitUrl,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const fullBioTitle = extendedParagraphs[0] || leadHeading;
-  const fullBioBody =
-    extendedParagraphs.length > 1 ? extendedParagraphs.slice(1) : paragraphs;
+  const fullBioBody = fullBio.length ? fullBio : paragraphs;
 
   return (
     <section className="pia-bio-container" id="pia-about">
@@ -64,10 +61,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
           transition={{ duration: 0.85, delay: 0.12, ease: EASE_OUT }}
         >
           <PiaImage
-            slotKey="portraitOneUrl"
-            src={portraitOneUrl}
-            alt="Dr. Patience Ishaku Abbo portrait 1"
-            onSelectSlot={onSelectSlot}
+            src={portraitUrl}
+            alt="Portrait of Dr. Patience Ishaku Abbo (PIA)"
           />
         </motion.div>
       </div>
@@ -110,7 +105,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                 id="pia-full-bio-title"
                 className="text-xl md:text-2xl font-medium text-[#102E4A] leading-snug mb-6"
               >
-                {fullBioTitle}
+                {fullBioTitle || leadHeading}
               </h3>
 
               <div className="space-y-4">

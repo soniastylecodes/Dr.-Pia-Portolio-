@@ -1,23 +1,16 @@
 import React from 'react';
-import { PiaPhotoSlotKey } from '../types/pia';
 import { PiaImage } from './PiaImage';
 
 interface FeatureImageProps {
   featurePhotoUrl: string;
-  onSelectSlot: (slotKey: PiaPhotoSlotKey) => void;
 }
 
-export const FeatureImage: React.FC<FeatureImageProps> = ({
-  featurePhotoUrl,
-  onSelectSlot,
-}) => {
+export const FeatureImage: React.FC<FeatureImageProps> = ({ featurePhotoUrl }) => {
   return (
     <div className="pia-feature-image">
       <PiaImage
-        slotKey="featurePhotoUrl"
         src={featurePhotoUrl}
-        alt="Dr. Patience Ishaku Abbo"
-        onSelectSlot={onSelectSlot}
+        alt="Dr. Patience Ishaku Abbo, founder of Woman to Woman Network 21"
       />
     </div>
   );

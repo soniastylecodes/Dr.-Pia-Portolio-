@@ -1,29 +1,24 @@
 import React from 'react';
-import { PiaPhotoSlotKey, PiaPhotoSlots } from '../types/pia';
 import { PiaImage } from './PiaImage';
 
 interface CommunityPhotosProps {
-  photos: Pick<PiaPhotoSlots, 'communityImageOneUrl' | 'communityImageTwoUrl'>;
-  onSelectSlot: (slotKey: PiaPhotoSlotKey) => void;
+  leftUrl: string;
+  rightUrl: string;
 }
 
 export const CommunityPhotos: React.FC<CommunityPhotosProps> = ({
-  photos,
-  onSelectSlot,
+  leftUrl,
+  rightUrl,
 }) => {
   return (
     <div className="pia-photo-pair">
       <PiaImage
-        slotKey="communityImageOneUrl"
-        src={photos.communityImageOneUrl}
-        alt="PIA community engagement"
-        onSelectSlot={onSelectSlot}
+        src={leftUrl}
+        alt="Dr. Patience Ishaku Abbo at a community engagement in Adamawa State"
       />
       <PiaImage
-        slotKey="communityImageTwoUrl"
-        src={photos.communityImageTwoUrl}
-        alt="PIA engagement"
-        onSelectSlot={onSelectSlot}
+        src={rightUrl}
+        alt="Dr. Patience Ishaku Abbo meeting women and community members"
       />
     </div>
   );
