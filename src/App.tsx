@@ -11,6 +11,7 @@ import { Footer } from './components/Footer';
 import { GallerySection } from './components/GallerySection';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
+import { MobileDock } from './components/MobileDock';
 import { NewsArticlePage } from './components/NewsArticlePage';
 import { NotFoundPage } from './components/NotFoundPage';
 import { Preloader } from './components/Preloader';
@@ -177,6 +178,8 @@ export default function App({ initialPath }: AppProps) {
           copyright={home.footer.copyright}
           socials={site.socials}
         />
+
+        <MobileDock />
       </div>
     </RouterContext.Provider>
   );
