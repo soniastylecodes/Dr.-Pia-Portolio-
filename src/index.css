@@ -2360,21 +2360,61 @@
 }
 
 @media (min-width: 600px) and (max-width: 899px) {
-  .pia-hero-pipe {
-    position: absolute;
+  .pia-hero {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 74px 0 calc(128px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(to bottom, #13314f 0%, #0c2136 100%);
+  }
+
+  .pia-hero-portrait-layer {
+    position: relative;
+    inset: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+    -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
   }
 
   .pia-hero-portrait-layer img {
-    object-position: center 0%;
-    transform-origin: 50% 0%;
-    transform: scale(1.1) translateY(-9%);
-    animation: none;
+    object-position: center 12%;
+    transform-origin: 50% 12%;
+    --pia-hero-zoom: 1.12;
+  }
+
+  .pia-hero-scrim {
+    display: none;
+  }
+
+  .pia-hero-content {
+    flex: 0 0 auto;
+    padding: 6px 7% 0;
+  }
+
+  .pia-hero h1 {
+    font-size: 40px;
+    margin-bottom: 14px;
+  }
+
+  .pia-hero p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .pia-hero-pipe {
+    position: absolute;
   }
 }
 
 @media (min-width: 600px) and (max-width: 899px) and (orientation: landscape) {
+  .pia-hero {
+    padding-bottom: calc(118px + env(safe-area-inset-bottom, 0px));
+  }
+
   .pia-hero-portrait-layer img {
-    transform: scale(1.14) translateY(-10%);
+    object-position: center 14%;
+    transform-origin: 50% 8%;
+    --pia-hero-zoom: 1;
   }
 
   .pia-hero h1 br {
@@ -2386,18 +2426,14 @@
     margin: 0 12px 0 10px;
   }
 
-  .pia-hero {
-    padding-bottom: calc(132px + env(safe-area-inset-bottom, 0px));
-  }
-
   .pia-hero h1 {
-    font-size: 36px;
-    margin-bottom: 14px;
+    font-size: 34px;
+    margin-bottom: 10px;
   }
 
   .pia-hero p {
     font-size: 15px;
-    max-width: 520px;
-    margin-bottom: 18px;
+    max-width: 560px;
+    margin-bottom: 14px;
   }
 }
