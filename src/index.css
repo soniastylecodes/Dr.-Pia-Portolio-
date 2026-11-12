@@ -2232,6 +2232,10 @@
 }
 
 @media (max-width: 767px) {
+  .pia-hero {
+    padding-bottom: calc(124px + env(safe-area-inset-bottom, 0px));
+  }
+
   .pia-footer {
     padding-bottom: calc(118px + env(safe-area-inset-bottom, 0px));
   }
