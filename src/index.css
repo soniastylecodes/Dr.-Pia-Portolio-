@@ -2939,3 +2939,120 @@
   max-height: 72vh;
   background: #000;
 }
+
+/* ---------- Full biography sheet ---------- */
+.pia-bio-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(10, 27, 46, 0.55);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.pia-bio-sheet {
+  width: 100%;
+  max-width: 720px;
+  height: calc(100dvh - 48px - env(safe-area-inset-top, 0px));
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 24px 24px 0 0;
+  overflow: hidden;
+  box-shadow: 0 -20px 50px -20px rgba(10, 27, 46, 0.4);
+}
+
+.pia-bio-sheet-bar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px 14px 24px;
+  border-bottom: 1px solid #EEF1F5;
+}
+
+.pia-bio-sheet-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: #174D83;
+}
+
+.pia-bio-sheet-close {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid #E2E8F0;
+  background: #ffffff;
+  color: #102E4A;
+  cursor: pointer;
+}
+
+.pia-bio-sheet-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: 26px 24px calc(40px + env(safe-area-inset-bottom, 0px));
+}
+
+.pia-bio-sheet-title {
+  margin: 0 0 22px;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #102E4A;
+}
+
+.pia-bio-sheet-text p {
+  margin: 0 0 16px;
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: #25343D;
+  overflow-wrap: break-word;
+}
+
+.pia-bio-sheet-text p.pia-bio-sheet-sign {
+  margin-top: 8px;
+  padding-top: 18px;
+  border-top: 1px solid #E8EDF2;
+  font-weight: 500;
+  color: #102E4A;
+}
+
+@media (min-width: 768px) {
+  .pia-bio-overlay {
+    align-items: center;
+    padding: 32px;
+  }
+
+  .pia-bio-sheet {
+    height: auto;
+    max-height: calc(100dvh - 64px);
+    border-radius: 20px;
+  }
+
+  .pia-bio-sheet-bar {
+    padding: 18px 20px 18px 40px;
+  }
+
+  .pia-bio-sheet-body {
+    padding: 36px 40px 48px;
+  }
+
+  .pia-bio-sheet-title {
+    font-size: 26px;
+  }
+
+  .pia-bio-sheet-text p {
+    font-size: 15px;
+  }
+}

@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { PiaImage } from './PiaImage';
 
@@ -25,6 +27,18 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const fullBioBody = fullBio.length ? fullBio : paragraphs;
+
+  useEffect(() => {
+    if (!modalOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setModalOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [modalOpen]);
 
   return (
     <section className="pia-bio-container" id="pia-about">
@@ -67,68 +81,66 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
         </motion.div>
       </div>
 
-      <AnimatePresence>
-        {modalOpen && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs"
-            onClick={() => setModalOpen(false)}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="pia-full-bio-title"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.22 }}
-          >
+      {typeof document !== 'undefined' &&
+        createPortal(
+        <AnimatePresence>
+          {modalOpen && (
             <motion.div
-              className="w-full max-w-2xl bg-white p-6 md:p-10 shadow-xl max-h-[88vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
-              initial={{ opacity: 0, y: 24, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 16, scale: 0.97 }}
-              transition={{ duration: 0.28, ease: EASE_OUT }}
+              className="pia-bio-overlay"
+              onClick={() => setModalOpen(false)}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="pia-full-bio-title"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
             >
-              <div className="flex items-center justify-between gap-4 mb-4">
-                <span className="text-[10px] font-semibold tracking-[2.4px] uppercase text-[#174D83]">
-                  FULL BIOGRAPHY OF DR. PATIENCE ISHAKU ABBO (PIA)
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setModalOpen(false)}
-                  className="text-xs font-semibold tracking-[1px] uppercase text-[#969696] hover:text-[#102E4A] cursor-pointer"
-                >
-                  Close ✕
-                </button>
-              </div>
-
-              <h3
-                id="pia-full-bio-title"
-                className="text-xl md:text-2xl font-medium text-[#102E4A] leading-snug mb-6"
+              <motion.div
+                className="pia-bio-sheet"
+                onClick={(e) => e.stopPropagation()}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 30 }}
+                transition={{ duration: 0.35, ease: EASE_OUT }}
               >
-                {fullBioTitle || leadHeading}
-              </h3>
+                <div className="pia-bio-sheet-bar">
+                  <span className="pia-bio-sheet-label">Full biography</span>
+                  <button
+                    type="button"
+                    onClick={() => setModalOpen(false)}
+                    className="pia-bio-sheet-close"
+                    aria-label="Close biography"
+                  >
+                    <X size={18} strokeWidth={1.8} />
+                  </button>
+                </div>
 
-              <div className="space-y-4">
-                {fullBioBody.map((paragraph, index) => {
-                  const isClosingSignature = index === fullBioBody.length - 1;
-                  return (
-                    <p
-                      key={index}
-                      className={
-                        isClosingSignature
-                          ? 'text-[14px] md:text-[15px] leading-[1.85] font-medium text-[#102E4A] pt-2 border-t border-[#e8edf2]'
-                          : 'text-[13.5px] md:text-[14.5px] leading-[1.9] text-[#25343D]'
-                      }
-                    >
-                      {paragraph}
-                    </p>
-                  );
-                })}
-              </div>
+                <div className="pia-bio-sheet-body">
+                  <h3 id="pia-full-bio-title" className="pia-bio-sheet-title">
+                    {fullBioTitle || leadHeading}
+                  </h3>
+
+                  <div className="pia-bio-sheet-text">
+                    {fullBioBody.map((paragraph, index) => {
+                      const isClosingSignature = index === fullBioBody.length - 1;
+                      return (
+                        <p
+                          key={index}
+                          className={isClosingSignature ? 'pia-bio-sheet-sign' : undefined}
+                        >
+                          {paragraph}
+                        </p>
+                      );
+                    })}
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          )}
+        </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
     </section>
   );
 };
