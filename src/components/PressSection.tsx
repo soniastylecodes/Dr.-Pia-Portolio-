@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useInView, useReducedMotion } from 'motion/react';
 import { asset, formatDate, NewsItem } from '../lib/content';
 import { href, isPlainLeftClick, useRouter } from '../lib/router';
 import { PiaImage } from './PiaImage';
@@ -24,6 +24,35 @@ export const PressSection: React.FC<PressSectionProps> = ({
   };
   const [activeIndex, setActiveIndex] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInView(sectionRef, { amount: 0.35 });
+  const reduceMotion = useReducedMotion();
+  const [pausedUntil, setPausedUntil] = useState(0);
+  const [scrollable, setScrollable] = useState(false);
+  const AUTO_MS = 4500;
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const check = () => setScrollable(track.scrollWidth > track.clientWidth + 8);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, [items.length]);
+
+  const autoOn = scrollable && inView && !reduceMotion && items.length > 1;
+
+  useEffect(() => {
+    if (!autoOn) return;
+    const wait = Math.max(0, pausedUntil - Date.now());
+    const t = window.setTimeout(() => {
+      scrollToSlide(activeIndex >= items.length - 1 ? 0 : activeIndex + 1);
+    }, AUTO_MS + wait);
+    return () => window.clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoOn, activeIndex, pausedUntil, items.length]);
+
+  const holdAuto = () => setPausedUntil(Date.now() + 6000);
 
   const scrollToSlide = (targetIndex: number) => {
     const clamped = Math.max(0, Math.min(items.length - 1, targetIndex));
@@ -63,7 +92,7 @@ export const PressSection: React.FC<PressSectionProps> = ({
 
   return (
     <>
-      <section className="pia-press" id="pia-press">
+      <section className="pia-press" id="pia-press" ref={sectionRef}>
         <div className="pia-press-header">
           <motion.div
             className="pia-eyebrow"
@@ -82,7 +111,10 @@ export const PressSection: React.FC<PressSectionProps> = ({
           >
             <button
               type="button"
-              onClick={() => scrollToSlide(activeIndex - 1)}
+              onClick={() => {
+                holdAuto();
+                scrollToSlide(activeIndex - 1);
+              }}
               disabled={activeIndex === 0}
               className="pia-press-arrow-btn"
               aria-label="Previous news article"
@@ -91,7 +123,10 @@ export const PressSection: React.FC<PressSectionProps> = ({
             </button>
             <button
               type="button"
-              onClick={() => scrollToSlide(activeIndex + 1)}
+              onClick={() => {
+                holdAuto();
+                scrollToSlide(activeIndex + 1);
+              }}
               disabled={activeIndex === items.length - 1}
               className="pia-press-arrow-btn"
               aria-label="Next news article"
@@ -104,29 +139,55 @@ export const PressSection: React.FC<PressSectionProps> = ({
         <div
           ref={trackRef}
           onScroll={handleTrackScroll}
+          onPointerDown={holdAuto}
+          onTouchStart={holdAuto}
           className="pia-press-track"
         >
           {items.map((item, index) => (
             <motion.div
               key={item.slug}
-              className="pia-press-card"
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              className={`pia-press-card${index === activeIndex ? ' is-current' : ''}`}
+              initial="hidden"
+              whileInView="show"
               viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.75,
-                delay: index * 0.12,
-                ease: EASE_OUT,
+              variants={{
+                hidden: { opacity: 0, y: 36 },
+                show: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.85, delay: index * 0.14, ease: EASE_OUT },
+                },
               }}
               whileHover={{ y: -5 }}
             >
-              <div className="pia-press-image-wrap">
-                <span className="pia-press-badge">{item.category}</span>
+              <motion.div
+                className="pia-press-image-wrap"
+                variants={{
+                  hidden: { clipPath: 'inset(0% 0% 100% 0%)' },
+                  show: {
+                    clipPath: 'inset(0% 0% 0% 0%)',
+                    transition: { duration: 1.1, delay: 0.1 + index * 0.14, ease: EASE_OUT },
+                  },
+                }}
+              >
+                <motion.span
+                  className="pia-press-badge"
+                  variants={{
+                    hidden: { opacity: 0, x: -14 },
+                    show: {
+                      opacity: 1,
+                      x: 0,
+                      transition: { duration: 0.6, delay: 0.7 + index * 0.14, ease: EASE_OUT },
+                    },
+                  }}
+                >
+                  {item.category}
+                </motion.span>
                 <PiaImage
                   src={asset(item.image)}
                   alt={item.imageAlt || item.title}
                 />
-              </div>
+              </motion.div>
               <div className="pia-press-date">
                 <time dateTime={item.date}>{formatDate(item.date)}</time>
               </div>
@@ -159,11 +220,24 @@ export const PressSection: React.FC<PressSectionProps> = ({
               role="tab"
               aria-selected={idx === activeIndex}
               aria-label={`Go to news slide ${idx + 1}`}
-              onClick={() => scrollToSlide(idx)}
-              className={`pia-press-dot ${
-                idx === activeIndex ? 'is-active' : ''
+              onClick={() => {
+                holdAuto();
+                scrollToSlide(idx);
+              }}
+              className={`pia-press-dot ${idx === activeIndex ? 'is-active' : ''}${
+                idx === activeIndex && autoOn && pausedUntil < Date.now() ? ' is-timed' : ''
               }`}
-            />
+            >
+              {idx === activeIndex && autoOn && pausedUntil < Date.now() && (
+                <motion.span
+                  key={`fill-${activeIndex}-${pausedUntil}`}
+                  className="pia-press-dot-fill"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: AUTO_MS / 1000, ease: 'linear' }}
+                />
+              )}
+            </button>
           ))}
         </div>
       </section>

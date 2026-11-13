@@ -21,8 +21,12 @@ const ITEMS: DockItem[] = [
   { key: 'publications', label: 'Blog', path: '/publications/', icon: BookOpen },
 ];
 
-function activeFor(page: PageKey, aboutInView: boolean): DockKey | null {
-  if (page === 'home') return aboutInView ? 'about' : 'home';
+function activeFor(page: PageKey, section: 'home' | 'about' | 'blog'): DockKey | null {
+  if (page === 'home') {
+    if (section === 'about') return 'about';
+    if (section === 'blog') return 'publications';
+    return 'home';
+  }
   if (page === 'news') return 'publications';
   if (page === 'gallery' || page === 'awards' || page === 'publications') {
     return page;
@@ -33,7 +37,7 @@ function activeFor(page: PageKey, aboutInView: boolean): DockKey | null {
 export const MobileDock: React.FC = () => {
   const { route, navigate } = useRouter();
   const [hidden, setHidden] = useState(false);
-  const [aboutInView, setAboutInView] = useState(false);
+  const [homeSection, setHomeSection] = useState<'home' | 'about' | 'blog'>('home');
 
   const lockUntil = React.useRef(0);
 
@@ -53,15 +57,16 @@ export const MobileDock: React.FC = () => {
       else if (delta > 6) setHidden(true);
       else if (delta < -6) setHidden(false);
 
-      const about = document.getElementById('pia-about');
-      if (about) {
-        const rect = about.getBoundingClientRect();
-        setAboutInView(
-          rect.top < window.innerHeight * 0.55 && rect.bottom > window.innerHeight * 0.35
-        );
-      } else {
-        setAboutInView(false);
-      }
+      const line = window.innerHeight * 0.5;
+      const inView = (id: string) => {
+        const el = document.getElementById(id);
+        if (!el) return false;
+        const r = el.getBoundingClientRect();
+        return r.top < line && r.bottom > line;
+      };
+      if (inView('pia-press') || inView('pia-contact')) setHomeSection('blog');
+      else if (inView('pia-about')) setHomeSection('about');
+      else setHomeSection('home');
 
       lastY = y;
       ticking = false;
@@ -79,7 +84,7 @@ export const MobileDock: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, [route.path]);
 
-  const active = activeFor(route.page, aboutInView);
+  const active = activeFor(route.page, homeSection);
 
   const onClick = (e: React.MouseEvent, item: DockItem) => {
     if (!isPlainLeftClick(e)) return;
