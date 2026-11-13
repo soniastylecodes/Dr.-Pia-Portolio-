@@ -39,9 +39,6 @@ export const ContactCta: React.FC<ContactCtaProps> = ({
             <ArrowUpRight size={16} strokeWidth={2} />
           </span>
         </a>
-        <a href={`mailto:${email}`} className="pia-cta-email">
-          {email}
-        </a>
       </motion.div>
     </section>
   );

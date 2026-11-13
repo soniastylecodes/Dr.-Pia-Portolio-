@@ -2875,15 +2875,15 @@
 }
 
 @media (max-width: 1023px) {
-  .pia-press-card > * {
+  .pia-press-track .pia-press-card > * {
     transition: opacity 500ms ease;
   }
 
-  .pia-press-card:not(.is-current) > * {
+  .pia-press-track .pia-press-card:not(.is-current) > * {
     opacity: 0.5;
   }
 
-  .pia-press-card.is-current .pia-press-image-wrap img {
+  .pia-press-track .pia-press-card.is-current .pia-press-image-wrap img {
     animation: pia-press-drift 9s ease-in-out infinite alternate;
   }
 }
@@ -2897,4 +2897,17 @@
   .pia-press-card.is-current .pia-press-image-wrap img {
     animation: none;
   }
+}
+
+.pia-press-img-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.pia-press-img-wrap img {
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pia-press-card:hover .pia-press-img-wrap img {
+  transform: scale(1.05);
 }
