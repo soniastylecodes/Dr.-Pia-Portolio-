@@ -6,6 +6,7 @@ import {
   legalPages,
   news,
   site,
+  srcSetFor,
 } from './content';
 import { href, Route } from './router';
 
@@ -19,6 +20,9 @@ export interface HeadData {
   robots: string;
   publishedTime?: string;
   jsonLd: object[];
+  preloadImage?: string;
+  preloadSrcSet?: string;
+  preloadSizes?: string;
 }
 
 const PERSON_NAME = 'Patience Ishaku Abbo';
@@ -148,6 +152,9 @@ export function buildHead(route: Route): HeadData {
       return {
         ...base,
         type: 'profile',
+        preloadImage: asset(home.hero.image),
+        preloadSrcSet: srcSetFor(asset(home.hero.image)),
+        preloadSizes: '(max-width: 899px) 150vw, 55vw',
         jsonLd: graph(websiteSchema(), personSchema(), organizationSchema(), {
           '@type': 'ProfilePage',
           '@id': `${canonical}#profile`,
@@ -268,6 +275,15 @@ export function renderHeadTags(h: HeadData): string {
     `<meta name="twitter:description" content="${esc(h.description)}" />`,
     `<meta name="twitter:image" content="${esc(h.image)}" />`,
   ];
+  if (h.preloadImage) {
+    tags.push(
+      `<link rel="preload" as="image" href="${esc(h.preloadImage)}"${
+        h.preloadSrcSet
+          ? ` imagesrcset="${esc(h.preloadSrcSet)}" imagesizes="${esc(h.preloadSizes || '100vw')}"`
+          : ''
+      } fetchpriority="high" />`
+    );
+  }
   if (h.publishedTime) {
     tags.push(
       `<meta property="article:published_time" content="${esc(h.publishedTime)}" />`

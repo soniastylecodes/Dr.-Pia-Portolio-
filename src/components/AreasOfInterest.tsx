@@ -6,7 +6,7 @@ import {
   Monitor,
   Users,
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { FocusIcon } from '../lib/content';
 import { CommunityPhotos } from './CommunityPhotos';
 import { FeatureImage } from './FeatureImage';
@@ -64,7 +64,7 @@ export const AreasOfInterest: React.FC<AreasOfInterestProps> = ({
   return (
     <div id="pia-sectors" className="pia-focus-composite">
       {/* Feature Image: Top on Mobile, Right Tall Column on Desktop */}
-      <motion.div
+      <m.div
         className="pia-feature-col"
         initial={{ opacity: 0, x: 28 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -72,12 +72,12 @@ export const AreasOfInterest: React.FC<AreasOfInterestProps> = ({
         transition={{ duration: 0.85, ease: EASE_OUT }}
       >
         <FeatureImage featurePhotoUrl={featurePhotoUrl} />
-      </motion.div>
+      </m.div>
 
       {/* Sectors + Supporting 2-Column Photos: Bottom on Mobile, Left Column on Desktop */}
       <div className="pia-sectors-col">
         <div>
-          <motion.h2
+          <m.h2
             className="pia-sectors-heading"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -85,11 +85,11 @@ export const AreasOfInterest: React.FC<AreasOfInterestProps> = ({
             transition={{ duration: 0.75, ease: EASE_OUT }}
           >
             {heading}
-          </motion.h2>
+          </m.h2>
 
           <section className="pia-sectors">
             {items.map((sector, index) => (
-              <motion.div
+              <m.div
                 key={`${index}-${sector.name}`}
                 className="pia-sector"
                 initial={{ opacity: 0, y: 18 }}
@@ -106,12 +106,12 @@ export const AreasOfInterest: React.FC<AreasOfInterestProps> = ({
                   <SectorIllustration type={sector.icon} />
                 </span>
                 <span>{sector.name}</span>
-              </motion.div>
+              </m.div>
             ))}
           </section>
 
           {closingNote && (
-            <motion.p
+            <m.p
               className="pia-sectors-note"
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -119,18 +119,18 @@ export const AreasOfInterest: React.FC<AreasOfInterestProps> = ({
               transition={{ duration: 0.65, delay: 0.35, ease: EASE_OUT }}
             >
               {closingNote}
-            </motion.p>
+            </m.p>
           )}
         </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 26 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, delay: 0.15, ease: EASE_OUT }}
         >
           <CommunityPhotos leftUrl={photoLeftUrl} rightUrl={photoRightUrl} />
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

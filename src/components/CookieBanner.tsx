@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m } from 'motion/react';
 import {
   loadTracking,
   readConsent,
@@ -39,7 +39,7 @@ export const CookieBanner: React.FC = () => {
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
+        <m.div
           className="pia-cookie"
           role="dialog"
           aria-live="polite"
@@ -74,7 +74,7 @@ export const CookieBanner: React.FC = () => {
               Accept
             </button>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

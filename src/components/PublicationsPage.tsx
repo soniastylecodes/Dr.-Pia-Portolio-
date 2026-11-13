@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { ArrowLeft, BookOpen, FileText } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m } from 'motion/react';
 import {
   asset,
   formatDate,
   news,
   PublicationItem,
   publications,
-  renderMarkdown,
 } from '../lib/content';
 import { href, isPlainLeftClick, useRouter } from '../lib/router';
 import { PiaImage } from './PiaImage';
@@ -31,7 +30,7 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({
   };
 
   return (
-    <motion.section
+    <m.section
       className="pia-gallery-page"
       id="pia-publications-page"
       initial={{ opacity: 0, y: 18 }}
@@ -67,7 +66,7 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {publications.map((pub, index) => (
-            <motion.article
+            <m.article
               key={pub.slug}
               className="border border-[#E5E7EB] bg-white p-6 md:p-7 flex flex-col justify-between hover:shadow-md transition-shadow"
               initial={{ opacity: 0, y: 24 }}
@@ -107,7 +106,7 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({
                 <FileText size={13} strokeWidth={2} />
                 <span>READ PUBLICATION</span>
               </button>
-            </motion.article>
+            </m.article>
           ))}
         </div>
       </div>
@@ -122,7 +121,7 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {news.map((article, index) => (
-            <motion.article
+            <m.article
               className="pia-press-card max-w-full!"
               key={article.slug}
               initial={{ opacity: 0, y: 26 }}
@@ -138,6 +137,7 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({
                 <span className="pia-press-badge">{article.category}</span>
                 <PiaImage
                   src={asset(article.image)}
+                  sizes="(min-width: 1024px) 30vw, 90vw"
                   alt={article.imageAlt || article.title}
                 />
               </div>
@@ -162,7 +162,7 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({
               >
                 READ ARTICLE
               </a>
-            </motion.article>
+            </m.article>
           ))}
         </div>
       </div>
@@ -171,7 +171,7 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({
       {/* Policy Paper Reader Modal */}
       <AnimatePresence>
         {activePolicyPaper && (
-          <motion.div
+          <m.div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs"
             onClick={() => setActivePolicyPaper(null)}
             role="dialog"
@@ -181,7 +181,7 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <motion.div
+            <m.div
               className="w-full max-w-xl bg-white p-6 md:p-8 shadow-xl"
               onClick={(e) => e.stopPropagation()}
               initial={{ opacity: 0, y: 22, scale: 0.97 }}
@@ -212,7 +212,7 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({
               <div
                 className="pia-article-body pia-article-body-compact"
                 dangerouslySetInnerHTML={{
-                  __html: renderMarkdown(activePolicyPaper.body),
+                  __html: activePolicyPaper.bodyHtml || '',
                 }}
               />
 
@@ -227,11 +227,11 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({
                   <span>OPEN FULL DOCUMENT ↗</span>
                 </a>
               )}
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
 
-    </motion.section>
+    </m.section>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { Award, BookOpen, House, ImagePlay, UserRound } from 'lucide-react';
 import { href, isPlainLeftClick, PageKey, useRouter } from '../lib/router';
 
@@ -101,7 +101,7 @@ export const MobileDock: React.FC = () => {
   };
 
   return (
-    <motion.nav
+    <m.nav
       className="pia-dock"
       aria-label="Quick navigation"
       initial={{ y: 120, opacity: 0 }}
@@ -125,26 +125,26 @@ export const MobileDock: React.FC = () => {
                 aria-current={isActive ? 'page' : undefined}
               >
                 {isActive && (
-                  <motion.span
+                  <m.span
                     layoutId="pia-dock-pill"
                     className="pia-dock-pill"
                     transition={{ type: 'spring', stiffness: 420, damping: 34 }}
                   />
                 )}
-                <motion.span
+                <m.span
                   className="pia-dock-icon"
                   animate={isActive ? { y: -1, scale: 1.08 } : { y: 0, scale: 1 }}
                   whileTap={{ scale: 0.86 }}
                   transition={{ type: 'spring', stiffness: 500, damping: 28 }}
                 >
                   <Icon size={20} strokeWidth={isActive ? 2.2 : 1.8} aria-hidden="true" />
-                </motion.span>
+                </m.span>
                 <span className="pia-dock-label">{item.label}</span>
               </a>
             </li>
           );
         })}
       </ul>
-    </motion.nav>
+    </m.nav>
   );
 };

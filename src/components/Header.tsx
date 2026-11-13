@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ChevronDown, X } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m } from 'motion/react';
 import { asset, home, site } from '../lib/content';
 import { RotatingQuote } from './RotatingQuote';
 import { SOCIAL_ICONS } from './socialIcons';
@@ -115,7 +115,7 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
 
             <AnimatePresence>
               {aboutDropdownOpen && (
-                <motion.div
+                <m.div
                   className="pia-nav-dropdown-menu"
                   role="menu"
                   initial={{ opacity: 0, y: 6 }}
@@ -142,7 +142,7 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
                   >
                     Network 21
                   </button>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>
@@ -218,7 +218,7 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
       {/* Mobile Menu: full screen premium panel */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <m.div
             className="pia-mobile-backdrop"
             onClick={() => setMenuOpen(false)}
             initial={{ opacity: 0 }}
@@ -226,7 +226,7 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
           >
-            <motion.aside
+            <m.aside
               className="pia-menu-panel"
               role="dialog"
               aria-modal="true"
@@ -237,7 +237,7 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, ease: EASE_OUT }}
             >
-              <motion.div
+              <m.div
                 className="pia-menu-portrait"
                 initial={{ scale: 1.08, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -249,7 +249,7 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
                   aria-hidden="true"
                   loading="lazy"
                 />
-              </motion.div>
+              </m.div>
 
               <button
                 type="button"
@@ -261,24 +261,24 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
               </button>
 
               <div className="pia-menu-body">
-                <motion.p
+                <m.p
                   className="pia-menu-eyebrow"
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, delay: 0.25, ease: EASE_OUT }}
                 >
                   Dr. Patience Ishaku Abbo
-                </motion.p>
+                </m.p>
 
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.38, ease: EASE_OUT }}
                 >
                   <RotatingQuote quotes={home.menu.quotes || []} />
-                </motion.div>
+                </m.div>
 
-                <motion.div
+                <m.div
                   className="pia-menu-buttons"
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -297,10 +297,10 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
                   >
                     Join Network 21
                   </button>
-                </motion.div>
+                </m.div>
 
                 {menuSocials.length > 0 && (
-                  <motion.ul
+                  <m.ul
                     className="pia-menu-socials"
                     aria-label="Follow Dr. Patience Ishaku Abbo"
                     initial={{ opacity: 0 }}
@@ -319,18 +319,18 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
                         </a>
                       </li>
                     ))}
-                  </motion.ul>
+                  </m.ul>
                 )}
               </div>
-            </motion.aside>
-          </motion.div>
+            </m.aside>
+          </m.div>
         )}
       </AnimatePresence>
 
       {/* Network 21 Modal */}
       <AnimatePresence>
         {network21ModalOpen && (
-          <motion.div
+          <m.div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs"
             onClick={() => setNetwork21ModalOpen(false)}
             role="dialog"
@@ -340,7 +340,7 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <motion.div
+            <m.div
               className="w-full max-w-2xl bg-white p-6 md:p-10 shadow-xl max-h-[88vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
               initial={{ opacity: 0, y: 20, scale: 0.97 }}
@@ -404,8 +404,8 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
                   </div>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

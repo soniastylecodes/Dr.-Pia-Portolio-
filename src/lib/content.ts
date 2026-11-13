@@ -1,4 +1,3 @@
-import { marked } from 'marked';
 import siteJson from '../../content/settings/site.json';
 import homeJson from '../../content/settings/home.json';
 import galleryJson from '../../content/settings/gallery.json';
@@ -40,6 +39,7 @@ export interface LegalPage {
   title: string;
   description: string;
   body: string;
+  bodyHtml?: string;
 }
 
 export interface HomeContent {
@@ -123,6 +123,7 @@ export interface NewsItem {
   imageAlt?: string;
   summary: string;
   body: string;
+  bodyHtml?: string;
   draft?: boolean;
   sample?: boolean;
   url?: string;
@@ -147,6 +148,7 @@ export interface PublicationItem {
   year: string;
   summary: string;
   body: string;
+  bodyHtml?: string;
   link?: string;
   order?: number;
 }
@@ -168,9 +170,6 @@ export function absoluteUrl(path: string): string {
   return `${root}${rest}`;
 }
 
-export function renderMarkdown(text: string): string {
-  return marked.parse(text || '', { async: false, gfm: true, breaks: false }) as string;
-}
 
 export function formatDate(iso: string): string {
   const d = new Date(iso);
@@ -252,4 +251,22 @@ export function tiktokId(url: string | undefined): string {
   if (/^\d{10,25}$/.test(trimmed)) return trimmed;
   const m = trimmed.match(/\/video\/(\d{10,25})/);
   return m ? m[1] : '';
+}
+
+type ImageManifest = Record<string, { width: number; variants: [number, string][] }>;
+const imageManifest: ImageManifest =
+  (Object.values(
+    import.meta.glob('../generated/images.json', { eager: true, import: 'default' })
+  )[0] as ImageManifest | undefined) || {};
+
+export function srcSetFor(url: string | undefined): string | undefined {
+  if (!url) return undefined;
+  const base = BASE.replace(/\/+$/, '');
+  const key = url.startsWith(base + '/') ? url.slice(base.length) : url;
+  const entry = imageManifest[key];
+  if (!entry || !entry.variants.length) return undefined;
+  return [
+    ...entry.variants.map(([w, p]) => `${asset(p)} ${w}w`),
+    `${asset(key)} ${entry.width}w`,
+  ].join(', ');
 }

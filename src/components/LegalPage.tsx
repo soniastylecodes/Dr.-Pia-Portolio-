@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowLeft } from 'lucide-react';
-import { motion } from 'motion/react';
-import { legalPages, renderMarkdown } from '../lib/content';
+import { m } from 'motion/react';
+import { legalPages } from '../lib/content';
 
 interface LegalPageProps {
   page: 'privacy' | 'terms';
@@ -14,7 +14,7 @@ export const LegalPageView: React.FC<LegalPageProps> = ({ page, onBackHome }) =>
   const content = legalPages[page];
 
   return (
-    <motion.article
+    <m.article
       className="pia-gallery-page pia-article-page pia-legal-page"
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
@@ -31,8 +31,8 @@ export const LegalPageView: React.FC<LegalPageProps> = ({ page, onBackHome }) =>
 
       <div
         className="pia-article-body"
-        dangerouslySetInnerHTML={{ __html: renderMarkdown(content.body) }}
+        dangerouslySetInnerHTML={{ __html: content.bodyHtml || '' }}
       />
-    </motion.article>
+    </m.article>
   );
 };

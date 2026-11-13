@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { SocialKey } from '../lib/content';
 import { SOCIAL_ICONS, SOCIAL_ORDER } from './socialIcons';
 import { href, isPlainLeftClick, useRouter } from '../lib/router';
@@ -29,7 +29,7 @@ export const Footer: React.FC<FooterProps> = ({
 
   return (
     <footer className="pia-footer">
-      <motion.img
+      <m.img
         className="pia-footer-logo"
         src={resolvedFooterLogo}
         alt="PIA na SIA logo"
@@ -40,7 +40,7 @@ export const Footer: React.FC<FooterProps> = ({
         transition={{ duration: 0.7, ease: EASE_OUT }}
       />
 
-      <motion.div
+      <m.div
         className="pia-socials"
         initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -48,7 +48,7 @@ export const Footer: React.FC<FooterProps> = ({
         transition={{ duration: 0.7, delay: 0.1, ease: EASE_OUT }}
       >
         {SOCIAL_ORDER.filter((key) => socials[key]).map((key) => (
-          <motion.a
+          <m.a
             key={key}
             href={socials[key]}
             aria-label={`Dr. Patience Ishaku Abbo on ${SOCIAL_ICONS[key].label}`}
@@ -57,11 +57,11 @@ export const Footer: React.FC<FooterProps> = ({
             whileHover={{ y: -3, scale: 1.08 }}
           >
             {SOCIAL_ICONS[key].icon}
-          </motion.a>
+          </m.a>
         ))}
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         className="pia-copyright"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -69,7 +69,7 @@ export const Footer: React.FC<FooterProps> = ({
         transition={{ duration: 0.7, delay: 0.2, ease: EASE_OUT }}
       >
         {copyright}
-      </motion.div>
+      </m.div>
 
       <nav className="pia-footer-legal" aria-label="Legal">
         <a href={href('/privacy/')} onClick={(e) => go(e, '/privacy/')}>

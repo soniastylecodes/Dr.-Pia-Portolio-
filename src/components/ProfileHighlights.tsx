@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { PiaImage } from './PiaImage';
 
 interface ProfileHighlightsProps {
@@ -18,7 +18,7 @@ export const ProfileHighlights: React.FC<ProfileHighlightsProps> = ({
   return (
     <section className="pia-highlights-section" id="pia-highlights">
       {/* Left Portrait on Desktop */}
-      <motion.div
+      <m.div
         className="pia-highlights-left-portrait"
         initial={{ opacity: 0, x: -28 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -27,13 +27,14 @@ export const ProfileHighlights: React.FC<ProfileHighlightsProps> = ({
       >
         <PiaImage
           src={portraitUrl}
+          sizes="(min-width: 1024px) 35vw, 90vw"
           alt="Dr. Patience Ishaku Abbo leadership portrait"
         />
-      </motion.div>
+      </m.div>
 
       {/* Right Column: Profile Highlights */}
       <div className="pia-highlights-right-col">
-        <motion.div
+        <m.div
           className="pia-eyebrow"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -41,10 +42,10 @@ export const ProfileHighlights: React.FC<ProfileHighlightsProps> = ({
           transition={{ duration: 0.65, ease: EASE_OUT }}
         >
           {eyebrow}
-        </motion.div>
+        </m.div>
 
         {items.map((item, index) => (
-          <motion.div
+          <m.div
             key={`${index}-${item.slice(0, 24)}`}
             className="pia-highlight"
             initial={{ opacity: 0, y: 20 }}
@@ -61,7 +62,7 @@ export const ProfileHighlights: React.FC<ProfileHighlightsProps> = ({
             <span className="pia-highlight-arrow" aria-hidden="true">
               ↗
             </span>
-          </motion.div>
+          </m.div>
         ))}
       </div>
     </section>

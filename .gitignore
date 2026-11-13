@@ -8,3 +8,6 @@ coverage/
 !.env.example
 
 dist-ssr
+
+public/uploads/_r
+src/generated

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion, useInView, useReducedMotion } from 'motion/react';
+import { useInView, useReducedMotion, m } from 'motion/react';
 import { asset, formatDate, NewsItem } from '../lib/content';
 import { href, isPlainLeftClick, useRouter } from '../lib/router';
 import { PiaImage } from './PiaImage';
@@ -94,7 +94,7 @@ export const PressSection: React.FC<PressSectionProps> = ({
     <>
       <section className="pia-press" id="pia-press" ref={sectionRef}>
         <div className="pia-press-header">
-          <motion.div
+          <m.div
             className="pia-eyebrow"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -102,7 +102,7 @@ export const PressSection: React.FC<PressSectionProps> = ({
             transition={{ duration: 0.65, ease: EASE_OUT }}
           >
             {eyebrow}
-          </motion.div>
+          </m.div>
 
           {/* Slider Arrow Controls */}
           <div
@@ -144,7 +144,7 @@ export const PressSection: React.FC<PressSectionProps> = ({
           className="pia-press-track"
         >
           {items.map((item, index) => (
-            <motion.div
+            <m.div
               key={item.slug}
               className={`pia-press-card${index === activeIndex ? ' is-current' : ''}`}
               initial="hidden"
@@ -160,7 +160,7 @@ export const PressSection: React.FC<PressSectionProps> = ({
               }}
               whileHover={{ y: -5 }}
             >
-              <motion.div
+              <m.div
                 className="pia-press-image-wrap"
                 variants={{
                   hidden: { clipPath: 'inset(0% 0% 100% 0%)' },
@@ -170,7 +170,7 @@ export const PressSection: React.FC<PressSectionProps> = ({
                   },
                 }}
               >
-                <motion.span
+                <m.span
                   className="pia-press-badge"
                   variants={{
                     hidden: { opacity: 0, x: -14 },
@@ -182,12 +182,13 @@ export const PressSection: React.FC<PressSectionProps> = ({
                   }}
                 >
                   {item.category}
-                </motion.span>
+                </m.span>
                 <PiaImage
                   src={asset(item.image)}
+                  sizes="(min-width: 1024px) 30vw, 85vw"
                   alt={item.imageAlt || item.title}
                 />
-              </motion.div>
+              </m.div>
               <div className="pia-press-date">
                 <time dateTime={item.date}>{formatDate(item.date)}</time>
               </div>
@@ -199,15 +200,15 @@ export const PressSection: React.FC<PressSectionProps> = ({
                   {item.title}
                 </a>
               </h3>
-              <motion.a
+              <m.a
                 href={href(`/news/${item.slug}/`)}
                 onClick={(e) => openArticle(e, item.slug)}
                 className="pia-press-link"
                 whileHover={{ x: 4 }}
               >
                 READ ARTICLE
-              </motion.a>
-            </motion.div>
+              </m.a>
+            </m.div>
           ))}
         </div>
 
@@ -229,7 +230,7 @@ export const PressSection: React.FC<PressSectionProps> = ({
               }`}
             >
               {idx === activeIndex && autoOn && pausedUntil < Date.now() && (
-                <motion.span
+                <m.span
                   key={`fill-${activeIndex}-${pausedUntil}`}
                   className="pia-press-dot-fill"
                   initial={{ scaleX: 0 }}

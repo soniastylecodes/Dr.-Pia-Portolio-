@@ -1,12 +1,11 @@
 import React from 'react';
 import { ArrowLeft } from 'lucide-react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import {
   absoluteUrl,
   asset,
   formatDate,
   news,
-  renderMarkdown,
 } from '../lib/content';
 import { href, isPlainLeftClick, useRouter } from '../lib/router';
 import { PiaImage } from './PiaImage';
@@ -38,7 +37,7 @@ export const NewsArticlePage: React.FC<NewsArticlePageProps> = ({
   };
 
   return (
-    <motion.article
+    <m.article
       className="pia-gallery-page pia-article-page"
       id="pia-news-article"
       initial={{ opacity: 0, y: 18 }}
@@ -68,6 +67,7 @@ export const NewsArticlePage: React.FC<NewsArticlePageProps> = ({
         <figure className="pia-article-figure">
           <PiaImage
             src={asset(item.image)}
+            sizes="(min-width: 900px) 860px, 100vw"
             alt={item.imageAlt || item.title}
             priority
           />
@@ -76,7 +76,7 @@ export const NewsArticlePage: React.FC<NewsArticlePageProps> = ({
 
       <div
         className="pia-article-body"
-        dangerouslySetInnerHTML={{ __html: renderMarkdown(item.body) }}
+        dangerouslySetInnerHTML={{ __html: item.bodyHtml || '' }}
       />
 
       <div className="pia-article-share">
@@ -122,6 +122,6 @@ export const NewsArticlePage: React.FC<NewsArticlePageProps> = ({
           </ul>
         </aside>
       )}
-    </motion.article>
+    </m.article>
   );
 };

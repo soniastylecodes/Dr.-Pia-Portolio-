@@ -1,5 +1,5 @@
 import React from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m } from 'motion/react';
 import { LOGO_WHITE_GREEN } from '../lib/content';
 
 interface PreloaderProps {
@@ -14,22 +14,22 @@ export const Preloader: React.FC<PreloaderProps> = ({ isVisible }) => {
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.div
+        <m.div
           key="pia-preloader"
           className="pia-preloader"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.55, delay: 0.1, ease: EASE_OUT } }}
+          exit={{ opacity: 0, transition: { duration: 0.45, delay: 0.05, ease: EASE_OUT } }}
           role="status"
           aria-label="Loading Dr. Patience Ishaku Abbo official website"
         >
-          <motion.div
+          <m.div
             className="pia-preloader-orb"
             initial={{ opacity: 0, scale: 0.86 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.12, transition: { duration: 0.5, ease: EASE_OUT } }}
             transition={{ duration: 0.6, ease: EASE_OUT }}
           >
-            <motion.span
+            <m.span
               className="pia-preloader-halo"
               aria-hidden="true"
               animate={{ opacity: [0.55, 0.95, 0.55], scale: [0.96, 1.04, 0.96] }}
@@ -52,7 +52,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ isVisible }) => {
                 </filter>
               </defs>
               <circle cx="100" cy="100" r={R} className="pia-preloader-track" />
-              <motion.circle
+              <m.circle
                 cx="100"
                 cy="100"
                 r={R}
@@ -61,20 +61,20 @@ export const Preloader: React.FC<PreloaderProps> = ({ isVisible }) => {
                 filter="url(#pia-ring-glow)"
                 initial={{ pathLength: 0.02 }}
                 animate={{ pathLength: 1 }}
-                transition={{ duration: 1.35, ease: [0.65, 0, 0.35, 1] }}
+                transition={{ duration: 0.9, ease: [0.65, 0, 0.35, 1] }}
               />
             </svg>
 
-            <motion.img
+            <m.img
               src={LOGO_WHITE_GREEN}
               alt=""
               className="pia-preloader-logo"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.15, ease: EASE_OUT }}
+              transition={{ duration: 0.5, delay: 0.05, ease: EASE_OUT }}
             />
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

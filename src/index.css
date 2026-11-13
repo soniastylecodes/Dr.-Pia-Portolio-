@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('/fonts/sora-latin-variable.woff2') format('woff2-variations'),
+    url('/fonts/sora-latin-variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('/fonts/cormorant-garamond-latin-400-italic.woff2') format('woff2');
+}
+
 @theme {
   --breakpoint-md: 56.25rem;
 }
@@ -575,6 +592,24 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
+  animation: pia-hero-reveal 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both;
+}
+
+@keyframes pia-hero-reveal {
+  from {
+    clip-path: inset(32% 0% 0% 0%);
+    transform: scale(1.12);
+  }
+  to {
+    clip-path: inset(0% 0% 0% 0%);
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pia-hero-portrait-reveal {
+    animation: none;
+  }
 }
 
 .pia-hero-portrait-layer img {

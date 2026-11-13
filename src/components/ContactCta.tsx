@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 
 interface ContactCtaProps {
@@ -21,7 +21,7 @@ export const ContactCta: React.FC<ContactCtaProps> = ({
 }) => {
   return (
     <section className="pia-cta" id="pia-contact" aria-labelledby="pia-cta-heading">
-      <motion.div
+      <m.div
         className="pia-cta-panel"
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -39,7 +39,7 @@ export const ContactCta: React.FC<ContactCtaProps> = ({
             <ArrowUpRight size={16} strokeWidth={2} />
           </span>
         </a>
-      </motion.div>
+      </m.div>
     </section>
   );
 };

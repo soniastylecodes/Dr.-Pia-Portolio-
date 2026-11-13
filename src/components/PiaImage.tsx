@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { srcSetFor } from '../lib/content';
 
 interface PiaImageProps {
   src: string;
   alt: string;
   className?: string;
   priority?: boolean;
+  sizes?: string;
 }
 
 export const PiaImage: React.FC<PiaImageProps> = ({
@@ -12,6 +14,7 @@ export const PiaImage: React.FC<PiaImageProps> = ({
   alt,
   className = '',
   priority = false,
+  sizes = '(min-width: 1024px) 50vw, 100vw',
 }) => {
   const [hasError, setHasError] = useState(false);
 
@@ -23,6 +26,8 @@ export const PiaImage: React.FC<PiaImageProps> = ({
     <div className={`pia-photo-wrapper ${className}`}>
       <img
         src={src}
+        srcSet={srcSetFor(src)}
+        sizes={sizes}
         alt={alt}
         loading={priority ? 'eager' : 'lazy'}
         decoding="async"

@@ -3,6 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { LazyMotion } from 'motion/react';
+
+const loadMotion = () => import('./lib/motionFeatures').then((r) => r.default);
+
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AboutSection } from './components/AboutSection';
 import { AreasOfInterest } from './components/AreasOfInterest';
@@ -44,7 +48,7 @@ export default function App({ initialPath }: AppProps) {
   useEffect(() => {
     const timer = window.setTimeout(() => {
       setIsLoading(false);
-    }, 1550);
+    }, 1050);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -61,7 +65,7 @@ export default function App({ initialPath }: AppProps) {
       if (hash && route.page === 'home') {
         window.setTimeout(() => {
           document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
-        }, 1600);
+        }, 1100);
       }
       return;
     }
@@ -76,10 +80,6 @@ export default function App({ initialPath }: AppProps) {
       const isPageChange = next.path !== route.path;
 
       if (isPageChange) {
-        setIsLoading(true);
-        window.setTimeout(() => {
-          setIsLoading(false);
-        }, 650);
         window.history.pushState(
           {},
           '',
@@ -99,7 +99,7 @@ export default function App({ initialPath }: AppProps) {
             .getElementById(sectionId)
             ?.scrollIntoView({ behavior: 'smooth' });
         },
-        isPageChange ? 700 : 30
+        isPageChange ? 120 : 30
       );
     },
     [route.path]
@@ -110,6 +110,7 @@ export default function App({ initialPath }: AppProps) {
   const homeNews = news.slice(0, Math.max(1, home.news.count || 6));
 
   return (
+    <LazyMotion features={loadMotion}>
     <RouterContext.Provider value={routerValue}>
       <div className="pia-profile">
         <Preloader isVisible={isLoading} logoUrl={LOGO} />
@@ -218,5 +219,6 @@ export default function App({ initialPath }: AppProps) {
         <CookieBanner />
       </div>
     </RouterContext.Provider>
+    </LazyMotion>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Maximize2 } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
-import { asset, awards } from '../lib/content';
+import { AnimatePresence, m } from 'motion/react';
+import { asset, awards, srcSetFor } from '../lib/content';
 
 interface AwardsPageProps {
   onBackHome: () => void;
@@ -29,7 +29,7 @@ export const AwardsPage: React.FC<AwardsPageProps> = ({ onBackHome }) => {
   };
 
   return (
-    <motion.section
+    <m.section
       className="pia-gallery-page"
       id="pia-awards-page"
       initial={{ opacity: 0, y: 18 }}
@@ -54,7 +54,7 @@ export const AwardsPage: React.FC<AwardsPageProps> = ({ onBackHome }) => {
 
       <div className="pia-awards-grid">
         {PIA_AWARDS.map((item, idx) => (
-          <motion.article
+          <m.article
             key={item.slug}
             className="pia-award-card"
             initial={{ opacity: 0, y: 26 }}
@@ -71,6 +71,8 @@ export const AwardsPage: React.FC<AwardsPageProps> = ({ onBackHome }) => {
               <div className="pia-award-frame-matte">
                 <img
                   src={asset(item.image)}
+                  srcSet={srcSetFor(asset(item.image))}
+                  sizes="(min-width: 1024px) 320px, 80vw"
                   alt={`${item.title}, presented to Dr. Patience Ishaku Abbo by ${item.organization}`}
                   className="pia-award-plaque-img"
                   loading="lazy"
@@ -92,14 +94,14 @@ export const AwardsPage: React.FC<AwardsPageProps> = ({ onBackHome }) => {
               <h2 className="pia-award-title">{item.title}</h2>
               <p className="pia-award-org">{item.organization}</p>
             </div>
-          </motion.article>
+          </m.article>
         ))}
       </div>
 
       {/* Lightbox Modal for Inspecting Framed Award Up Close */}
       <AnimatePresence>
         {activeAward && activeIndex !== null && (
-          <motion.div
+          <m.div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-xs"
             onClick={() => setActiveIndex(null)}
             role="dialog"
@@ -110,7 +112,7 @@ export const AwardsPage: React.FC<AwardsPageProps> = ({ onBackHome }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.22 }}
           >
-            <motion.div
+            <m.div
               className="relative w-full max-w-4xl bg-white p-5 md:p-7 shadow-2xl max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
               initial={{ opacity: 0, scale: 0.96, y: 18 }}
@@ -167,10 +169,10 @@ export const AwardsPage: React.FC<AwardsPageProps> = ({ onBackHome }) => {
                   Next Award →
                 </button>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.section>
+    </m.section>
   );
 };

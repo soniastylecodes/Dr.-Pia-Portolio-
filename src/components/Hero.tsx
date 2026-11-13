@@ -1,10 +1,6 @@
 import React, { useRef } from 'react';
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from 'motion/react';
+import { srcSetFor } from '../lib/content';
+import { useReducedMotion, useScroll, useTransform, m } from 'motion/react';
 
 interface HeroProps {
   heroImageUrl: string;
@@ -36,29 +32,22 @@ export const Hero: React.FC<HeroProps> = ({
   return (
     <section className="pia-hero" id="top" ref={sectionRef}>
       {hasRealHeroPhoto && (
-        <motion.div
+        <m.div
           className="pia-hero-portrait-layer"
           style={reduceMotion ? undefined : { y: parallaxY, opacity: fadeOut }}
         >
-          <motion.div
-            className="pia-hero-portrait-reveal"
-            initial={
-              reduceMotion
-                ? false
-                : { clipPath: 'inset(100% 0% 0% 0%)', scale: 1.18 }
-            }
-            animate={{ clipPath: 'inset(0% 0% 0% 0%)', scale: 1 }}
-            transition={{ duration: 1.6, delay: 0.15, ease: EASE_OUT }}
-          >
+          <div className="pia-hero-portrait-reveal">
             <img
               src={heroImageUrl}
+              srcSet={srcSetFor(heroImageUrl)}
+              sizes="(max-width: 899px) 150vw, 55vw"
               alt="Dr. Patience Ishaku Abbo, public policy advocate and humanitarian"
               fetchPriority="high"
               decoding="async"
             />
-          </motion.div>
+          </div>
           {!reduceMotion && (
-            <motion.span
+            <m.span
               className="pia-hero-sheen"
               aria-hidden="true"
               initial={{ x: '-120%', opacity: 0 }}
@@ -66,13 +55,13 @@ export const Hero: React.FC<HeroProps> = ({
               transition={{ duration: 1.8, delay: 1.35, ease: 'easeInOut' }}
             />
           )}
-        </motion.div>
+        </m.div>
       )}
 
       <div className="pia-hero-scrim" />
 
       <div className="pia-hero-content">
-        <motion.h1
+        <m.h1
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, delay: 0.12, ease: EASE_OUT }}
@@ -84,17 +73,17 @@ export const Hero: React.FC<HeroProps> = ({
           <span className="pia-hero-pipe">|</span>
           <br />
           {titleLines[2]}
-        </motion.h1>
+        </m.h1>
 
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, delay: 0.28, ease: EASE_OUT }}
         >
           {description}
-        </motion.p>
+        </m.p>
 
-        <motion.a
+        <m.a
           href={ctaHref}
           className="pia-explore"
           initial={{ opacity: 0, y: 16 }}
@@ -105,7 +94,7 @@ export const Hero: React.FC<HeroProps> = ({
           <span className="pia-explore-arrow" aria-hidden="true">
             →
           </span>
-        </motion.a>
+        </m.a>
       </div>
     </section>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import { useReducedMotion, m } from 'motion/react';
 import { Play, Volume2, VolumeX } from 'lucide-react';
 
 interface FeaturedVideoProps {
@@ -29,10 +29,34 @@ export const FeaturedVideo: React.FC<FeaturedVideoProps> = ({
   const [tiktokPlaying, setTiktokPlaying] = useState(false);
 
   const userMuted = useRef(false);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    let done = false;
+    const go = () => {
+      if (done) return;
+      done = true;
+      setReady(true);
+    };
+    const frame = frameRef.current;
+    let io: IntersectionObserver | undefined;
+    if (frame) {
+      io = new IntersectionObserver(
+        ([e]) => {
+          if (e.isIntersecting) go();
+        },
+        { rootMargin: '400px 0px' }
+      );
+      io.observe(frame);
+    }
+    return () => {
+      io?.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !ready) return;
     if (!reduceMotion) video.play().catch(() => undefined);
 
     const unmute = () => {
@@ -50,7 +74,7 @@ export const FeaturedVideo: React.FC<FeaturedVideoProps> = ({
     const cleanup = () => events.forEach((e) => window.removeEventListener(e, unmute));
     events.forEach((e) => window.addEventListener(e, unmute, { passive: true }));
     return cleanup;
-  }, [reduceMotion]);
+  }, [reduceMotion, ready]);
 
   const toggleSound = () => {
     const video = videoRef.current;
@@ -73,7 +97,7 @@ export const FeaturedVideo: React.FC<FeaturedVideoProps> = ({
 
   return (
     <section className="pia-video" id="pia-video" aria-labelledby="pia-video-heading">
-      <motion.div
+      <m.div
         className="pia-video-card"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -85,10 +109,10 @@ export const FeaturedVideo: React.FC<FeaturedVideoProps> = ({
             <>
               <video
                 ref={videoRef}
-                src={fileUrl}
+                src={ready ? fileUrl : undefined}
                 poster={coverUrl}
-                preload="auto"
-                autoPlay
+                preload={ready ? 'auto' : 'none'}
+                autoPlay={ready}
                 muted
                 loop
                 playsInline
@@ -151,7 +175,7 @@ export const FeaturedVideo: React.FC<FeaturedVideoProps> = ({
             {heading}
           </p>
         </div>
-      </motion.div>
+      </m.div>
     </section>
   );
 };

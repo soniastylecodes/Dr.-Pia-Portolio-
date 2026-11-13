@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, m } from 'motion/react';
 import { PiaImage } from './PiaImage';
 
 interface AboutSectionProps {
@@ -43,7 +43,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
   return (
     <section className="pia-bio-container" id="pia-about">
       <div className="pia-bio-split">
-        <motion.div
+        <m.div
           className="pia-bio-copy"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,17 +57,17 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             <p key={index}>{paragraph}</p>
           ))}
 
-          <motion.button
+          <m.button
             type="button"
             onClick={() => setModalOpen(true)}
             className="pia-readmore"
             whileHover={{ x: 5 }}
           >
             {ctaLabel}
-          </motion.button>
-        </motion.div>
+          </m.button>
+        </m.div>
 
-        <motion.div
+        <m.div
           className="pia-bio-portrait-right"
           initial={{ opacity: 0, y: 34, scale: 0.98 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -76,16 +76,17 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
         >
           <PiaImage
             src={portraitUrl}
+            sizes="(min-width: 1024px) 40vw, 90vw"
             alt="Portrait of Dr. Patience Ishaku Abbo (PIA)"
           />
-        </motion.div>
+        </m.div>
       </div>
 
       {typeof document !== 'undefined' &&
         createPortal(
         <AnimatePresence>
           {modalOpen && (
-            <motion.div
+            <m.div
               className="pia-bio-overlay"
               onClick={() => setModalOpen(false)}
               role="dialog"
@@ -96,7 +97,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
             >
-              <motion.div
+              <m.div
                 className="pia-bio-sheet"
                 onClick={(e) => e.stopPropagation()}
                 initial={{ opacity: 0, y: 40 }}
@@ -135,8 +136,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                     })}
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           )}
         </AnimatePresence>,
           document.body

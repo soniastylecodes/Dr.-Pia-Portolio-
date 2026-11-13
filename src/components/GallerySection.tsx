@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Download, Play } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
-import { asset, GalleryPhoto } from '../lib/content';
+import { AnimatePresence, m } from 'motion/react';
+import { asset, GalleryPhoto, srcSetFor } from '../lib/content';
 
 interface GallerySectionProps {
   eyebrow: string;
@@ -40,7 +40,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
   const activeNumber = activePhotoIndex ?? 0;
 
   return (
-    <motion.section
+    <m.section
       className="pia-gallery-page"
       id="pia-gallery"
       initial={{ opacity: 0, y: 18 }}
@@ -63,7 +63,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
 
       <div className="pia-gallery-grid">
         {items.map((item, index) => (
-          <motion.figure
+          <m.figure
             key={`${index}-${item.image}`}
             className="pia-gallery-card"
             onClick={() => setActivePhotoIndex(index)}
@@ -79,6 +79,8 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
             <div className="pia-gallery-img-wrap">
               <img
                 src={asset(item.image)}
+                srcSet={srcSetFor(asset(item.image))}
+                sizes="(min-width: 1024px) 25vw, 46vw"
                 alt={item.caption || 'Dr. Patience Ishaku Abbo (PIA)'}
                 loading="lazy"
                 decoding="async"
@@ -101,13 +103,13 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                 </a>
               </div>
             </div>
-          </motion.figure>
+          </m.figure>
         ))}
       </div>
 
       <AnimatePresence>
         {activePhoto && activePhotoIndex !== null && (
-          <motion.div
+          <m.div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-xs"
             onClick={() => setActivePhotoIndex(null)}
             role="dialog"
@@ -118,7 +120,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.22 }}
           >
-            <motion.div
+            <m.div
               className="relative w-full max-w-4xl bg-white p-4 md:p-6 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
               initial={{ opacity: 0, scale: 0.96, y: 18 }}
@@ -183,10 +185,10 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                   Next →
                 </button>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.section>
+    </m.section>
   );
 };
