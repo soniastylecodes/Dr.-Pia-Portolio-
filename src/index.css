@@ -1030,6 +1030,26 @@
   background: #ffffff;
 }
 
+.pia-press-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  padding-right: 5.5%;
+}
+
+.pia-press-more .pia-readmore {
+  margin-top: 0;
+  text-decoration: none;
+}
+
+@media (min-width: 900px) {
+  .pia-press-more {
+    justify-content: flex-start;
+    margin-top: 56px;
+    padding-right: 0;
+  }
+}
+
 .pia-press-header {
   display: flex;
   align-items: center;

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useInView, useReducedMotion, m } from 'motion/react';
 import { asset, formatDate, NewsItem } from '../lib/content';
 import { href, isPlainLeftClick, useRouter } from '../lib/router';
@@ -240,6 +240,23 @@ export const PressSection: React.FC<PressSectionProps> = ({
               )}
             </button>
           ))}
+        </div>
+
+        <div className="pia-press-more">
+          <a
+            href={href('/publications/')}
+            className="pia-readmore"
+            onClick={(e) => {
+              if (!isPlainLeftClick(e)) return;
+              e.preventDefault();
+              navigate('/publications/');
+            }}
+          >
+            <span className="pia-readmore-icon" aria-hidden="true">
+              <ArrowUpRight size={18} strokeWidth={1.8} />
+            </span>
+            <span className="pia-readmore-label">See all articles</span>
+          </a>
         </div>
       </section>
 
