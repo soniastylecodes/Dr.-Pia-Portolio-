@@ -83,6 +83,7 @@ export interface HomeContent {
     eyebrow: string;
     heading: string;
     caption?: string;
+    details?: string[];
     cover: string;
   };
   contact?: {

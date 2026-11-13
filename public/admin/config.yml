@@ -184,6 +184,7 @@ collections:
               - { label: Small Label, name: eyebrow, widget: string }
               - { label: Heading, name: heading, widget: string }
               - { label: Caption, name: caption, widget: text, required: false, hint: "One or two lines about what she says in the video." }
+              - { label: Details (desktop), name: details, widget: list, required: false, field: { label: Detail, name: detail, widget: string }, hint: "Two or three short facts shown beside the video on large screens, e.g. Community outreach." }
               - { label: Cover Photo, name: cover, widget: image, hint: "Shown before the video plays. A portrait photo works best." }
           - label: News Section on Homepage
             name: news

@@ -9,6 +9,7 @@ interface FeaturedVideoProps {
   eyebrow: string;
   heading: string;
   caption?: string;
+  details?: string[];
   coverUrl: string;
 }
 
@@ -19,10 +20,13 @@ export const FeaturedVideo: React.FC<FeaturedVideoProps> = ({
   tiktokId,
   eyebrow,
   heading,
+  caption,
+  details = [],
   coverUrl,
 }) => {
   const frameRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const progressRef = useRef<HTMLSpanElement>(null);
   const reduceMotion = useReducedMotion();
   const [muted, setMuted] = useState(true);
   const [paused, setPaused] = useState(true);
@@ -68,6 +72,7 @@ export const FeaturedVideo: React.FC<FeaturedVideoProps> = ({
       v.play().catch(() => {
         v.muted = true;
         setMuted(true);
+        v.play().catch(() => undefined);
       });
     };
     const events: (keyof WindowEventMap)[] = ['pointerdown', 'touchend', 'keydown'];
@@ -119,6 +124,12 @@ export const FeaturedVideo: React.FC<FeaturedVideoProps> = ({
                 onClick={togglePlay}
                 onPlay={() => setPaused(false)}
                 onPause={() => setPaused(true)}
+                onTimeUpdate={(e) => {
+                  const v = e.currentTarget;
+                  if (progressRef.current && v.duration) {
+                    progressRef.current.style.transform = `scaleX(${v.currentTime / v.duration})`;
+                  }
+                }}
                 aria-label={heading}
               />
               {paused && (
@@ -135,9 +146,13 @@ export const FeaturedVideo: React.FC<FeaturedVideoProps> = ({
               )}
               {muted && !paused && (
                 <span className="pia-video-hint" aria-hidden="true">
-                  Tap for sound
+                  <span className="pia-video-hint-touch">Tap for sound</span>
+                  <span className="pia-video-hint-pointer">Click for sound</span>
                 </span>
               )}
+              <span className="pia-video-progress" aria-hidden="true">
+                <span ref={progressRef} />
+              </span>
               <button
                 type="button"
                 className="pia-video-sound"
@@ -171,9 +186,30 @@ export const FeaturedVideo: React.FC<FeaturedVideoProps> = ({
 
         <div className="pia-video-copy">
           <div className="pia-eyebrow">{eyebrow}</div>
-          <p id="pia-video-heading" className="pia-video-heading">
+          <h2 id="pia-video-heading" className="pia-video-heading">
             {heading}
-          </p>
+          </h2>
+          {caption && <p className="pia-video-caption">{caption}</p>}
+          {details.length > 0 && (
+            <ul className="pia-video-details">
+              {details.map((d) => (
+                <li key={d}>{d}</li>
+              ))}
+            </ul>
+          )}
+          {fileUrl && (
+            <button
+              type="button"
+              className="pia-video-sound-cta"
+              onClick={toggleSound}
+              aria-label={muted ? 'Play with sound' : 'Mute video'}
+            >
+              <span className="pia-video-sound-cta-icon" aria-hidden="true">
+                {muted ? <Volume2 size={15} strokeWidth={2} /> : <VolumeX size={15} strokeWidth={2} />}
+              </span>
+              <span>{muted ? 'Play with sound' : 'Mute video'}</span>
+            </button>
+          )}
         </div>
       </m.div>
     </section>

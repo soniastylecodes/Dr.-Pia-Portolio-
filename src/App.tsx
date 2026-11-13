@@ -147,6 +147,7 @@ export default function App({ initialPath }: AppProps) {
                     eyebrow={home.video.eyebrow}
                     heading={home.video.heading}
                     caption={home.video.caption}
+                    details={home.video.details}
                     coverUrl={asset(home.video.cover)}
                   />
                 )}
