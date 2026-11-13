@@ -21,7 +21,8 @@ const ITEMS: DockItem[] = [
   { key: 'publications', label: 'Blog', path: '/publications/', icon: BookOpen },
 ];
 
-function activeFor(page: PageKey, section: 'home' | 'about' | 'blog'): DockKey | null {
+function activeFor(page: PageKey, section: 'home' | 'about' | 'blog' | 'none'): DockKey | null {
+  if (section === 'none') return null;
   if (page === 'home') {
     if (section === 'about') return 'about';
     if (section === 'blog') return 'publications';
@@ -37,7 +38,7 @@ function activeFor(page: PageKey, section: 'home' | 'about' | 'blog'): DockKey |
 export const MobileDock: React.FC = () => {
   const { route, navigate } = useRouter();
   const [hidden, setHidden] = useState(false);
-  const [homeSection, setHomeSection] = useState<'home' | 'about' | 'blog'>('home');
+  const [homeSection, setHomeSection] = useState<'home' | 'about' | 'blog' | 'none'>('home');
 
   const lockUntil = React.useRef(0);
 
@@ -64,7 +65,12 @@ export const MobileDock: React.FC = () => {
         const r = el.getBoundingClientRect();
         return r.top < line && r.bottom > line;
       };
-      if (inView('pia-press') || inView('pia-contact')) setHomeSection('blog');
+      const footer = document.querySelector('.pia-footer');
+      const atFooter =
+        inView('pia-contact') ||
+        (footer ? footer.getBoundingClientRect().top < window.innerHeight * 0.75 : false);
+      if (atFooter) setHomeSection('none');
+      else if (inView('pia-press')) setHomeSection('blog');
       else if (inView('pia-about')) setHomeSection('about');
       else setHomeSection('home');
 
