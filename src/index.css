@@ -47,42 +47,72 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: #FFFFFF;
+  background: radial-gradient(circle at 50% 50%, #0B1A2C 0%, #050B14 70%);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
 }
 
-.pia-preloader-mark {
+.pia-preloader-orb {
   position: relative;
-  display: inline-flex;
-  will-change: transform, opacity, filter;
+  width: 210px;
+  height: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pia-preloader-halo {
+  position: absolute;
+  inset: -55px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(47, 143, 224, 0.4) 0%,
+    rgba(61, 220, 132, 0.18) 38%,
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+.pia-preloader-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+
+.pia-preloader-track {
+  fill: #060E19;
+  stroke: rgba(255, 255, 255, 0.07);
+  stroke-width: 7;
+}
+
+.pia-preloader-progress {
+  fill: none;
+  stroke-width: 7;
+  stroke-linecap: round;
 }
 
 .pia-profile img.pia-preloader-logo {
-  display: block;
-  width: auto;
+  position: relative;
+  width: 134px;
   height: auto;
-  max-width: 200px;
-  max-height: 150px;
   object-fit: contain;
-  margin: 0 auto;
 }
 
-.pia-preloader-shine {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: linear-gradient(
-    105deg,
-    transparent 35%,
-    rgba(255, 255, 255, 0.85) 50%,
-    transparent 65%
-  );
-  background-size: 60% 100%;
-  background-repeat: no-repeat;
-  mix-blend-mode: screen;
+@media (min-width: 768px) {
+  .pia-preloader-orb {
+    width: 240px;
+    height: 240px;
+  }
+
+  .pia-profile img.pia-preloader-logo {
+    width: 152px;
+  }
 }
 
 /* ==========================================================================
@@ -1563,10 +1593,6 @@
     transform: translateY(-1px);
   }
 
-  .pia-profile img.pia-preloader-logo {
-    max-width: 230px;
-    max-height: 170px;
-  }
 
   .pia-menu,
   .pia-mobile-backdrop {
