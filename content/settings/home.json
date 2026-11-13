@@ -97,5 +97,11 @@
     "eyebrow": "ON THE GROUND",
     "heading": "Where the work happens, in the communities of Adamawa.",
     "caption": ""
+  },
+  "contact": {
+    "eyebrow": "GET IN TOUCH",
+    "heading": "Let’s work together for the women and communities of Adamawa.",
+    "text": "For invitations, partnerships, speaking engagements and media requests, write to her office directly.",
+    "buttonLabel": "Send a message"
   }
 }

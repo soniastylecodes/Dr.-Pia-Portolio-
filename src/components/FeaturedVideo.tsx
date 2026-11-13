@@ -28,28 +28,35 @@ export const FeaturedVideo: React.FC<FeaturedVideoProps> = ({
   const [paused, setPaused] = useState(true);
   const [tiktokPlaying, setTiktokPlaying] = useState(false);
 
+  const userMuted = useRef(false);
+
   useEffect(() => {
     const video = videoRef.current;
-    const frame = frameRef.current;
-    if (!video || !frame || reduceMotion) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          video.play().catch(() => undefined);
-        } else {
-          video.pause();
-        }
-      },
-      { threshold: 0.45 }
-    );
-    io.observe(frame);
-    return () => io.disconnect();
+    if (!video) return;
+    if (!reduceMotion) video.play().catch(() => undefined);
+
+    const unmute = () => {
+      cleanup();
+      if (userMuted.current || !videoRef.current) return;
+      const v = videoRef.current;
+      v.muted = false;
+      setMuted(false);
+      v.play().catch(() => {
+        v.muted = true;
+        setMuted(true);
+      });
+    };
+    const events: (keyof WindowEventMap)[] = ['pointerdown', 'touchend', 'keydown'];
+    const cleanup = () => events.forEach((e) => window.removeEventListener(e, unmute));
+    events.forEach((e) => window.addEventListener(e, unmute, { passive: true }));
+    return cleanup;
   }, [reduceMotion]);
 
   const toggleSound = () => {
     const video = videoRef.current;
     if (!video) return;
     const next = !muted;
+    userMuted.current = next;
     video.muted = next;
     setMuted(next);
     if (!next) {
@@ -80,7 +87,8 @@ export const FeaturedVideo: React.FC<FeaturedVideoProps> = ({
                 ref={videoRef}
                 src={fileUrl}
                 poster={coverUrl}
-                preload="metadata"
+                preload="auto"
+                autoPlay
                 muted
                 loop
                 playsInline
@@ -100,6 +108,11 @@ export const FeaturedVideo: React.FC<FeaturedVideoProps> = ({
                     <Play size={18} strokeWidth={0} fill="currentColor" />
                   </span>
                 </button>
+              )}
+              {muted && !paused && (
+                <span className="pia-video-hint" aria-hidden="true">
+                  Tap for sound
+                </span>
               )}
               <button
                 type="button"

@@ -85,6 +85,12 @@ export interface HomeContent {
     caption?: string;
     cover: string;
   };
+  contact?: {
+    eyebrow: string;
+    heading: string;
+    text: string;
+    buttonLabel: string;
+  };
   menu: {
     displayName: string;
     avatar: string;

@@ -2582,7 +2582,7 @@
 
 /* ---------- Featured video ---------- */
 .pia-video {
-  padding: 48px 5.5% 64px;
+  padding: 36px 5.5% 48px;
 }
 
 .pia-video-card {
@@ -2597,9 +2597,9 @@
 
 .pia-video-frame {
   position: relative;
-  width: min(62vw, 250px);
+  width: min(46vw, 190px);
   aspect-ratio: 9 / 16;
-  border-radius: 22px;
+  border-radius: 20px;
   overflow: hidden;
   background: #0A1B2E;
   box-shadow:
@@ -2668,6 +2668,29 @@
   cursor: pointer;
 }
 
+.pia-video-hint {
+  position: absolute;
+  left: 12px;
+  bottom: 16px;
+  z-index: 2;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(10, 27, 46, 0.55);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  pointer-events: none;
+  animation: pia-hint-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pia-hint-pulse {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 1; }
+}
+
 .pia-video-copy .pia-eyebrow {
   margin-bottom: 8px;
   font-size: 9.5px;
@@ -2698,37 +2721,116 @@
   }
 }
 
-/* ---------- Message button under news ---------- */
-.pia-press-cta {
-  display: flex;
-  justify-content: center;
-  padding: 36px 5.5% 0 0;
+/* ---------- Contact call to action ---------- */
+.pia-cta {
+  padding: 24px 16px 72px;
 }
 
-.pia-press-cta-btn {
+.pia-cta-panel {
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 56px 28px 48px;
+  border-radius: 28px;
+  overflow: hidden;
+  text-align: center;
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(56, 130, 204, 0.38), transparent 50%),
+    radial-gradient(circle at 90% 100%, rgba(31, 122, 77, 0.32), transparent 50%),
+    #0A1B2E;
+  box-shadow: 0 30px 60px -30px rgba(10, 27, 46, 0.6);
+}
+
+.pia-cta-eyebrow {
+  margin: 0 0 18px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.pia-cta-heading {
+  max-width: 640px;
+  margin: 0 auto;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.22;
+  color: #ffffff;
+}
+
+.pia-cta-text {
+  max-width: 460px;
+  margin: 18px auto 0;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.pia-cta-btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  height: 52px;
-  padding: 0 30px;
+  gap: 14px;
+  margin-top: 32px;
+  height: 54px;
+  padding: 0 8px 0 28px;
   border-radius: 999px;
-  background: #102E4A;
-  color: #ffffff !important;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.4px;
+  background: #ffffff;
+  color: #0A1B2E !important;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
   text-decoration: none;
-  box-shadow: 0 12px 26px -12px rgba(16, 46, 74, 0.55);
-  transition: background 200ms ease, transform 200ms ease;
+  transition: transform 220ms ease, box-shadow 220ms ease;
 }
 
-.pia-press-cta-btn:hover {
-  background: #174D83;
+.pia-cta-btn:hover {
   transform: translateY(-2px);
+  box-shadow: 0 14px 30px -10px rgba(255, 255, 255, 0.35);
 }
 
-@media (min-width: 1024px) {
-  .pia-press-cta {
-    padding: 48px 0 0;
+.pia-cta-btn-icon {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #0A1B2E;
+  color: #ffffff;
+  transition: transform 220ms ease;
+}
+
+.pia-cta-btn:hover .pia-cta-btn-icon {
+  transform: rotate(45deg);
+}
+
+.pia-cta-email {
+  display: block;
+  margin-top: 18px;
+  font-size: 11.5px;
+  letter-spacing: 0.4px;
+  color: rgba(255, 255, 255, 0.5) !important;
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .pia-cta {
+    padding: 40px 5.5% 110px;
+  }
+
+  .pia-cta-panel {
+    padding: 88px 48px 72px;
+  }
+
+  .pia-cta-heading {
+    font-size: 44px;
+  }
+
+  .pia-cta-text {
+    font-size: 15px;
   }
 }

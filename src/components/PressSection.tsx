@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'motion/react';
-import { Mail } from 'lucide-react';
-import { asset, formatDate, NewsItem, site } from '../lib/content';
+import { asset, formatDate, NewsItem } from '../lib/content';
 import { href, isPlainLeftClick, useRouter } from '../lib/router';
 import { PiaImage } from './PiaImage';
 
@@ -167,18 +166,6 @@ export const PressSection: React.FC<PressSectionProps> = ({
             />
           ))}
         </div>
-        <motion.div
-          className="pia-press-cta"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.6 }}
-        >
-          <a href={`mailto:${site.email}`} className="pia-press-cta-btn">
-            <Mail size={16} strokeWidth={1.8} />
-            Send a message
-          </a>
-        </motion.div>
       </section>
 
     </>

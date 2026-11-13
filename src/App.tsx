@@ -12,6 +12,7 @@ import { GallerySection } from './components/GallerySection';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { FeaturedVideo } from './components/FeaturedVideo';
+import { ContactCta } from './components/ContactCta';
 import { CookieBanner } from './components/CookieBanner';
 import { LegalPageView } from './components/LegalPage';
 import { MobileDock } from './components/MobileDock';
@@ -166,6 +167,16 @@ export default function App({ initialPath }: AppProps) {
 
               {home.news.showOnHome && homeNews.length > 0 && (
                 <PressSection eyebrow={home.news.eyebrow} items={homeNews} />
+              )}
+
+              {home.contact && (
+                <ContactCta
+                  eyebrow={home.contact.eyebrow}
+                  heading={home.contact.heading}
+                  text={home.contact.text}
+                  buttonLabel={home.contact.buttonLabel}
+                  email={site.email}
+                />
               )}
             </>
           )}

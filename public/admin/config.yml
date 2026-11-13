@@ -186,6 +186,14 @@ collections:
               - { label: Small Label, name: eyebrow, widget: string }
               - { label: Show latest news on homepage, name: showOnHome, widget: boolean, hint: "The section hides itself automatically when there is no published news." }
               - { label: How many stories to show, name: count, widget: number, value_type: int, min: 1, max: 12 }
+          - label: Contact Call to Action
+            name: contact
+            widget: object
+            fields:
+              - { label: Small Label, name: eyebrow, widget: string }
+              - { label: Heading, name: heading, widget: text }
+              - { label: Supporting Text, name: text, widget: text }
+              - { label: Button Text, name: buttonLabel, widget: string }
           - label: Mobile Menu
             name: menu
             widget: object
