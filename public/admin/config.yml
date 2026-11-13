@@ -44,6 +44,12 @@ collections:
     sortable_fields: [date, title]
     fields:
       - { label: Headline, name: title, widget: string, hint: "Include her name or the place where it happened, e.g. 'PIA Empowers 200 Women in Michika'." }
+      - label: Page Link (URL)
+        name: url
+        widget: string
+        required: false
+        pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', "Use lowercase letters and numbers, with hyphens between words, e.g. pia-empowers-women-in-michika"]
+        hint: "The end of this story's web address: …/news/your-link-here/. Keep it short, with her name or the place, e.g. pia-empowers-women-in-michika. Leave empty to use the headline. If you change it later, the old link still redirects here." 
       - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, time_format: false }
       - { label: Category, name: category, widget: string, default: Press Release }
       - { label: Main Photo, name: image, widget: image, required: false }

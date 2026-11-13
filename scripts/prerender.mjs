@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { postSlug } from './slug.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -24,8 +25,9 @@ const sampleNews = new Set(
   fs
     .readdirSync(path.join(root, 'content/news'))
     .filter((f) => f.endsWith('.json'))
-    .filter((f) => JSON.parse(fs.readFileSync(path.join(root, 'content/news', f), 'utf8')).sample)
-    .map((f) => `/news/${f.replace(/\.json$/, '')}/`)
+    .map((f) => [f, JSON.parse(fs.readFileSync(path.join(root, 'content/news', f), 'utf8'))])
+    .filter(([, d]) => d.sample)
+    .map(([f, d]) => `/news/${postSlug(f.replace(/\.json$/, ''), d)}/`)
 );
 const routes = server.routes();
 for (const route of routes) {
@@ -51,7 +53,7 @@ const newsDates = Object.fromEntries(
     .filter((f) => f.endsWith('.json'))
     .map((f) => {
       const data = JSON.parse(fs.readFileSync(path.join(root, 'content/news', f), 'utf8'));
-      return [`/news/${f.replace(/\.json$/, '')}/`, String(data.date || today).slice(0, 10)];
+      return [`/news/${postSlug(f.replace(/\.json$/, ''), data)}/`, String(data.date || today).slice(0, 10)];
     })
 );
 
@@ -80,7 +82,11 @@ const homeJson = readJson('content/settings/home.json');
 const listDir = (rel) =>
   (fs.existsSync(path.join(root, rel)) ? fs.readdirSync(path.join(root, rel)) : [])
     .filter((f) => f.endsWith('.json'))
-    .map((f) => ({ slug: f.replace(/\.json$/, ''), ...readJson(`${rel}/${f}`) }));
+    .map((f) => {
+      const data = readJson(`${rel}/${f}`);
+      const fileSlug = f.replace(/\.json$/, '');
+      return { ...data, fileSlug, slug: postSlug(fileSlug, data) };
+    });
 const awardsList = listDir('content/awards').sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
 const newsList = listDir('content/news')
   .filter((n) => !n.draft && !n.sample)
@@ -135,6 +141,18 @@ const llms = [
   ``,
 ].join('\n');
 fs.writeFileSync(path.join(dist, 'llms.txt'), llms);
+
+for (const n of listDir('content/news')) {
+  if (n.draft || n.slug === n.fileSlug) continue;
+  const target = server.toAbsolute(`/news/${n.slug}/`);
+  const dir = path.join(dist, 'news', n.fileSlug);
+  if (fs.existsSync(path.join(dir, 'index.html'))) continue;
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(
+    path.join(dir, 'index.html'),
+    `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Moved</title><link rel="canonical" href="${target}"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=${target}"><script>location.replace(${JSON.stringify(target)})</script></head><body><a href="${target}">Continue</a></body></html>`
+  );
+}
 
 fs.rmSync(ssrDir, { recursive: true, force: true });
 console.log(`Prerendered ${routes.length} pages + 404, sitemap.xml, robots.txt and llms.txt`);

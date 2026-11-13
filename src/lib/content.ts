@@ -125,6 +125,8 @@ export interface NewsItem {
   body: string;
   draft?: boolean;
   sample?: boolean;
+  url?: string;
+  fileSlug?: string;
 }
 
 export interface AwardItem {
@@ -187,12 +189,27 @@ function slugFromPath(path: string): string {
   return path.split('/').pop()!.replace(/\.json$/, '');
 }
 
+export function cleanSlug(value: string | undefined): string {
+  return String(value || '')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 90);
+}
+
 function collect<T extends { slug: string }>(
   files: Record<string, unknown>
 ): T[] {
-  return Object.entries(files).map(
-    ([path, data]) => ({ ...(data as object), slug: slugFromPath(path) }) as T
-  );
+  return Object.entries(files).map(([path, data]) => {
+    const d = data as { url?: string };
+    return {
+      ...(data as object),
+      fileSlug: slugFromPath(path),
+      slug: cleanSlug(d.url) || slugFromPath(path),
+    } as unknown as T;
+  });
 }
 
 export const site = siteJson as SiteSettings;
