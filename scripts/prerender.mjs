@@ -35,6 +35,13 @@ for (const route of routes) {
 }
 
 fs.writeFileSync(path.join(dist, '404.html'), page('/__not-found__/'));
+
+const mediaUrl = server.toAbsolute('/media/');
+fs.mkdirSync(path.join(dist, 'gallery'), { recursive: true });
+fs.writeFileSync(
+  path.join(dist, 'gallery', 'index.html'),
+  `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Moved to Media</title><link rel="canonical" href="${mediaUrl}"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=${mediaUrl}"><script>location.replace(${JSON.stringify(mediaUrl)} + location.hash)</script></head><body><a href="${mediaUrl}">Media</a></body></html>`
+);
 fs.writeFileSync(path.join(dist, '.nojekyll'), '');
 
 const today = new Date().toISOString().slice(0, 10);
@@ -103,7 +110,7 @@ const llms = [
   ``,
   `- [Home and biography](${abs('/')})`,
   `- [Awards and honours](${abs('/awards/')})`,
-  `- [Photo gallery](${abs('/gallery/')})`,
+  `- [Photos and videos](${abs('/media/')})`,
   `- [Publications and blog](${abs('/publications/')})`,
   `- [Woman to Woman Network 21](${siteJson.network21Url})`,
   ``,

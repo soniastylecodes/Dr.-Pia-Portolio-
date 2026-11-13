@@ -36,7 +36,7 @@ export function stripBase(pathname: string): string {
 export function matchRoute(pathname: string): Route {
   const p = stripBase(pathname);
   if (p === '/') return { page: 'home', path: '/' };
-  if (p === '/gallery/') return { page: 'gallery', path: p };
+  if (p === '/media/' || p === '/gallery/') return { page: 'gallery', path: '/media/' };
   if (p === '/publications/') return { page: 'publications', path: p };
   if (p === '/awards/') return { page: 'awards', path: p };
   if (p === '/privacy/') return { page: 'privacy', path: p };
@@ -51,7 +51,7 @@ export function matchRoute(pathname: string): Route {
 export function allRoutePaths(): string[] {
   return [
     '/',
-    '/gallery/',
+    '/media/',
     '/publications/',
     '/awards/',
     '/privacy/',

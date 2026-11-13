@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Download } from 'lucide-react';
+import { ArrowLeft, Download, Play } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { asset, GalleryPhoto } from '../lib/content';
 
@@ -36,7 +36,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
   };
 
   const getDownloadFilename = (item: GalleryPhoto, index: number) =>
-    `dr-patience-ishaku-abbo-pia-${index + 1}.${item.image.split(".").pop() || "jpg"}`;
+    `dr-patience-ishaku-abbo-pia-${index + 1}.${(item.video || item.image).split(".").pop() || "jpg"}`;
   const activeNumber = activePhotoIndex ?? 0;
 
   return (
@@ -83,13 +83,18 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
                 loading="lazy"
                 decoding="async"
               />
+              {item.video && (
+                <span className="pia-gallery-video-badge" aria-label="Video">
+                  <Play size={16} strokeWidth={0} fill="currentColor" />
+                </span>
+              )}
               <div className="pia-gallery-hover-overlay">
                 <a
-                  href={asset(item.image)}
+                  href={asset(item.video || item.image)}
                   download={getDownloadFilename(item, index)}
                   onClick={(e) => e.stopPropagation()}
                   className="pia-gallery-hover-download"
-                  title={`Download ${item.caption || 'photo'}`}
+                  title={`Download ${item.video ? 'video' : 'photo'}`}
                 >
                   <Download size={14} strokeWidth={2} />
                   <span>Download</span>
@@ -107,7 +112,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
             onClick={() => setActivePhotoIndex(null)}
             role="dialog"
             aria-modal="true"
-            aria-label={activePhoto.caption || 'Photo'}
+            aria-label={activePhoto.caption || 'Media'}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -123,12 +128,12 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
             >
               <div className="flex items-center justify-between gap-4 mb-3">
                 <a
-                  href={asset(activePhoto.image)}
+                  href={asset(activePhoto.video || activePhoto.image)}
                   download={getDownloadFilename(activePhoto, activeNumber)}
                   className="inline-flex items-center gap-1.5 bg-[#174D83] text-white! px-3.5 py-2 text-[11px] font-semibold tracking-[1.2px] uppercase hover:bg-[#102E4A] transition-colors"
                 >
                   <Download size={13} strokeWidth={2} />
-                  <span>Download Photo</span>
+                  <span>{activePhoto.video ? 'Download Video' : 'Download Photo'}</span>
                 </a>
                 <button
                   type="button"
@@ -140,11 +145,23 @@ export const GallerySection: React.FC<GallerySectionProps> = ({
               </div>
 
               <div className="pia-lightbox-stage">
-                <img
-                  src={asset(activePhoto.image)}
-                  alt={activePhoto.caption || 'Dr. Patience Ishaku Abbo (PIA)'}
-                  className="pia-lightbox-img"
-                />
+                {activePhoto.video ? (
+                  <video
+                    key={activePhoto.video}
+                    src={asset(activePhoto.video)}
+                    poster={asset(activePhoto.image)}
+                    className="pia-lightbox-img pia-lightbox-video"
+                    controls
+                    autoPlay
+                    playsInline
+                  />
+                ) : (
+                  <img
+                    src={asset(activePhoto.image)}
+                    alt={activePhoto.caption || 'Dr. Patience Ishaku Abbo (PIA)'}
+                    className="pia-lightbox-img"
+                  />
+                )}
               </div>
 
               <div className="flex items-center justify-between mt-4 pt-3 border-t border-[#e8edf2]">

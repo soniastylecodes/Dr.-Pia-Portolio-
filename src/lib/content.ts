@@ -104,6 +104,7 @@ export interface HomeContent {
 
 export interface GalleryPhoto {
   image: string;
+  video?: string;
   caption: string;
 }
 

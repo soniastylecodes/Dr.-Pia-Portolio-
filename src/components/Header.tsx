@@ -86,7 +86,7 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
   return (
     <>
       <header className={`pia-header ${scrolled ? 'is-scrolled' : ''}`}>
-        {/* Left Navigation Group (Desktop): ABOUT & GALLERY */}
+        {/* Left Navigation Group (Desktop): ABOUT & MEDIA */}
         <nav
           className="pia-desktop-nav-group"
           aria-label="Primary Left Navigation"
@@ -148,13 +148,13 @@ export const Header: React.FC<HeaderProps> = ({ logoUrl }) => {
           </div>
 
           <a
-            href={href('/gallery/')}
-            onClick={(e) => handlePageClick(e, '/gallery/')}
+            href={href('/media/')}
+            onClick={(e) => handlePageClick(e, '/media/')}
             className={`pia-desktop-nav-link ${
               activePage === 'gallery' ? 'is-active' : ''
             }`}
           >
-            GALLERY
+            MEDIA
           </a>
         </nav>
 

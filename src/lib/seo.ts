@@ -159,11 +159,11 @@ export function buildHead(route: Route): HeadData {
     case 'gallery':
       return {
         ...base,
-        title: `Photo Gallery | ${site.siteName}`,
+        title: `Photos & Videos | ${site.siteName}`,
         description: clip(
-          'Official portraits and outreach photographs of Dr. Patience Ishaku Abbo (PIA) across Adamawa State and Nigeria, free for press and media use.'
+          'Official photos and videos of Dr. Patience Ishaku Abbo (PIA), from portraits to community outreach across Adamawa State and Nigeria.'
         ),
-        jsonLd: graph(breadcrumb('Gallery', route.path)),
+        jsonLd: graph(breadcrumb('Media', route.path)),
       };
     case 'publications':
       return {

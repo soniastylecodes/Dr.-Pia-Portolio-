@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { Award, BookOpen, House, Images, UserRound } from 'lucide-react';
+import { Award, BookOpen, House, ImagePlay, UserRound } from 'lucide-react';
 import { href, isPlainLeftClick, PageKey, useRouter } from '../lib/router';
 
 type DockKey = 'home' | 'about' | 'gallery' | 'awards' | 'publications';
@@ -16,7 +16,7 @@ interface DockItem {
 const ITEMS: DockItem[] = [
   { key: 'home', label: 'Home', path: '/', section: 'top', icon: House },
   { key: 'about', label: 'About', path: '/', section: 'pia-about', icon: UserRound },
-  { key: 'gallery', label: 'Gallery', path: '/gallery/', icon: Images },
+  { key: 'gallery', label: 'Media', path: '/media/', icon: ImagePlay },
   { key: 'awards', label: 'Awards', path: '/awards/', icon: Award },
   { key: 'publications', label: 'Blog', path: '/publications/', icon: BookOpen },
 ];

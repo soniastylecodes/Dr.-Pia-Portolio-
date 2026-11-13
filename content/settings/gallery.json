@@ -1,7 +1,12 @@
 {
-  "eyebrow": "OFFICIAL GALLERY",
-  "heading": "Portrait & Outreach Gallery",
+  "eyebrow": "OFFICIAL MEDIA",
+  "heading": "Photos & Videos",
   "photos": [
+    {
+      "image": "/uploads/pia-video-cover-community.webp",
+      "video": "/videos/pia-network21-community-outreach.mp4",
+      "caption": "Dr. Patience Ishaku Abbo on a Woman to Woman Network 21 community outreach"
+    },
     {
       "image": "/uploads/pia-portrait-bio.webp",
       "caption": "Official portrait of Dr. Patience Ishaku Abbo"

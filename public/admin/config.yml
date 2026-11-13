@@ -213,18 +213,19 @@ collections:
               - { label: Copyright Line, name: copyright, widget: string }
 
       - name: gallery
-        label: Gallery
+        label: Media (Photos & Videos)
         file: content/settings/gallery.json
         format: json
         fields:
           - { label: Small Label, name: eyebrow, widget: string }
           - { label: Page Heading, name: heading, widget: string }
-          - label: Photos
+          - label: Photos & Videos
             name: photos
             widget: list
             summary: "{{fields.caption}}"
             fields:
-              - { label: Photo, name: image, widget: image }
+              - { label: Photo (or video cover), name: image, widget: image, hint: "For a video, upload a still from the video here as its cover." }
+              - { label: Video (optional), name: video, widget: file, required: false, media_folder: /public/videos, public_folder: /videos, hint: "Upload an MP4 under 15 MB to make this a video. Leave empty for a photo." }
               - { label: Caption, name: caption, widget: string, hint: "Describe who and where, e.g. 'Dr. Patience Ishaku Abbo at the Network 21 summit, Yola'." }
 
       - name: site
