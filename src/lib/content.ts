@@ -117,6 +117,7 @@ export interface NewsItem {
   summary: string;
   body: string;
   draft?: boolean;
+  sample?: boolean;
 }
 
 export interface AwardItem {

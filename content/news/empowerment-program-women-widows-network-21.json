@@ -1,10 +1,11 @@
 {
-  "title": "Empowerment Program for Women & Widows Through Woman to Woman Network 21 2026",
-  "date": "2026-10-24",
-  "category": "General",
+  "title": "Empowerment Program for Women & Widows Through Woman to Woman Network 21",
+  "date": "2026-11-05",
+  "category": "Network 21",
   "image": "/uploads/pia-community-2.webp",
   "imageAlt": "Empowerment Program for Women & Widows Through Woman to Woman Network 21 2026",
   "summary": "Through Woman to Woman Network 21, Dr. Patience Ishaku Abbo led a comprehensive empowerment distribution equipping women and widows with vocational tools, micro-enterprise grants, and cooperative training.",
   "body": "Through Woman to Woman Network 21, Dr. Patience Ishaku Abbo led a comprehensive empowerment distribution equipping women and widows with vocational tools, micro-enterprise grants, and cooperative training.\n\nThe programme is designed to foster long-term economic independence and household resilience across rural and urban communities.",
-  "draft": true
+  "draft": false,
+  "sample": true
 }

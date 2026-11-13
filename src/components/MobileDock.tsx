@@ -56,7 +56,9 @@ export const MobileDock: React.FC = () => {
       const about = document.getElementById('pia-about');
       if (about) {
         const rect = about.getBoundingClientRect();
-        setAboutInView(rect.top < window.innerHeight * 0.55);
+        setAboutInView(
+          rect.top < window.innerHeight * 0.55 && rect.bottom > window.innerHeight * 0.35
+        );
       } else {
         setAboutInView(false);
       }

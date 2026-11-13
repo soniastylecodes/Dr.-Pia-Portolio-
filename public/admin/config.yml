@@ -51,6 +51,7 @@ collections:
       - { label: Short Summary, name: summary, widget: text, hint: "One or two sentences. This shows on Google and when the link is shared on WhatsApp." }
       - { label: Full Story, name: body, widget: markdown }
       - { label: Draft (hidden from the website), name: draft, widget: boolean, default: false }
+      - { label: Sample post (hidden from Google), name: sample, widget: boolean, default: false, required: false, hint: "For placeholder posts only. Untick, or delete the post, once real news is published." }
 
   - name: awards
     label: Awards & Honours

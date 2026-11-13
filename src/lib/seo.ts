@@ -206,6 +206,7 @@ export function buildHead(route: Route): HeadData {
         image: img,
         imageAlt: item.imageAlt || item.title,
         type: 'article',
+        robots: item.sample ? 'noindex, nofollow' : base.robots,
         publishedTime: item.date,
         jsonLd: graph(
           {

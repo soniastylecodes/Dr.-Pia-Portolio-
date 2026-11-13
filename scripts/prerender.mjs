@@ -20,6 +20,13 @@ function page(routePath) {
     .replace('<!--app-html-->', html);
 }
 
+const sampleNews = new Set(
+  fs
+    .readdirSync(path.join(root, 'content/news'))
+    .filter((f) => f.endsWith('.json'))
+    .filter((f) => JSON.parse(fs.readFileSync(path.join(root, 'content/news', f), 'utf8')).sample)
+    .map((f) => `/news/${f.replace(/\.json$/, '')}/`)
+);
 const routes = server.routes();
 for (const route of routes) {
   const outDir = path.join(dist, route);
@@ -42,6 +49,7 @@ const newsDates = Object.fromEntries(
 );
 
 const urls = routes
+  .filter((r) => !sampleNews.has(r))
   .map((r) => {
     const lastmod = newsDates[r] || today;
     const priority = r === '/' ? '1.0' : r.startsWith('/news/') ? '0.7' : '0.8';
@@ -68,7 +76,7 @@ const listDir = (rel) =>
     .map((f) => ({ slug: f.replace(/\.json$/, ''), ...readJson(`${rel}/${f}`) }));
 const awardsList = listDir('content/awards').sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
 const newsList = listDir('content/news')
-  .filter((n) => !n.draft)
+  .filter((n) => !n.draft && !n.sample)
   .sort((a, b) => String(b.date).localeCompare(String(a.date)));
 const pubList = listDir('content/publications');
 const socials = Object.entries(siteJson.socials || {}).filter(([, v]) => v);
