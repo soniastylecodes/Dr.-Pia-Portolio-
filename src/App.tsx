@@ -136,6 +136,19 @@ export default function App({ initialPath }: AppProps) {
                 portraitUrl={asset(home.about.portrait)}
               />
 
+              {home.video?.show &&
+                (home.video.file || tiktokId(home.video.tiktokUrl)) && (
+                  <FeaturedVideo
+                    fileUrl={home.video.file ? asset(home.video.file) : undefined}
+                    tiktokId={tiktokId(home.video.tiktokUrl)}
+                    tiktokUrl={home.video.tiktokUrl || undefined}
+                    eyebrow={home.video.eyebrow}
+                    heading={home.video.heading}
+                    caption={home.video.caption}
+                    coverUrl={asset(home.video.cover)}
+                  />
+                )}
+
               <ProfileHighlights
                 eyebrow={home.highlights.eyebrow}
                 items={home.highlights.items}
@@ -150,19 +163,6 @@ export default function App({ initialPath }: AppProps) {
                 photoLeftUrl={asset(home.focusAreas.photoLeft)}
                 photoRightUrl={asset(home.focusAreas.photoRight)}
               />
-
-              {home.video?.show &&
-                (home.video.file || tiktokId(home.video.tiktokUrl)) && (
-                  <FeaturedVideo
-                    fileUrl={home.video.file ? asset(home.video.file) : undefined}
-                    tiktokId={tiktokId(home.video.tiktokUrl)}
-                    tiktokUrl={home.video.tiktokUrl || undefined}
-                    eyebrow={home.video.eyebrow}
-                    heading={home.video.heading}
-                    caption={home.video.caption}
-                    coverUrl={asset(home.video.cover)}
-                  />
-                )}
 
               {home.news.showOnHome && homeNews.length > 0 && (
                 <PressSection eyebrow={home.news.eyebrow} items={homeNews} />
