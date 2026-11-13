@@ -2723,27 +2723,25 @@
 
 /* ---------- Contact call to action ---------- */
 .pia-cta {
-  padding: 24px 16px 72px;
+  margin-top: 40px;
+  padding: 0 5.5%;
+  background: var(--pia-dark);
+  color: #ffffff;
 }
 
 .pia-cta-panel {
-  position: relative;
   max-width: 1080px;
   margin: 0 auto;
-  padding: 56px 28px 48px;
-  border-radius: 28px;
-  overflow: hidden;
+  padding: 72px 0 60px;
   text-align: center;
-  color: #ffffff;
-  background:
-    radial-gradient(circle at 15% 0%, rgba(56, 130, 204, 0.38), transparent 50%),
-    radial-gradient(circle at 90% 100%, rgba(31, 122, 77, 0.32), transparent 50%),
-    #0A1B2E;
-  box-shadow: 0 30px 60px -30px rgba(10, 27, 46, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .pia-cta-eyebrow {
-  margin: 0 0 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 22px;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 3px;
@@ -2751,45 +2749,52 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
+.pia-cta-eyebrow::before,
+.pia-cta-eyebrow::after {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
 .pia-cta-heading {
-  max-width: 640px;
+  max-width: 680px;
   margin: 0 auto;
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-style: italic;
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 400;
-  line-height: 1.22;
+  line-height: 1.2;
   color: #ffffff;
 }
 
 .pia-cta-text {
   max-width: 460px;
-  margin: 18px auto 0;
+  margin: 20px auto 0;
   font-size: 13.5px;
   line-height: 1.75;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .pia-cta-btn {
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  margin-top: 32px;
+  margin-top: 34px;
   height: 54px;
   padding: 0 8px 0 28px;
   border-radius: 999px;
   background: #ffffff;
-  color: #0A1B2E !important;
+  color: var(--pia-dark) !important;
   font-size: 13.5px;
   font-weight: 600;
   letter-spacing: 0.3px;
   text-decoration: none;
-  transition: transform 220ms ease, box-shadow 220ms ease;
+  transition: transform 220ms ease;
 }
 
 .pia-cta-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 30px -10px rgba(255, 255, 255, 0.35);
 }
 
 .pia-cta-btn-icon {
@@ -2799,7 +2804,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  background: #0A1B2E;
+  background: var(--pia-dark);
   color: #ffffff;
   transition: transform 220ms ease;
 }
@@ -2819,15 +2824,15 @@
 
 @media (min-width: 768px) {
   .pia-cta {
-    padding: 40px 5.5% 110px;
+    margin-top: 72px;
   }
 
   .pia-cta-panel {
-    padding: 88px 48px 72px;
+    padding: 110px 0 88px;
   }
 
   .pia-cta-heading {
-    font-size: 44px;
+    font-size: 48px;
   }
 
   .pia-cta-text {
