@@ -197,19 +197,6 @@ export const FeaturedVideo: React.FC<FeaturedVideoProps> = ({
               ))}
             </ul>
           )}
-          {fileUrl && (
-            <button
-              type="button"
-              className="pia-video-sound-cta"
-              onClick={toggleSound}
-              aria-label={muted ? 'Play with sound' : 'Mute video'}
-            >
-              <span className="pia-video-sound-cta-icon" aria-hidden="true">
-                {muted ? <Volume2 size={15} strokeWidth={2} /> : <VolumeX size={15} strokeWidth={2} />}
-              </span>
-              <span>{muted ? 'Play with sound' : 'Mute video'}</span>
-            </button>
-          )}
         </div>
       </m.div>
     </section>

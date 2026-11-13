@@ -2936,12 +2936,12 @@
     overflow: hidden;
   }
 
-  .pia-video-sound {
+  .pia-video-hint-touch {
     display: none;
   }
 
-  .pia-video-hint {
-    display: none;
+  .pia-video-hint-pointer {
+    display: inline;
   }
 }
 
