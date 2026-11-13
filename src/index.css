@@ -773,21 +773,98 @@
 }
 
 .pia-readmore {
-  display: inline-block;
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--pia-dark);
-  font-weight: 400;
-  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 10px;
+  padding: 0;
   border: none;
-  padding: 6px 0 0;
-  cursor: pointer;
+  background: transparent;
+  color: var(--pia-dark);
   font-family: 'Sora', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.6px;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.pia-readmore:hover {
-  color: var(--pia-blue);
+.pia-readmore-icon {
+  position: relative;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(16, 46, 74, 0.22);
+  color: var(--pia-dark);
+  overflow: hidden;
+  transition: border-color 0.4s ease, color 0.4s ease;
+}
+
+.pia-readmore-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--pia-dark);
+  transform: scale(0);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pia-readmore-icon svg {
+  position: relative;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pia-readmore-label {
+  position: relative;
+  padding: 4px 0;
+}
+
+.pia-readmore-label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0.28);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pia-readmore:hover .pia-readmore-icon,
+.pia-readmore:focus-visible .pia-readmore-icon {
+  border-color: var(--pia-dark);
+  color: #ffffff;
+}
+
+.pia-readmore:hover .pia-readmore-icon::before,
+.pia-readmore:focus-visible .pia-readmore-icon::before {
+  transform: scale(1);
+}
+
+.pia-readmore:hover .pia-readmore-icon svg,
+.pia-readmore:focus-visible .pia-readmore-icon svg {
+  transform: rotate(45deg);
+}
+
+.pia-readmore:hover .pia-readmore-label::after,
+.pia-readmore:focus-visible .pia-readmore-label::after {
+  transform: scaleX(1);
+}
+
+.pia-readmore:active .pia-readmore-icon {
+  transform: scale(0.94);
+}
+
+.pia-readmore:focus-visible {
+  outline: none;
 }
 
 .pia-bio-portrait-right img,
@@ -1771,10 +1848,14 @@
   }
 
   .pia-readmore {
-    font-size: 11.5px;
-    letter-spacing: 4px;
-    color: var(--pia-dark);
-    margin-top: 6px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    margin-top: 14px;
+  }
+
+  .pia-readmore-icon {
+    width: 56px;
+    height: 56px;
   }
 
   .pia-bio-portrait-right img,

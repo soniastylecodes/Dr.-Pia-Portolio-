@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { X } from 'lucide-react';
+import { ArrowUpRight, X } from 'lucide-react';
 import { AnimatePresence, m } from 'motion/react';
 import { PiaImage } from './PiaImage';
 
@@ -57,14 +57,17 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
             <p key={index}>{paragraph}</p>
           ))}
 
-          <m.button
+          <button
             type="button"
             onClick={() => setModalOpen(true)}
             className="pia-readmore"
-            whileHover={{ x: 5 }}
+            aria-haspopup="dialog"
           >
-            {ctaLabel}
-          </m.button>
+            <span className="pia-readmore-icon" aria-hidden="true">
+              <ArrowUpRight size={18} strokeWidth={1.8} />
+            </span>
+            <span className="pia-readmore-label">{ctaLabel}</span>
+          </button>
         </m.div>
 
         <m.div
