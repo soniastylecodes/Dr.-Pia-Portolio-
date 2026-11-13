@@ -91,10 +91,11 @@
   },
   "video": {
     "show": true,
+    "file": "/videos/pia-network21-community-outreach.mp4",
+    "cover": "/uploads/pia-video-cover-community.webp",
     "tiktokUrl": "",
-    "eyebrow": "IN HER WORDS",
-    "heading": "Hear from Dr. Patience Ishaku Abbo",
-    "caption": "",
-    "cover": "/uploads/pia-portrait-studio.webp"
+    "eyebrow": "ON THE GROUND",
+    "heading": "With the women and children of Adamawa",
+    "caption": "Rough roads, flooded paths and late nights, all to sit with families in the communities Woman to Woman Network 21 serves."
   }
 }

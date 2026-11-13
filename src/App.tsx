@@ -151,16 +151,18 @@ export default function App({ initialPath }: AppProps) {
                 photoRightUrl={asset(home.focusAreas.photoRight)}
               />
 
-              {home.video?.show && tiktokId(home.video.tiktokUrl) && (
-                <FeaturedVideo
-                  videoId={tiktokId(home.video.tiktokUrl)}
-                  eyebrow={home.video.eyebrow}
-                  heading={home.video.heading}
-                  caption={home.video.caption}
-                  coverUrl={asset(home.video.cover)}
-                  sourceUrl={home.video.tiktokUrl}
-                />
-              )}
+              {home.video?.show &&
+                (home.video.file || tiktokId(home.video.tiktokUrl)) && (
+                  <FeaturedVideo
+                    fileUrl={home.video.file ? asset(home.video.file) : undefined}
+                    tiktokId={tiktokId(home.video.tiktokUrl)}
+                    tiktokUrl={home.video.tiktokUrl || undefined}
+                    eyebrow={home.video.eyebrow}
+                    heading={home.video.heading}
+                    caption={home.video.caption}
+                    coverUrl={asset(home.video.cover)}
+                  />
+                )}
 
               {home.news.showOnHome && homeNews.length > 0 && (
                 <PressSection eyebrow={home.news.eyebrow} items={homeNews} />

@@ -78,7 +78,8 @@ export interface HomeContent {
   };
   video?: {
     show: boolean;
-    tiktokUrl: string;
+    file?: string;
+    tiktokUrl?: string;
     eyebrow: string;
     heading: string;
     caption?: string;

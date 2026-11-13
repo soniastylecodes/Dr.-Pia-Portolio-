@@ -172,7 +172,8 @@ collections:
             widget: object
             fields:
               - { label: Show video on homepage, name: show, widget: boolean }
-              - { label: TikTok Video Link, name: tiktokUrl, widget: string, required: false, hint: "Open the video in a browser and copy the full link, e.g. https://www.tiktok.com/@dr.p_pia/video/7412345678901234567. Short vt.tiktok.com links will not work." }
+              - { label: Video File (MP4), name: file, widget: file, required: false, media_folder: /public/videos, public_folder: /videos, hint: "Upload an MP4 under 15 MB. This plays directly on the site." }
+              - { label: TikTok Video Link (optional), name: tiktokUrl, widget: string, required: false, hint: "Used only if no video file is uploaded. Must be the full link, e.g. https://www.tiktok.com/@dr.p_pia/video/7412345678901234567." }
               - { label: Small Label, name: eyebrow, widget: string }
               - { label: Heading, name: heading, widget: string }
               - { label: Caption, name: caption, widget: text, required: false, hint: "One or two lines about what she says in the video." }
