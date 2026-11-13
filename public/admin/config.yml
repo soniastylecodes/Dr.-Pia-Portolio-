@@ -167,6 +167,16 @@ collections:
                       - { label: Building (community), value: community }
                       - { label: Heart (healthcare), value: healthcare }
                       - { label: Computer (ICT), value: technology }
+          - label: Featured Video
+            name: video
+            widget: object
+            fields:
+              - { label: Show video on homepage, name: show, widget: boolean }
+              - { label: TikTok Video Link, name: tiktokUrl, widget: string, required: false, hint: "Open the video in a browser and copy the full link, e.g. https://www.tiktok.com/@dr.p_pia/video/7412345678901234567. Short vt.tiktok.com links will not work." }
+              - { label: Small Label, name: eyebrow, widget: string }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Caption, name: caption, widget: text, required: false, hint: "One or two lines about what she says in the video." }
+              - { label: Cover Photo, name: cover, widget: image, hint: "Shown before the video plays. A portrait photo works best." }
           - label: News Section on Homepage
             name: news
             widget: object

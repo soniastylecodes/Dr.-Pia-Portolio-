@@ -88,5 +88,13 @@
   },
   "footer": {
     "copyright": "ALL RIGHTS RESERVED"
+  },
+  "video": {
+    "show": true,
+    "tiktokUrl": "",
+    "eyebrow": "IN HER WORDS",
+    "heading": "Hear from Dr. Patience Ishaku Abbo",
+    "caption": "",
+    "cover": "/uploads/pia-portrait-studio.webp"
   }
 }

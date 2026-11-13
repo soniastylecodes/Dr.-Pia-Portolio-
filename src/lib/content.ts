@@ -76,6 +76,14 @@ export interface HomeContent {
     showOnHome: boolean;
     count: number;
   };
+  video?: {
+    show: boolean;
+    tiktokUrl: string;
+    eyebrow: string;
+    heading: string;
+    caption?: string;
+    cover: string;
+  };
   menu: {
     displayName: string;
     avatar: string;
@@ -211,3 +219,11 @@ export const publications: PublicationItem[] = collect<PublicationItem>(
 
 export const LOGO = asset('/uploads/pia-na-sia-logo.webp');
 export const LOGO_WHITE_GREEN = asset('/uploads/pia-na-sia-logo-white-green.webp');
+
+export function tiktokId(url: string | undefined): string {
+  if (!url) return '';
+  const trimmed = url.trim();
+  if (/^\d{10,25}$/.test(trimmed)) return trimmed;
+  const m = trimmed.match(/\/video\/(\d{10,25})/);
+  return m ? m[1] : '';
+}

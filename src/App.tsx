@@ -11,6 +11,7 @@ import { Footer } from './components/Footer';
 import { GallerySection } from './components/GallerySection';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
+import { FeaturedVideo } from './components/FeaturedVideo';
 import { CookieBanner } from './components/CookieBanner';
 import { LegalPageView } from './components/LegalPage';
 import { MobileDock } from './components/MobileDock';
@@ -20,7 +21,7 @@ import { Preloader } from './components/Preloader';
 import { PressSection } from './components/PressSection';
 import { ProfileHighlights } from './components/ProfileHighlights';
 import { PublicationsPage } from './components/PublicationsPage';
-import { asset, gallery, home, LOGO, LOGO_WHITE_GREEN, news, site } from './lib/content';
+import { asset, gallery, home, LOGO, LOGO_WHITE_GREEN, news, site, tiktokId } from './lib/content';
 import { href, matchRoute, Route, RouterContext } from './lib/router';
 import { applyHeadToDocument, buildHead } from './lib/seo';
 import { trackPageView } from './lib/analytics';
@@ -149,6 +150,17 @@ export default function App({ initialPath }: AppProps) {
                 photoLeftUrl={asset(home.focusAreas.photoLeft)}
                 photoRightUrl={asset(home.focusAreas.photoRight)}
               />
+
+              {home.video?.show && tiktokId(home.video.tiktokUrl) && (
+                <FeaturedVideo
+                  videoId={tiktokId(home.video.tiktokUrl)}
+                  eyebrow={home.video.eyebrow}
+                  heading={home.video.heading}
+                  caption={home.video.caption}
+                  coverUrl={asset(home.video.cover)}
+                  sourceUrl={home.video.tiktokUrl}
+                />
+              )}
 
               {home.news.showOnHome && homeNews.length > 0 && (
                 <PressSection eyebrow={home.news.eyebrow} items={homeNews} />
